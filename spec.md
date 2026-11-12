@@ -164,7 +164,8 @@ Chọn cho **từng tool**: **tự làm / cần người duyệt / cấm**. Các
 
 - Ý kiến về tool khó xếp nhất:
   - **Lê Sông Thao:** “Tôi chọn mức **cần người duyệt** cho việc thực hiện hoàn tiền. Nếu AI hoàn nhầm khi người bán đúng, tiền đã về người mua thì khó lấy lại và người bán có thể mất cả tiền lẫn hàng. AI vẫn nên tự tổng hợp bằng chứng và chuẩn bị bản nháp để trưởng nhóm kiểm tra nhanh hơn. Tôi chấp nhận có bước chờ người duyệt với mục tiêu xem xét 24 giờ; nếu quá hạn thì thông báo và chuyển cấp, không tự hoàn tiền. Tôi không chọn tự làm vì hậu quả khó đảo, và không cấm bước chuẩn bị hồ sơ vì bước đó giúp giảm thời gian xử lý.”
-  - **Nguyễn Thị Hương Giang và Nguyễn Thị Hải Yến:** chưa ghi nhận ý kiến cá nhân trong mục này; từng thành viên bổ sung lựa chọn và lý do thực tế của mình.
+  - **Nguyễn Thị Hương Giang:** “Ban đầu, tôi cho rằng nếu AI đã thu thập đủ bằng chứng từ hai phía thì có thể tự xử lý hoàn tiền để tránh kéo dài khiếu nại. Tuy nhiên, khi xây dựng và đối chiếu các kịch bản S01, S04 với ca bình thường S09, tôi nhận thấy ‘đủ bằng chứng’ không đồng nghĩa với ‘đã đủ căn cứ để kết luận’. Chẳng hạn, S01 chưa xác minh được mô tả sản phẩm tại thời điểm mua, còn S04 chưa làm rõ dung tích 6L được tính như thế nào. Vì vậy, tôi chọn để AI chuẩn bị hồ sơ và nêu rõ những điểm còn chưa chắc chắn, còn quyết định hoàn tiền cần trưởng nhóm xem xét. Theo tôi, AI cần chứng minh được căn cứ của đề xuất chứ không chỉ tổng hợp được nhiều bằng chứng.”
+  - **Nguyễn Thị Hương Giang và Nguyễn Thị Hải Yến:**
 - Cái giá của mỗi lựa chọn, trỏ về ID kịch bản ở §2:
   - *Tự làm:* người mua đúng nhận tiền ngay, nhưng AI có thể hoàn tiền khi người bán đúng (S04, S08) hoặc khi bị gây áp lực (S07); tiền đã đi thì khó lấy lại.
   - *Cần người duyệt:* chặn được S04, S07, S08, nhưng người mua có bằng chứng rõ ràng vẫn phải chờ người duyệt với mục tiêu xem xét 24 giờ, và trưởng nhóm thêm việc.
