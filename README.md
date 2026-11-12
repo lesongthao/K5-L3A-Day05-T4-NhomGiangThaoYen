@@ -4,7 +4,7 @@
 - **Track:** T4 — Trợ lý khiếu nại “hàng không đúng mô tả”.
 - **Bài viết:** [spec.md](spec.md).
 - **Prototype và cách demo:** [prototype/README.md](prototype/README.md).
-- **Trạng thái:** Có thiết kế, prototype hai màn hình, hai ảnh đánh số và 36 kiểm tra đạt. §7 trình bày ca đính chính mã đơn, kết quả xử lý và lý do giữ thiết kế.
+- **Trạng thái:** Bài viết, prototype hai màn hình, hai ảnh đánh số và báo cáo 36 kiểm tra đã sẵn sàng trong repo.
 - **Hạn nộp theo đề:** 23:59 ngày 12/11/2026, giờ Việt Nam.
 
 ## Bài này làm gì?
@@ -44,10 +44,9 @@ Kết quả: **23 + 10 + 3 = 36 kiểm tra đạt, không lỗi**. Ba báo cáo 
 
 ## Quy trình GitHub và nộp bài
 
-- Làm trên nhánh riêng, mở pull request về `main`, kiểm tra rồi gộp; không commit trực tiếp lên `main`.
-- Trước khi nộp, bảo đảm các thay đổi cuối đã được gộp và tải lại bản `main` để mở thử.
 - Nộp **một link repo chung**: [K5-L3A-Day05-T4-NhomGiangThaoYen](https://github.com/lesongthao/K5-L3A-Day05-T4-NhomGiangThaoYen), tại kênh giảng viên thông báo.
 - Bản nộp dùng `spec.md`, mã HTML/CSS/JavaScript trong `prototype/` và hai ảnh đánh số. Đề cho phép nộp prototype bằng tệp HTML; không bắt buộc triển khai thành website riêng.
+- Trước khi gửi link, mở lại `main` và thử `prototype/index.html` một lần để chắc bản nộp đã gồm thay đổi cuối.
 
 ## Checklist
 
@@ -61,8 +60,8 @@ Kết quả: **23 + 10 + 3 = 36 kiểm tra đạt, không lỗi**. Ba báo cáo 
 - [x] Có ca lạ, kết quả kiểm tra và lý do giữ thiết kế tại §7.
 - [x] Dữ liệu mẫu, không cần API key hoặc dữ liệu cá nhân thật của khách hàng.
 - [x] Hải Yến đã chấp thuận nội dung ý kiến tại §4.
-- [ ] Trình bày trước lớp và ghi nhận trao đổi với người xem.
-- [ ] Gộp thay đổi cuối vào `main` và nộp link repo qua kênh giảng viên yêu cầu.
+
+Khi trình bày, Giang giới thiệu phạm vi và kiểm tra; Yến giải thích phản hồi, quyền của tool và bước duyệt; Thao bấm prototype. Phần phân công đầy đủ ở [§7 của bài viết](spec.md#7-demo).
 
 ## Tài liệu đề bài
 
