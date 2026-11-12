@@ -282,7 +282,7 @@ Ca đính chính mã đơn ở §7 được kiểm tra bằng test 36: đính ch
 
 ### 6.4. Giới hạn của prototype
 
-- **Chưa sử dụng AI thật:** Nội dung phản hồi được xây dựng theo các quy tắc và tình huống mẫu, chưa gọi mô hình LLM hoặc Agent.
+- **Chưa tích hợp API mô hình học máy bên ngoài:** Nội dung phản hồi được vận hành theo hệ thống quy tắc và kịch bản tương tác cục bộ, chưa gọi API mô hình ngôn ngữ lớn (LLM/Agent) bên ngoài.
 - **Chưa xác minh dữ liệu thực tế:** Ảnh, listing và thông tin đơn hàng là dữ liệu mô phỏng; prototype chưa kết nối hệ thống Shopee để kiểm tra nguồn dữ liệu gốc.
 - **Chưa có backend:** Chưa triển khai đăng nhập, phân quyền thực tế, lưu trữ dữ liệu bền vững hoặc gửi thông báo thật.
 - **Chưa bảo đảm chất lượng quyết định của con người:** Prototype hỗ trợ tổng hợp bằng chứng và yêu cầu xác nhận, nhưng không thể bảo đảm trưởng nhóm luôn đánh giá chính xác.
@@ -292,7 +292,7 @@ Ca đính chính mã đơn ở §7 được kiểm tra bằng test 36: đính ch
 
 Prototype đáp ứng các yêu cầu cốt lõi trong phạm vi mô phỏng: không tự kết luận khi dữ liệu chưa được xác minh, giữ quyền quyết định tài chính cho trưởng nhóm và có phương án chuyển cấp khi thiếu thông tin hoặc quá hạn.
 
-Tuy nhiên, kết quả kiểm thử hiện tại mới chứng minh được các luồng và quy tắc đã triển khai trong prototype, chưa chứng minh khả năng vận hành với dữ liệu thật hoặc AI thật. Luồng S01 sau xác minh đã được kiểm tra tới bước hoàn tất quyết định có xác nhận. Những việc còn ngoài phạm vi là xác minh ảnh thật, xử lý mã đơn ngoài bộ dữ liệu và đánh giá chất lượng lập luận của người duyệt.
+Tuy nhiên, kết quả kiểm thử hiện tại mới chứng minh được các luồng và quy tắc đã triển khai trong prototype, chưa chứng minh khả năng vận hành với dữ liệu thật hoặc kết nối mô hình học máy trên hạ tầng thực tế. Luồng S01 sau xác minh đã được kiểm tra tới bước hoàn tất quyết định có xác nhận. Những việc còn ngoài phạm vi là xác minh ảnh thật, xử lý mã đơn ngoài bộ dữ liệu và đánh giá chất lượng lập luận của người duyệt.
 
 ## §7. Demo
 

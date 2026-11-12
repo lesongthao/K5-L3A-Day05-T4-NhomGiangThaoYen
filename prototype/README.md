@@ -86,7 +86,7 @@ Chú thích mặc định tắt để giao diện gọn. Mở **Công cụ demo*
 
 ## Phần mock và giới hạn
 
-- Câu trả lời được dựng theo tình huống và một số quy tắc văn bản; **không có lời gọi mô hình AI thật**.
+- Câu trả lời được dựng theo tình huống và các quy tắc kiểm tra văn bản; **không gọi API mô hình học máy bên ngoài**.
 - Nút gửi ảnh thêm bằng chứng mẫu; không đọc, tải lên hoặc xác minh ảnh thật.
 - Đối chiếu bản lưu và ghi nhận phản hồi shop sử dụng dữ liệu mô phỏng trong data.js; đây không phải kết nối Shopee.
 - Không có backend, xác thực danh tính, lưu bền, thông báo thật, lịch chạy nền hoặc chuyển tiền thật. Đổi vai chỉ phục vụ demo.
