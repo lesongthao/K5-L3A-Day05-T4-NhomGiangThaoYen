@@ -18,7 +18,7 @@ Các tệp index.html, styles.css, data.js và app.js phải ở cùng thư mụ
 | S04 | Nồi chiên ghi 6L, khách đo lòng nồi 5L | Hỏi cách đo, xin ảnh nhãn và thông số shop; chưa kết luận bên nào đúng |
 | S09 | Tai nghe sai màu, shop nhận giao nhầm, đủ bằng chứng | Chuẩn bị hồ sơ ngay, không hỏi lại bằng chứng đã đủ; vẫn cần trưởng nhóm duyệt |
 
-Thời gian bắt đầu: **15:00 ngày 12/11/2026, giờ Việt Nam**. Nút **+24 giờ** tua thời gian của tình huống, không phải thời gian thực. Nút **Làm lại** mở lượt mô phỏng mới; không phải hoàn tác quyết định tiền.
+Thời gian bắt đầu: **15:00 ngày 12/11/2026, giờ Việt Nam**. Mở **Công cụ demo** để dùng nút **+24 giờ** tua thời gian tình huống, không phải thời gian thực. Nút **Làm lại** mở lượt mô phỏng mới; không phải hoàn tác quyết định tiền.
 
 ## Demo khoảng 4 phút
 
@@ -43,7 +43,15 @@ Thời gian bắt đầu: **15:00 ngày 12/11/2026, giờ Việt Nam**. Nút **+
 - Có thể bấm **Quay lại kiểm tra** hoặc Esc; chưa có thao tác tiền.
 - **Không duyệt đề xuất** giữ khiếu nại mở, khác với **Từ chối và đóng khiếu nại**.
 
-### 3. Ca lạ và quá hạn
+### 3. Ba luồng mới để bấm thử
+
+- **Đính chính:** khi đang có hồ sơ, nhắn “Đính chính, ảnh tôi gửi thuộc đơn khác. Mã đơn đúng là SP999999.” Mở Bàn trưởng nhóm: phải thấy nội dung mới, trạng thái cần xác minh và bước duyệt bị khoá. Mã đơn ngoài bộ dữ liệu mẫu không được tự sử dụng bằng chứng của đơn cũ.
+- **Đính chính đúng đơn đang có:** sau khi đính chính thông tin, trưởng nhóm cần đối chiếu lại bản lưu, phản hồi shop và bấm **Xác nhận đã kiểm tra lại đính chính**. Chỉ lúc đó mới mở bước duyệt.
+- **S01 nhắc ảnh:** làm lại S01, mở **Công cụ demo** và bấm **+24 giờ**. Có một lời nhắc ảnh tùy chọn, đồng thời xử lý quá hạn chờ duyệt. Nếu khách đã chọn “Tôi không có ảnh” thì không nhắc lại việc họ không làm được.
+- **S04 mâu thuẫn:** chọn S04, mở **Công cụ demo** → **Nhận phản hồi shop mâu thuẫn**. Hồ sơ tự vào hàng chờ trưởng nhóm; không cần khách bấm Chuyển nhân viên. Lần bấm này dùng biến thể dữ liệu mẫu: shop ghi lòng nồi 6L, người mua báo 5L; khác với phản hồi làm rõ tổng 6L/lòng 5L của luồng ban đầu.
+- Bằng chứng chi tiết và thời hạn nằm trong mục mở rộng bên phải; lịch sử chat cũ được thu gọn, tin mới nhất luôn hiện.
+
+### 4. Ca lạ và quá hạn
 
 - Làm lại S04, không bổ sung gì, bấm **+24 giờ**: có một lời nhắc. Bấm thêm một lần: hồ sơ chuyển trưởng nhóm, không tự từ chối.
 - Làm lại S01, bấm **+24 giờ**: báo chậm, nhắc và chuyển cấp; không tự quyết định tiền.
@@ -65,12 +73,12 @@ Thời gian bắt đầu: **15:00 ngày 12/11/2026, giờ Việt Nam**. Nút **+
 | 4 | Xem hồ sơ ở bàn trưởng nhóm | Đường chuyển người, có gói thông tin sẵn |
 | 5 | Bàn duyệt và hộp xác nhận | Cần người duyệt, cảnh báo tác động trước khi thực hiện |
 
-Có thể tắt Chú thích ở thanh đầu trang khi trình bày như một sản phẩm.
+Chú thích mặc định tắt để giao diện gọn. Mở **Công cụ demo** → bật **Hiện chú thích** khi cần chỉ vị trí HAX/PAIR.
 
 ## Mức tự chủ đã thể hiện
 
 - yeu_cau_bang_chung: tự làm, tối đa một yêu cầu và một lời nhắc cho mỗi bên. Tin đã gửi không có nút thu hồi; bổ sung/sửa thông tin tạo cập nhật mới.
-- chuyen_truong_nhom: tự chuyển khi thiếu nguồn, có mâu thuẫn, khách yêu cầu hoặc hết thời hạn bổ sung. S04 cho phép hoàn tác chuyển khi chưa tiếp nhận và chưa quá hạn; S01 không rút khỏi luồng kiểm tra nguồn bắt buộc.
+- chuyen_truong_nhom: tự chuyển khi thiếu nguồn, có mâu thuẫn, khách yêu cầu hoặc hết thời hạn bổ sung. S04 cho phép hoàn tác lần chuyển theo yêu cầu khách khi chưa tiếp nhận và chưa quá hạn; chuyển bắt buộc do mâu thuẫn và S01 cần kiểm tra nguồn không bị rút khỏi hàng chờ.
 - soan_hoan_tien: chuẩn bị bản nháp là bước riêng có thể bỏ; thực hiện hoàn tiền cần trưởng nhóm và xác nhận tác động.
 - tu_choi_khieu_nai: quyết định riêng cần trưởng nhóm, lý do và xác nhận; im lặng hoặc không duyệt bản nháp không làm đóng khiếu nại.
 - phat_shop: không có nút thực hiện; nghi vấn hàng giả chuyển chuyên trách.
@@ -99,3 +107,9 @@ Chạy từ thư mục gốc repo:
 Máy cần có Microsoft Edge. Không cần tải thêm trình duyệt khi dùng channel msedge. Kết quả máy đọc được ở test-results.json; chạy thành công sẽ tạo lại hai ảnh.
 
 Bài viết và lý do lựa chọn giao diện nằm ở ../spec.md §5.
+
+## Kiểm tra riêng cho ba luồng bổ sung
+
+    py -X utf8 prototype/tests/regression_check.py
+
+Kết quả mới ghi vào test-results-update.json, tách khỏi báo cáo 23 test gốc test-results.json. Phần §6 trong spec.md không được sửa trong đợt cập nhật này.

@@ -9,7 +9,7 @@
 
 ## Mở prototype
 
-Tải nhánh lam-prototype về máy, mở prototype/index.html bằng Edge hoặc Chrome. Chọn S01, S04 hoặc S09 ở thanh đầu trang; chuyển giữa Người mua và Bàn trưởng nhóm để bấm thử. Không cần cài thư viện để chạy.
+Tải bản bài nộp trên main sau khi gộp PR, mở prototype/index.html bằng Edge hoặc Chrome. Chọn S01, S04 hoặc S09 ở thanh đầu trang; chuyển giữa Người mua và Bàn trưởng nhóm để bấm thử. Không cần cài thư viện để chạy.
 
 Hướng dẫn từng bước: [prototype/README.md](prototype/README.md).
 

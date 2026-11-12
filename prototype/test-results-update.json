@@ -1,0 +1,19 @@
+{
+  "tests": 10,
+  "failures": 0,
+  "errors": 0,
+  "scope": "correction re-verification, S01 reminder, S04 conflict handoff",
+  "browser": "Microsoft Edge / Playwright",
+  "cases": [
+    "test_24_unknown_order_correction_locks_decision",
+    "test_25_known_order_requires_complete_recheck",
+    "test_26_pending_decision_is_invalidated_by_correction",
+    "test_27_correction_is_visible_and_escaped_in_staff_record",
+    "test_28_s01_reminder_is_optional_and_sent_once",
+    "test_29_s01_no_image_reply_suppresses_unhelpful_reminder",
+    "test_30_s04_conflict_auto_transfers_without_customer_click",
+    "test_31_s04_conflict_with_missing_context_keeps_approval_locked",
+    "test_32_conflict_simulation_is_idempotent",
+    "test_33_known_order_can_be_restored_but_needs_reverification"
+  ]
+}

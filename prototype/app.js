@@ -22,8 +22,9 @@
     state={id:c.id,hours:0,messages:[{role:"user",text:c.message},{role:"assistant",text:c.reply}],
       logs:[],sourceVerified:c.id!=="S01",label:c.complete,measurement:c.complete?"Đã có ảnh hàng và xác nhận shop.":"",
       screenshot:false,noScreenshot:false,sellerResponse:c.complete,transferred:c.id!=="S04",transferredAt:0,claimed:false,
-      buyerRequests:c.id==="S04"?1:0,sellerRequests:c.complete?0:1,buyerReminded:false,sellerReminded:false,
-      draft:c.complete,revision:0,pending:null,closed:null,overdue:false,specialist:false};
+      buyerRequests:c.complete?0:1,sellerRequests:c.complete?0:1,buyerReminded:false,sellerReminded:false,
+      draft:c.complete,revision:0,pending:null,closed:null,overdue:false,specialist:false,
+      corrections:[],needsRecheck:false,orderDisputed:false,reportedOrder:null,sellerStatement:null,evidenceConflict:false};
     audit("Tiếp nhận khiếu nại "+c.order+". Chưa thực hiện thao tác tiền.");
     if(state.buyerRequests) audit("Đã gửi một yêu cầu: cách đo và ảnh nhãn, gộp trong cùng một tin.");
     if(state.sellerRequests) audit("Đã gửi một yêu cầu bằng chứng cho shop.");
@@ -33,7 +34,7 @@
     render();
   }
   function enough() {
-    if(!state.sourceVerified||!state.sellerResponse||state.specialist) return false;
+    if(!state.sourceVerified||!state.sellerResponse||state.specialist||state.needsRecheck||state.orderDisputed) return false;
     return state.id!=="S04" || (state.label && state.measurement.trim().length>=10);
   }
   function transfer(reason) {
@@ -44,7 +45,45 @@
       say("Hồ sơ đã chuyển trưởng nhóm, kèm thông tin đã có và phần chưa xác minh. Dự kiến được xem xét trong 24 giờ. Quá hạn sẽ nhắc và chuyển cấp; không tự hoàn tiền hoặc đóng khiếu nại.");
     } else toast("Hồ sơ đã ở hàng chờ, không tạo bản trùng.");
   }
-  function touch() { state.revision++;state.draft=false;state.pending=null; }
+  function touch() {
+    state.revision++;state.draft=false;state.pending=null;
+    if($("#decision-dialog").open) $("#decision-dialog").close();
+  }
+  const privateSafe = (text) => String(text).replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,"[đã ẩn email]").replace(/\b0\d[\d .-]{7,}\d\b/g,"[đã ẩn số liên hệ]");
+  function receivedSellerConflict() {
+    if(state.id!=="S04"||!isOpen()||state.evidenceConflict||state.orderDisputed) return;
+    touch();state.sellerResponse=true;state.evidenceConflict=true;
+    state.sellerStatement="Shop gửi thông số mẫu ghi dung tích lòng nồi 6L, trong khi người mua báo đo được khoảng 5L. Hai nguồn chưa thống nhất; cần người kiểm tra cách đo và tài liệu.";
+    audit("Nhận phản hồi shop: số liệu lòng nồi không khớp phản ánh người mua.");
+    say("Shop vừa gửi thông số chưa thống nhất với phản ánh của bạn. Mình đã ghi nhận bằng chứng hai bên và sẽ tự chuyển trưởng nhóm kiểm tra; chưa có quyết định hoàn tiền hay từ chối.");
+    transfer("Bằng chứng về dung tích giữa người mua và shop mâu thuẫn");
+    render();
+  }
+  function recordCorrection(text) {
+    touch();
+    state.corrections.push({hour:state.hours,text:privateSafe(text)});
+    const orderCodes=text.match(/\bSP[0-9A-Z-]+\b/gi)||[];
+    const different=orderCodes.find(code=>code.toUpperCase()!==current().order);
+    if(orderCodes.length){state.orderDisputed=Boolean(different);state.reportedOrder=different?different.toUpperCase():null;}
+    state.needsRecheck=true;state.sourceVerified=false;state.sellerResponse=false;
+    audit("Người mua đính chính; yêu cầu đối chiếu lại nguồn và bằng chứng trước quyết định.");
+    transfer("Thông tin đính chính cần được kiểm tra lại");
+    say(state.orderDisputed
+      ? "Mình đã ghi nhận đính chính vào hồ sơ. Mã đơn bạn vừa nêu chưa có dữ liệu để đối chiếu trong hồ sơ hiện tại, nên đã khoá bước duyệt. Trưởng nhóm sẽ thấy nội dung mới và cần xác minh đúng đơn trước khi tiếp tục; chưa có quyết định tiền."
+      : "Mình đã ghi nhận đính chính vào hồ sơ và bỏ đề xuất cũ. Bước duyệt được khoá để trưởng nhóm đối chiếu lại nguồn, bằng chứng hai phía và xác nhận đã kiểm tra nội dung mới.");
+  }
+  function historyMarkup() {
+    const messages=state.messages;
+    const message=(m)=>'<div class="message '+(m.role==="user"?"user":"assistant")+'"><div class="message-meta">'+(m.role==="user"?"Bạn":'<span class="avatar">g.</span>Trợ lý đơn hàng <span class="tag ai">AI</span>')+'</div><div class="bubble">'+esc(m.text)+'</div></div>';
+    const old=messages.slice(0,-2),recent=messages.slice(-2);
+    return (old.length?'<details class="chat-history"><summary>Xem '+old.length+' tin trước</summary><div class="history-messages">'+old.map(message).join("")+'</div></details>':"")+recent.map(message).join("");
+  }
+  function correctionMarkup() {
+    if(!state.corrections.length) return "";
+    return '<div class="notice '+(state.needsRecheck?"amber":"")+' correction-note"><strong>Thông tin người mua đã đính chính</strong>'+
+      state.corrections.map(item=>'<p>'+esc(item.text)+'</p><small>'+stamp(item.hour)+'</small>').join("")+
+      '<p>'+(state.orderDisputed?'Mã đơn '+esc(state.reportedOrder)+' chưa được xác minh. Không dùng bằng chứng của đơn cũ để quyết định.':state.needsRecheck?'Cần kiểm tra lại trước khi duyệt.':'Trưởng nhóm đã xác nhận đối chiếu lại nội dung đính chính.')+'</p></div>';
+  }
   function productArt() {
     if(current().icon==="airfryer") return '<svg viewBox="0 0 60 60" fill="none" aria-hidden="true"><path d="M15 20Q15 12 23 12H39Q47 12 47 20V48H15Z" fill="#3d5145"/><rect x="20" y="18" width="22" height="11" rx="4" fill="#c9cfc0"/><circle cx="31" cy="23" r="2.5" fill="#df512a"/><path d="M18 33H44V45H18Z" fill="#617367"/><path d="M27 33H35V39H27" stroke="#eee7d5" stroke-width="3"/><path d="M19 49H43" stroke="#23372c" stroke-width="3" stroke-linecap="round"/></svg>';
     return '<svg viewBox="0 0 60 60" fill="none" aria-hidden="true"><path d="M13 33V27C13 6 47 6 47 27V33" stroke="#43584b" stroke-width="7" stroke-linecap="round"/><rect x="8" y="28" width="13" height="23" rx="6.5" fill="#31493d"/><rect x="39" y="28" width="13" height="23" rx="6.5" fill="#31493d"/><path d="M16 32V45M44 32V45" stroke="#aab7a4" stroke-width="2" stroke-linecap="round"/></svg>';
@@ -55,6 +94,8 @@
   }
   function status() {
     if(state.closed) return {text:"Đã có quyết định của trưởng nhóm",cls:"green"};
+    if(state.orderDisputed) return {text:"Cần xác minh lại đúng đơn hàng",cls:"red"};
+    if(state.needsRecheck) return {text:"Đang kiểm tra thông tin đính chính",cls:"amber"};
     if(state.overdue) return {text:"Đang trễ · Chưa có quyết định",cls:"red"};
     if(state.transferred) return {text:state.claimed?"Trưởng nhóm đang xem xét":"Đang chờ nhân viên xem xét",cls:"amber"};
     return {text:"Đang chờ bổ sung thông tin",cls:"amber"};
@@ -66,16 +107,16 @@
   function sourcePanel() {
     const c=current(),unknown=!state.sourceVerified;
     return '<section class="panel"><div class="panel-heading"><h2>'+badge(2)+'Thông tin làm căn cứ</h2><span class="tag">Đúng thời điểm đặt</span></div><div class="panel-body">'+
-      '<div class="source-row '+(unknown?"unverified":"")+'"><div class="source-title">MÔ TẢ LÚC ĐẶT <span class="tag '+(unknown?"amber":"green")+'">'+(unknown?"Chưa xác minh":"Đã đối chiếu")+'</span></div><p>'+(unknown?"Người mua khai: màu đen. Cần kiểm tra bản lưu của đơn hàng.":esc(c.original))+'</p><small>'+(unknown?"Chưa dùng lời khai làm kết luận.":esc(c.source))+'</small></div>'+
+      '<div class="source-row '+(unknown?"unverified":"")+'"><div class="source-title">MÔ TẢ LÚC ĐẶT <span class="tag '+(unknown?"amber":"green")+'">'+(unknown?"Chưa xác minh":"Đã đối chiếu")+'</span></div><p>'+(state.orderDisputed?"Chưa có bản lưu cho mã đơn đính chính "+esc(state.reportedOrder)+".":unknown?esc(state.id==="S01"?"Người mua khai: màu đen. Cần kiểm tra bản lưu của đơn hàng.":"Cần đối chiếu lại bản lưu sau đính chính; chưa dùng dữ liệu cũ để quyết định."):esc(c.original))+'</p><small>'+(unknown?"Chưa dùng lời khai làm kết luận.":esc(c.source))+'</small></div>'+
       '<div class="source-row"><div class="source-title">MÔ TẢ TRÊN SHOP HIỆN TẠI</div><p>'+esc(c.current)+'</p><small>'+(c.id==="S01"?"Không dùng bản hiện tại để thay bản lúc đặt.":"Đối chiếu cùng bản lưu của đơn hàng.")+'</small></div>'+
-      '<div class="notice '+(enough()?"":"amber")+'"><strong>'+badge(1)+(enough()?"Đủ thông tin để trưởng nhóm xem xét":"Điểm còn cần làm rõ")+'</strong><p>'+esc(enough()?"Có bằng chứng hai phía. Quyết định vẫn thuộc trưởng nhóm.":c.unknown)+'</p></div></div></section>';
+      '<div class="notice '+(enough()?"":"amber")+'"><strong>'+badge(1)+(enough()?"Đủ thông tin để trưởng nhóm xem xét":"Điểm còn cần làm rõ")+'</strong><p>'+esc(enough()?"Có bằng chứng hai phía. Quyết định vẫn thuộc trưởng nhóm.":state.orderDisputed?"Mã đơn mới chưa có dữ liệu trong hồ sơ này; cần người xác minh đúng đơn.":state.needsRecheck?"Đính chính đã làm thay đổi căn cứ. Cần đối chiếu lại nguồn, phản hồi shop và xác nhận kiểm tra nội dung mới.":state.evidenceConflict?"Shop và người mua nêu thông số khác nhau. Không tự kết luận ai đúng.":c.unknown)+'</p></div></div></section>';
   }
   function evidencePanel() {
     const c=current();
     let buyer=c.buyerEvidence;
     if(state.id==="S04") buyer=state.label?"Đã bổ sung ảnh nhãn mẫu. "+(state.measurement?"Cách đo: "+state.measurement:"Chưa có cách đo."):"Chưa có ảnh nhãn. "+(state.measurement?"Cách đo: "+state.measurement:"Chưa có cách đo.");
     if(state.screenshot) buyer+=" Đã bổ sung ảnh chụp đơn lúc đặt (chưa tự coi là xác minh nguồn).";
-    return '<section class="panel"><div class="panel-heading"><h2>Bằng chứng hai phía</h2></div><div class="panel-body"><div class="evidence-item"><span class="file-icon">▧</span><div><strong>Người mua</strong><small>'+esc(buyer)+'</small></div></div><div class="evidence-item"><span class="file-icon">▤</span><div><strong>Người bán</strong><small>'+esc(state.sellerResponse?c.factory:c.seller)+'</small></div></div><p class="muted small" style="margin:12px 0 0">Bản mẫu dùng mô tả bằng chứng và tệp minh hoạ dựng sẵn.</p></div></section>';
+    return '<section class="panel"><div class="panel-heading"><h2>Bằng chứng hai phía</h2></div><div class="panel-body"><div class="evidence-item"><span class="file-icon">▧</span><div><strong>Người mua</strong><small>'+esc(buyer)+'</small></div></div><div class="evidence-item"><span class="file-icon">▤</span><div><strong>Người bán</strong><small>'+esc(state.sellerResponse?(state.sellerStatement||c.factory):c.seller)+'</small></div></div><p class="muted small" style="margin:12px 0 0">Bản mẫu dùng mô tả bằng chứng và tệp minh hoạ dựng sẵn.</p></div></section>';
   }
   function sellerPanel() {
     return '<section class="panel"><div class="panel-body"><details><summary>Shop được thông báo những gì?</summary><p>'+esc(current().sellerNotice)+'</p><p>Thông tin liên hệ của hai bên không được chia sẻ.</p><p>Yêu cầu gửi shop: '+state.sellerRequests+'/1 · Nhắc: '+(state.sellerReminded?1:0)+'/1.</p></details></div></section>';
@@ -85,24 +126,33 @@
     return '<section class="panel"><div class="panel-body"><div class="deadline"><span class="avatar">◷</span><div><strong>Hồ sơ vẫn được theo dõi</strong>'+sent+'<p>Hạn gửi yêu cầu theo chính sách mẫu: 17/11/2026 23:59. Quá hạn chờ duyệt không tự làm phát sinh quyết định.</p></div></div></div></section>';
   }
   function actionArea() {
-    const s=status();
-    let inner='<span class="tag '+s.cls+'">'+badge(1)+s.text+'</span>';
-    if(state.closed) return '<div class="action-area">'+inner+'<h3>'+esc(state.closed.kind==="refund"?"Trưởng nhóm đã duyệt hoàn tiền":"Trưởng nhóm đã duyệt đóng khiếu nại")+'</h3><p>'+esc(state.closed.reason)+'</p><p>Quyết định này không có nút hoàn tác. Dùng “Làm lại” ở thanh tình huống để bắt đầu một lượt mô phỏng mới.</p></div>';
-    if(state.id==="S01") {
-      inner+='<h3>Bạn có ảnh chụp lúc đặt không?</h3><p>Ảnh giúp đối chiếu nhanh hơn. Không có ảnh vẫn tiếp tục được xử lý.</p><div class="button-row">'+button("add-screenshot",state.screenshot?"Đã nhận ảnh mẫu":"Gửi ảnh chụp màn hình","primary",state.screenshot)+button("no-screenshot",badge(3)+(state.noScreenshot?"Đã ghi nhận không có ảnh":"Tôi không có ảnh"),"secondary",state.noScreenshot)+'</div>';
-    } else if(state.id==="S04") {
-      inner+='<h3>Hai thông tin giúp làm rõ dung tích</h3><ul class="task-list"><li><span class="task-check '+(state.label?"done":"")+'">'+(state.label?"✓":"○")+'</span>Ảnh nhãn thông số'+(state.label?" — đã có":"")+'</li><li><span class="task-check '+(state.measurement?"done":"")+'">'+(state.measurement?"✓":"○")+'</span>Cách bạn đo lòng nồi'+(state.measurement?" — đã có":"")+'</li></ul><div class="button-row">'+button("add-label",state.label?"Đã nhận ảnh nhãn mẫu":"Gửi ảnh nhãn thông số","primary",state.label)+button("edit-measurement",state.measurement?"Sửa cách đo":"Mô tả cách đo")+'</div>';
-    } else inner+='<h3>Bằng chứng đã đủ để xem xét</h3><p>Shop đã nhận gửi nhầm. Bạn không phải gửi lại ảnh hoặc xác nhận đã có.</p>';
-    inner+='<div class="button-row">';
-    if(!state.transferred) inner+=button("transfer",badge(3)+"Chuyển nhân viên","secondary");
-    else inner+=button("open-staff",badge(4)+"Xem hồ sơ ở bàn trưởng nhóm","subtle");
-    if(state.id==="S04"&&state.transferred&&!state.claimed&&state.hours-state.transferredAt<24&&state.hours<48) inner+=button("undo-transfer","Hoàn tác chuyển hồ sơ","link");
-    inner+='</div><div class="progress-line"><span>① Tiếp nhận</span><span class="'+(!state.transferred?"current":"")+'">② Làm rõ</span><span class="'+(state.transferred?"current":"")+'">③ Nhân viên duyệt</span><span>④ Kết quả</span></div>';
+    const st=status();
+    let inner='<div class="next-label">VIỆC TIẾP THEO</div><span class="tag '+st.cls+'">'+badge(1)+st.text+'</span>';
+    if(state.closed) return '<div class="action-area">'+inner+'<h3>'+esc(state.closed.kind==="refund"?"Đã duyệt hoàn tiền":"Đã duyệt đóng khiếu nại")+'</h3><p>'+esc(state.closed.reason)+'</p><p>Đây là kết quả mô phỏng. Quyết định tiền không có nút hoàn tác.</p></div>';
+    if(state.orderDisputed){
+      return '<div class="action-area">'+inner+'<h3>Chờ xác minh mã đơn mới</h3><p>Nội dung đính chính đã chuyển cho trưởng nhóm. Hồ sơ hiện tại chưa có dữ liệu của '+esc(state.reportedOrder)+', nên không thể tiếp tục duyệt.</p><div class="button-row">'+button("open-staff",badge(4)+"Xem hồ sơ đã chuyển","primary")+'</div></div>';
+    }
+    if(state.id==="S01"){
+      inner+='<h3>Bạn có ảnh chụp lúc đặt không?</h3><p>Gửi nếu có. Không có ảnh, hồ sơ vẫn tiếp tục.</p><div class="button-row">'+
+      button("add-screenshot",state.screenshot?"Đã nhận ảnh mẫu":"Gửi ảnh chụp màn hình","primary",state.screenshot)+
+      button("no-screenshot",badge(3)+(state.noScreenshot?"Đã ghi nhận":"Tôi không có ảnh"),"secondary",state.noScreenshot)+'</div>';
+    } else if(state.id==="S04"){
+      const complete=state.label&&state.measurement;
+      inner+='<h3>'+(complete?"Thông tin của bạn đã được ghi nhận":"Bổ sung hai thông tin ngắn")+'</h3><div class="task-chips"><span class="'+(state.measurement?"done":"")+'">'+(state.measurement?"✓":"1")+' Cách đo</span><span class="'+(state.label?"done":"")+'">'+(state.label?"✓":"2")+' Ảnh nhãn</span></div><div class="button-row">'+
+      button("edit-measurement",state.measurement?"Sửa cách đo":"Mô tả cách đo",state.measurement?"secondary":"primary")+
+      button("add-label",state.label?"Đã nhận ảnh nhãn mẫu":"Gửi ảnh nhãn thông số",!state.label&&state.measurement?"primary":"secondary",state.label)+'</div>';
+      if(state.evidenceConflict) inner+='<p class="transfer-note">Bằng chứng hai bên chưa thống nhất. Hồ sơ đã tự chuyển trưởng nhóm.</p>';
+    } else inner+='<h3>Hồ sơ đã đủ để người phụ trách xem xét</h3><p>Bạn không cần gửi lại bằng chứng đã có.</p>';
+    inner+='<div class="handoff-row">';
+    if(!state.transferred) inner+=button("transfer",badge(3)+"Chuyển nhân viên","link");
+    else inner+=button("open-staff",badge(4)+"Xem hồ sơ ở bàn trưởng nhóm","link");
+    if(state.id==="S04"&&state.transferred&&!state.claimed&&state.hours-state.transferredAt<24&&state.hours<48&&!state.evidenceConflict)
+      inner+=button("undo-transfer","Hoàn tác chuyển hồ sơ","link");
+    inner+='</div>';
     return '<div class="action-area">'+inner+'</div>';
   }
   function buyer() {
-    const msgs=state.messages.map(m=>'<div class="message '+(m.role==="user"?"user":"assistant")+'"><div class="message-meta">'+(m.role==="user"?"Bạn":'<span class="avatar">g.</span>Trợ lý đơn hàng <span class="tag ai">AI</span>')+'</div><div class="bubble">'+esc(m.text)+'</div></div>').join("");
-    return '<div class="workspace"><div class="column"><section class="panel"><div class="panel-heading"><h2>Cuộc trò chuyện của bạn</h2><span class="tag ai">Có nhân viên hỗ trợ</span></div>'+product()+'<div class="thread" aria-live="polite" aria-relevant="additions">'+msgs+'</div>'+actionArea()+'<form class="composer" id="message-form"><label for="chat-message">Bạn muốn bổ sung điều gì?</label><div class="composer-row"><input id="chat-message" maxlength="600" required placeholder="Nhập câu hỏi hoặc sửa thông tin…"><button type="submit" class="button primary">Gửi</button></div><p>Không gửi số điện thoại, địa chỉ, mật khẩu hoặc thông tin thanh toán.</p></form><div class="fund-status"><span class="status-dot"></span>'+esc(funds())+'</div></section></div><aside class="column" aria-label="Thông tin đơn và bằng chứng">'+sourcePanel()+evidencePanel()+sellerPanel()+timePanel()+'</aside></div>';
+    return '<div class="workspace"><div class="column"><section class="panel chat-panel"><div class="panel-heading"><h2>Trao đổi với trợ lý</h2><span class="tag ai">AI hỗ trợ · Nhân viên quyết định</span></div>'+product()+actionArea()+'<div class="thread" aria-live="polite" aria-relevant="additions">'+historyMarkup()+'</div><form class="composer" id="message-form"><label for="chat-message">Câu hỏi hoặc thông tin đính chính</label><div class="composer-row"><input id="chat-message" maxlength="600" required placeholder="Nhập nội dung muốn bổ sung…"><button type="submit" class="button primary">Gửi</button></div><p>Không gửi thông tin liên hệ hoặc thông tin thanh toán.</p></form><div class="fund-status"><span class="status-dot"></span>'+esc(funds())+'</div></section></div><aside class="column" aria-label="Thông tin đơn và bằng chứng">'+sourcePanel()+'<details class="case-extra"><summary>Bằng chứng, thông báo và thời hạn</summary><div class="extra-body">'+correctionMarkup()+evidencePanel()+sellerPanel()+timePanel()+'</div></details></aside></div>';
   }
   function staff() {
     if(!state.transferred) return '<section class="panel empty-state"><div class="empty-symbol">▤</div><h2>Chưa có hồ sơ trong hàng chờ.</h2><p>Ca này đang được hỏi thêm ở phía người mua. Hồ sơ sẽ tới đây khi cần chuyển nhân viên hoặc quá hạn bổ sung.</p>'+button("open-buyer","Về cuộc trò chuyện","primary")+'</section>';
@@ -111,20 +161,25 @@
     let review='<span class="tag '+s.cls+'">'+s.text+'</span><p class="panel-kicker" style="margin-top:16px">GIÁ TRỊ ĐƠN ĐANG XEM XÉT</p><div class="review-amount">'+money(c.amount)+'</div><p class="muted small">'+badge(5)+'AI chuẩn bị thông tin. Trưởng nhóm chịu trách nhiệm quyết định.</p>';
     if(state.closed) review+='<div class="notice"><strong>'+esc(funds())+'</strong><p>Lý do: '+esc(state.closed.reason)+'</p></div>';
     else {
-      if(!state.claimed) review+=button("claim","Tiếp nhận hồ sơ","primary");
-      if(!state.sourceVerified) review+='<div class="notice amber"><strong>Đang khoá thao tác quyết định</strong><p>Chưa xác minh bản mô tả lúc đặt. Không được dùng mô tả hiện tại thay thế.</p></div><div class="button-row">'+button("verify-source","Đối chiếu bản lưu lúc đặt","secondary",!state.claimed)+'</div>';
-      if(!state.sellerResponse) review+='<div class="button-row">'+button("seller-response","Ghi nhận phản hồi và bằng chứng shop","secondary",!state.claimed)+'</div>';
+      review+='<p class="review-fund-state"><span class="status-dot"></span> '+esc(funds())+'</p>';
+      if(!state.claimed) review+='<div class="review-step"><span>BƯỚC 1</span><h3>Nhận hồ sơ để bắt đầu kiểm tra</h3>'+button("claim","Tiếp nhận hồ sơ","primary")+'</div>';
+      if(state.claimed&&!enough()) review+='<p class="review-hint">Kiểm tra thông tin còn thiếu bên dưới. Bước duyệt chỉ mở sau khi đối chiếu đủ căn cứ.</p>';
+
+      if(!state.sourceVerified) review+='<div class="notice amber"><strong>Đang khoá thao tác quyết định</strong><p>Chưa xác minh bản mô tả lúc đặt. Không được dùng mô tả hiện tại thay thế.</p></div><div class="button-row">'+button("verify-source","Đối chiếu bản lưu lúc đặt","secondary",!state.claimed||state.orderDisputed)+'</div>';
+      if(!state.sellerResponse) review+='<div class="button-row">'+button("seller-response","Ghi nhận phản hồi và bằng chứng shop","secondary",!state.claimed||state.orderDisputed)+'</div>';
+      if(state.needsRecheck&&!state.orderDisputed) review+='<div class="button-row">'+button("review-correction","Xác nhận đã kiểm tra lại đính chính","secondary",!state.claimed||!state.sourceVerified||!state.sellerResponse)+'</div>';
       if(state.specialist) review+='<div class="notice red">Nghi vấn hàng giả/đề nghị xử phạt cần bộ phận chuyên trách. Luồng này không được phạt shop hoặc quyết định tiền khi chưa xác minh.</div>';
       if(!enough()) review+='<p class="muted small" style="margin-top:14px">Cần bản lưu được xác minh, bằng chứng hai phía và thông tin còn thiếu. Nút quyết định chỉ mở khi hồ sơ đủ điều kiện.</p>';
       if(enough()&&!state.draft) review+='<div class="button-row">'+button("prepare-draft","Chuẩn bị bản nháp đề xuất","subtle",!state.claimed)+'</div>';
       if(state.draft) review+='<div class="notice"><strong>Đã có bản nháp · Chưa thực hiện</strong><p>Trưởng nhóm có thể thay đổi phương án hoặc bỏ bản nháp.</p>'+button("undo-draft","Bỏ bản nháp","link",!state.claimed)+'</div>';
-      review+='<form id="review-form" class="review-form"><label for="resolution">Phương án trưởng nhóm chọn</label><select id="resolution"><option value="refund">Hoàn tiền '+money(c.amount)+'</option><option value="deny">Từ chối và đóng khiếu nại</option></select><label for="decision-reason">Lý do dựa trên bằng chứng</label><textarea id="decision-reason" rows="3" minlength="20" maxlength="800" required placeholder="Nêu căn cứ đã kiểm tra, điểm mâu thuẫn và lý do chọn phương án…"></textarea><label class="check-label"><input id="review-check" type="checkbox" required> Tôi đã đối chiếu mô tả lúc đặt và bằng chứng cả hai bên, kiểm tra phương án xử lý.</label><div class="button-row"><button id="prepare-decision" type="submit" class="button primary" '+(!state.claimed||!enough()?"disabled":"")+'>'+badge(5)+'Duyệt phương án…</button>'+button("reject-draft","Không duyệt đề xuất","secondary",!state.claimed||!state.draft)+'</div></form><div class="divider"></div>'+button("ask-more","Xin thêm bằng chứng","secondary",!state.claimed)+'<p class="muted small" style="margin:10px 0 0">“Không duyệt đề xuất” giữ khiếu nại mở. “Từ chối và đóng” là quyết định riêng, cần xác nhận. Không có thao tác phạt shop.</p>';
+      review+='<form id="review-form" class="review-form" '+(!state.claimed||!enough()?'hidden':'')+'><label for="resolution">Phương án trưởng nhóm chọn</label><select id="resolution"><option value="refund">Hoàn tiền '+money(c.amount)+'</option><option value="deny">Từ chối và đóng khiếu nại</option></select><label for="decision-reason">Lý do dựa trên bằng chứng</label><textarea id="decision-reason" rows="3" minlength="20" maxlength="800" required placeholder="Nêu căn cứ đã kiểm tra, điểm mâu thuẫn và lý do chọn phương án…"></textarea><label class="check-label"><input id="review-check" type="checkbox" required> Tôi đã đối chiếu mô tả lúc đặt và bằng chứng cả hai bên, kiểm tra phương án xử lý.</label><div class="button-row"><button id="prepare-decision" type="submit" class="button primary" '+(!state.claimed||!enough()?"disabled":"")+'>'+badge(5)+'Duyệt phương án…</button>'+button("reject-draft","Không duyệt đề xuất","secondary",!state.claimed||!state.draft)+'</div></form><div class="divider"></div>'+button("ask-more","Xin thêm bằng chứng","secondary",!state.claimed)+'<p class="muted small" style="margin:10px 0 0">“Không duyệt đề xuất” giữ khiếu nại mở. “Từ chối và đóng” là quyết định riêng, cần xác nhận. Không có thao tác phạt shop.</p>';
     }
-    return '<div class="workspace staff-grid"><div class="column"><section class="panel"><div class="panel-heading"><h2>Hồ sơ '+c.order+'</h2><span class="tag">Trưởng nhóm</span></div>'+product()+'<div class="panel-body"><h3>Phản ánh ban đầu</h3><p class="small">'+esc(c.message)+'</p><div class="notice amber"><strong>Điều AI chưa xác minh được</strong><p>'+esc(enough()?"Thông tin đã đủ để con người xem xét; chưa có kết luận tự động.":c.unknown)+'</p></div></div></section>'+sourcePanel()+evidencePanel()+log+'</div><aside class="column"><section class="panel"><div class="panel-heading"><h2>'+badge(5)+'Duyệt quyết định</h2><span class="tag amber">Cần người duyệt</span></div><div class="panel-body">'+review+'</div></section>'+timePanel()+sellerPanel()+'</aside></div>';
+    return '<div class="workspace staff-grid"><div class="column"><section class="panel"><div class="panel-heading"><h2>Hồ sơ '+c.order+'</h2><span class="tag">Trưởng nhóm</span></div>'+product()+'<div class="panel-body"><h3>Phản ánh ban đầu</h3><p class="small">'+esc(c.message)+'</p>'+correctionMarkup()+'<div class="notice amber"><strong>Điều AI chưa xác minh được</strong><p>'+esc(enough()?"Thông tin đã đủ để con người xem xét; chưa có kết luận tự động.":state.orderDisputed?"Chưa xác minh được mã đơn vừa đính chính. Không dùng dữ liệu đơn cũ để quyết định.":state.needsRecheck?"Nội dung đã thay đổi; cần kiểm tra lại nguồn và bằng chứng trước khi duyệt.":state.evidenceConflict?"Shop và người mua cung cấp thông số mâu thuẫn; trưởng nhóm cần đối chiếu.":c.unknown)+'</p></div></div></section>'+sourcePanel()+evidencePanel()+log+'</div><aside class="column"><section class="panel"><div class="panel-heading"><h2>'+badge(5)+'Duyệt quyết định</h2><span class="tag amber">Cần người duyệt</span></div><div class="panel-body">'+review+'</div></section>'+timePanel()+sellerPanel()+'</aside></div>';
   }
   function render() {
     $("#app").innerHTML=view==="buyer"?buyer():staff();
     $("#clock-value").textContent=stamp(state.hours);
+    $("#simulate-conflict").disabled=state.id!=="S04"||!isOpen()||state.evidenceConflict||state.orderDisputed;
     $("#queue-count").textContent=state.transferred&&!state.closed?"1":"0";
     $("#buyer-tab").classList.toggle("active",view==="buyer");$("#staff-tab").classList.toggle("active",view==="staff");
     $("#buyer-tab").setAttribute("aria-pressed",String(view==="buyer"));$("#staff-tab").setAttribute("aria-pressed",String(view==="staff"));
@@ -134,7 +189,12 @@
   function advance() {
     if(state.closed){toast("Hồ sơ đã có quyết định; hãy làm lại để thử mốc thời gian khác.");return;}
     state.hours+=24;
-    if(state.hours>=24&&!state.buyerReminded&&state.id==="S04"&&(!state.label||!state.measurement)){
+    if(state.hours>=24&&!state.buyerReminded&&state.id==="S01"&&!state.screenshot&&!state.noScreenshot){
+      state.buyerReminded=true;
+      audit("Nhắc người mua một lần: ảnh chụp lúc đặt là tùy chọn, không phải điều kiện xử lý.");
+      say("Mình nhắc một lần: nếu còn ảnh chụp lúc đặt, bạn có thể bổ sung. Không có ảnh cũng không sao; hồ sơ vẫn được kiểm tra từ nguồn hệ thống, không tự bị từ chối.");
+    }
+    if(state.hours>=24&&!state.buyerReminded&&state.id==="S04"&&!state.orderDisputed&&(!state.label||!state.measurement)){
       state.buyerReminded=true;audit("Đã nhắc người mua một lần về thông tin còn thiếu.");say("Mình nhắc lại một lần: bạn có thể bổ sung cách đo và ảnh nhãn. Nếu chưa cung cấp được, bạn vẫn có thể chuyển nhân viên; hồ sơ không tự bị từ chối.");
     }
     if(state.hours>=24&&!state.sellerResponse&&!state.sellerReminded){state.sellerReminded=true;audit("Đã nhắc shop một lần; không gửi lặp vô hạn.");}
@@ -154,17 +214,16 @@
       say("Mình không có quyền phạt hoặc khoá shop, và chưa đủ căn cứ kết luận hàng giả. Hồ sơ được chuyển người có thẩm quyền để xác minh; chưa có quyết định tiền.");
     } else if(/boc phot|tay chay|hoan.*ngay|hoan tien/.test(n)) say("Mình hiểu bạn muốn giải quyết sớm. Việc hoàn tiền phải dựa trên bằng chứng và được trưởng nhóm duyệt. Lời gây áp lực không thay thế căn cứ; hiện chưa phát sinh hoàn tiền.");
     else if(/sai roi|sua lai|dinh chinh/.test(n)) {
-      touch();audit("Ghi nhận đính chính của người mua; bỏ bản nháp cũ để tránh duyệt sai.");
-      say("Mình đã ghi nhận đính chính. Bản nháp đề xuất cũ đã được bỏ; trưởng nhóm sẽ kiểm tra lại thông tin mới trước khi quyết định.");
+      recordCorrection(text);
     } else say("Mình chưa đủ thông tin để kết luận từ nội dung này. Bạn cho biết mã đơn và điểm sản phẩm khác mô tả; hoặc chọn “Chuyển nhân viên”. Mình không tự chọn một đơn khác hoặc quyết định tiền.");
     render();
   }
   const actions={
-    "open-staff":()=>{view="staff";render();},
-    "open-buyer":()=>{view="buyer";render();},
+    "open-staff":()=>{view="staff";render();window.scrollTo(0,0);},
+    "open-buyer":()=>{view="buyer";render();window.scrollTo(0,0);},
     "transfer":()=>{transfer("Người mua đề nghị hỗ trợ");render();},
     "undo-transfer":()=>{
-      if(state.id!=="S04"||!state.transferred||state.claimed||state.hours>=48||state.hours-state.transferredAt>=24||!isOpen())return;
+      if(state.id!=="S04"||!state.transferred||state.claimed||state.hours>=48||state.hours-state.transferredAt>=24||state.evidenceConflict||!isOpen())return;
       state.transferred=false;state.overdue=false;audit("Hoàn tác chuyển hồ sơ trước khi trưởng nhóm tiếp nhận; các tin đã gửi vẫn được giữ.");
       say("Đã rút hồ sơ khỏi hàng chờ để bạn bổ sung thông tin. Thông báo đã gửi cho shop không bị thu hồi. Chưa có quyết định tiền.");render();
     },
@@ -174,8 +233,12 @@
     "edit-measurement":()=>{if(!isOpen())return;$("#measurement").value=state.measurement;$("#edit-dialog").showModal();},
     "close-edit":()=>$("#edit-dialog").close(),
     "claim":()=>{if(!state.transferred||state.claimed||!isOpen())return;state.claimed=true;audit("Trưởng nhóm đã tiếp nhận hồ sơ.");render();},
-    "verify-source":()=>{if(!state.claimed||!isOpen()||state.sourceVerified)return;touch();state.sourceVerified=true;audit("Trưởng nhóm đối chiếu bản lưu: lúc đặt màu đen, hiện tại màu trắng. Chưa tự quyết tiền.");say("Trưởng nhóm đã xác minh bản mô tả lúc đặt ghi màu đen. Bằng chứng hai phía tiếp tục được kiểm tra trước khi quyết định.");render();},
-    "seller-response":()=>{if(!state.claimed||!isOpen()||state.sellerResponse)return;touch();state.sellerResponse=true;audit("Đã ghi nhận phản hồi shop và đối chiếu thông tin dựng. Không coi phản hồi một phía là kết luận.");render();},
+    "verify-source":()=>{if(!state.claimed||!isOpen()||state.sourceVerified||state.orderDisputed)return;touch();state.sourceVerified=true;audit("Trưởng nhóm đối chiếu lại bản lưu đúng mã đơn "+current().order+". Chưa tự quyết tiền.");say("Trưởng nhóm đã đối chiếu bản mô tả lúc đặt: "+current().original+" Bằng chứng hai phía tiếp tục được kiểm tra trước khi quyết định.");render();},
+    "seller-response":()=>{if(!state.claimed||!isOpen()||state.sellerResponse||state.orderDisputed)return;touch();state.sellerResponse=true;if(!state.sellerStatement)state.sellerStatement=current().factory;audit("Đã ghi nhận phản hồi shop và đối chiếu thông tin dựng. Không coi phản hồi một phía là kết luận.");render();},
+    "review-correction":()=>{
+      if(!state.claimed||!isOpen()||state.orderDisputed||!state.sourceVerified||!state.sellerResponse||!state.needsRecheck)return;
+      state.needsRecheck=false;touch();audit("Trưởng nhóm xác nhận đã đối chiếu lại nội dung đính chính, nguồn và bằng chứng hai phía.");render();
+    },
     "prepare-draft":()=>{if(!state.claimed||!enough()||!isOpen())return;state.draft=true;audit("Chuẩn bị bản nháp có thể bỏ; không gọi tool chuyển tiền.");render();},
     "undo-draft":()=>{if(!state.claimed||!isOpen())return;state.draft=false;state.pending=null;audit("Đã bỏ bản nháp; không ảnh hưởng tiền hoặc quyền khiếu nại.");render();},
     "reject-draft":()=>{if(!state.claimed||!state.draft||!isOpen())return;state.draft=false;state.pending=null;audit("Không duyệt đề xuất; khiếu nại vẫn mở.");say("Trưởng nhóm chưa duyệt đề xuất hiện tại. Khiếu nại vẫn mở để tiếp tục xem xét; đây không phải quyết định từ chối.");render();},
@@ -214,11 +277,12 @@
     $("#decision-dialog").close();render();toast("Đã ghi nhận quyết định của trưởng nhóm.");
   });
   $("#decision-dialog").addEventListener("cancel",()=>{state.pending=null;});
-  $("#buyer-tab").addEventListener("click",()=>{view="buyer";render();});
-  $("#staff-tab").addEventListener("click",()=>{view="staff";render();});
+  $("#buyer-tab").addEventListener("click",()=>{view="buyer";render();window.scrollTo(0,0);});
+  $("#staff-tab").addEventListener("click",()=>{view="staff";render();window.scrollTo(0,0);});
   $("#case-select").addEventListener("change",event=>reset(event.target.value));
   $("#advance-time").addEventListener("click",advance);
   $("#reset").addEventListener("click",()=>reset(state.id));
+  $("#simulate-conflict").addEventListener("click",receivedSellerConflict);
   $("#annotations").addEventListener("change",event=>document.body.classList.toggle("hide-annotations",!event.target.checked));
   reset("S01");
 })();

@@ -9,34 +9,38 @@
   <script src="data.js" defer></script>
   <script src="app.js" defer></script>
 </head>
-<body>
+<body class="hide-annotations">
   <a class="skip-link" href="#main">Đến nội dung chính</a>
-  <div class="demo-bar">
-    <div class="demo-inner">
-      <span class="demo-label"><span class="live-dot"></span> LAB05 · Dữ liệu giả lập</span>
-      <label class="case-picker">Tình huống
-        <select id="case-select" aria-label="Chọn tình huống">
-          <option value="S01">S01 · Mô tả đã thay đổi</option>
-          <option value="S04">S04 · Dung tích 6L hay 5L?</option>
-          <option value="S09">S09 · Shop xác nhận giao nhầm</option>
-        </select>
-      </label>
-      <div class="demo-controls">
-        <label class="annotation-toggle"><input id="annotations" type="checkbox" checked> Chú thích</label>
-        <button class="text-button" id="advance-time" type="button">+24 giờ</button>
-        <button class="text-button" id="reset" type="button">Làm lại</button>
-      </div>
-    </div>
-  </div>
   <header class="site-header">
     <div class="brand"><span class="brand-mark" aria-hidden="true">g.</span><div><strong>Gỡ Rối</strong><span>Hỗ trợ đơn hàng, rõ từng bước.</span></div></div>
     <nav class="role-switch" aria-label="Chọn màn hình mô phỏng">
       <button id="buyer-tab" type="button" class="active" aria-pressed="true">Người mua</button>
       <button id="staff-tab" type="button" aria-pressed="false">Bàn trưởng nhóm <span id="queue-count" class="queue-count">1</span></button>
     </nav>
-    <span class="privacy-note">Chỉ mô phỏng · Không phát sinh giao dịch</span>
+    <span class="privacy-note">LAB05 · T4</span>
   </header>
   <main id="main" tabindex="-1">
+    <div class="demo-bar">
+      <div class="demo-inner">
+        <label class="case-picker"><span>Tình huống demo</span>
+          <select id="case-select" aria-label="Chọn tình huống">
+            <option value="S01">S01 · Mô tả đã thay đổi</option>
+            <option value="S04">S04 · Dung tích 6L hay 5L?</option>
+            <option value="S09">S09 · Shop xác nhận giao nhầm</option>
+          </select>
+        </label>
+        <details class="demo-options">
+          <summary>Công cụ demo</summary>
+          <div class="demo-controls">
+            <label class="annotation-toggle"><input id="annotations" type="checkbox"> Hiện chú thích</label>
+            <button class="text-button" id="advance-time" type="button">+24 giờ</button>
+            <button class="text-button" id="simulate-conflict" type="button">Nhận phản hồi shop mâu thuẫn</button>
+          </div>
+        </details>
+        <button class="text-button reset-button" id="reset" type="button">Làm lại</button>
+      </div>
+      <p class="demo-caption">Dữ liệu giả lập · Không phát sinh giao dịch</p>
+    </div>
     <div class="page-heading">
       <div><p class="eyebrow">TRUNG TÂM HỖ TRỢ / KHIẾU NẠI ĐƠN HÀNG</p><h1 id="page-title">Cùng làm rõ vấn đề của bạn.</h1><p id="page-description">Đối chiếu đúng thông tin. Lắng nghe cả hai phía.</p></div>
       <div class="clock"><span>Thời gian trong tình huống</span><strong id="clock-value"></strong></div>
