@@ -18,16 +18,39 @@ Lớp: **L3A** · Bàn / zone: **[Cần điền]** · Track: **T4**
 
 **Lát cắt phát sẵn:** Trong **Trò chuyện với Shopee**, khi **người mua** đang báo “hàng nhận không đúng mô tả”, **AI tự hướng dẫn gửi yêu cầu trả hàng hoàn tiền, xin thêm bằng chứng, hay chuyển nhân viên**, để người mua biết đúng bước tiếp theo, và người bán không bị xử thua khi họ đúng.
 
-**Ba việc tính năng không làm — nhóm tự chốt:**
+### Ba việc tính năng không làm — nhóm tự chốt
 
 | Việc không làm | Vì sao loại khỏi phạm vi |
 |---|---|
-| [Cần điền 1] | [Cần điền] |
-| [Cần điền 2] | [Cần điền] |
-| [Cần điền 3] | [Cần điền] |
+| Không tự động hoàn tiền hoặc từ chối yêu cầu trả hàng khi chưa đủ bằng chứng. | Quyết định sai có thể gây thiệt hại tài chính cho người mua hoặc người bán. Các trường hợp thiếu căn cứ cần được nhân viên xem xét. |
+| Không tự động phạt, khóa hoặc hạn chế hoạt động của shop trong quá trình xử lý khiếu nại. | Đây là quyết định ảnh hưởng trực tiếp đến quyền lợi và hoạt động kinh doanh của người bán, vượt quá thẩm quyền của trợ lý AI. |
+| Không tiết lộ thông tin cá nhân như số điện thoại, địa chỉ của người mua và người bán cho bên còn lại. | Bảo vệ quyền riêng tư, tránh việc sử dụng thông tin cá nhân sai mục đích hoặc liên hệ ngoài nền tảng. |
 
-**Dữ liệu dựng nhóm dùng:** [Cần điền mã đơn giả, mô tả lúc đặt, mô tả hiện tại nếu khác, bằng chứng hai bên, mốc thời gian và chính sách giả nếu tự bổ sung. Ghi rõ phần nào nhóm tự dựng; không coi chính sách giả là chính sách thật.]
+**Dữ liệu dựng nhóm dùng:**
 
+Nhóm sử dụng một đơn hàng giả lập để kiểm thử trợ lý AI xử lý khiếu nại:
+
+- **Mã đơn hàng:** SP20261108001.
+- **Sản phẩm:** Tai nghe Bluetooth SoundMax X5.
+- **Giá trị đơn hàng:** 590.000 VNĐ.
+- **Mô tả lúc đặt hàng:** Tai nghe mới 100%, màu đen, hỗ trợ Bluetooth 5.3, thời lượng pin tối đa 30 giờ, bảo hành 12 tháng.
+- **Mô tả hiện tại:** Người mua phản ánh sản phẩm nhận được có màu trắng, hộp đã có dấu hiệu mở trước đó và thời lượng pin chỉ khoảng 5 giờ.
+- **Bằng chứng từ người mua:** Ảnh chụp sản phẩm màu trắng, ảnh hộp có dấu hiệu bị mở và video kiểm tra thời lượng pin.
+- **Bằng chứng từ người bán:** Ảnh sản phẩm trước khi đóng gói thể hiện tai nghe màu đen, video đóng gói đơn hàng và mã vận đơn.
+- **Mốc thời gian:**
+  - 08/11/2026: Người mua đặt hàng.
+  - 09/11/2026: Người bán xác nhận và đóng gói.
+  - 10/11/2026: Đơn hàng được giao thành công.
+  - 11/11/2026: Người mua gửi khiếu nại.
+  - 12/11/2026: AI tiếp nhận và hướng dẫn thu thập bằng chứng.
+
+- **Chính sách giả lập do nhóm tự xây dựng:**
+  1. Người mua cần cung cấp bằng chứng về tình trạng sản phẩm nhận được.
+  2. Người bán được quyền cung cấp bằng chứng đóng gói và giao hàng để phản hồi khiếu nại.
+  3. Nếu bằng chứng hai bên mâu thuẫn hoặc chưa đủ kết luận, AI phải chuyển nhân viên xem xét.
+  4. AI không được tự động quyết định hoàn tiền hoặc từ chối yêu cầu khiếu nại.
+
+**Lưu ý:** Toàn bộ mã đơn hàng, sản phẩm, giá trị, mô tả, bằng chứng và mốc thời gian trên đều do nhóm tự dựng để phục vụ prototype. Các quy tắc xử lý khiếu nại ở trên cũng là chính sách giả lập của nhóm, không đại diện cho chính sách chính thức của Shopee.
 ## §2. Kịch bản rủi ro
 
 Bốn lớp: **① Nguồn sự thật · ② Mơ hồ/thiếu thông tin · ③ Ngoài phạm vi/thẩm quyền · ④ Đặc thù domain**.
