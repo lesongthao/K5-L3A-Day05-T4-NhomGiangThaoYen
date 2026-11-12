@@ -1,54 +1,101 @@
-# Prototype — T4 Thương mại điện tử
+# Prototype Gỡ Rối — T4 Thương mại điện tử
 
-**Trạng thái:** Chưa dựng prototype. Tệp này là nơi ghi cách mở, phạm vi mock và bằng chứng của nhóm.
+Prototype có **hai màn hình**: cuộc trò chuyện của người mua và bàn duyệt của trưởng nhóm. Dữ liệu, chính sách, thông báo và thao tác đều giả lập; không phát sinh đơn hàng hoặc giao dịch thật.
 
-## Thông tin cần bổ sung
+## Mở ngay
 
-- File hoặc link prototype: [Cần điền].
-- Công cụ dựng: [Cần điền].
-- Cách mở và bấm thử: [Cần điền].
-- Phần nào mock: [Cần điền].
-- Có lời gọi AI thật không: [Cần điền; không bắt buộc].
-- Ca chính và ID trong `../spec.md`: [Cần điền].
+1. Tải repo ở nhánh **lam-prototype** về máy.
+2. Mở **index.html** trong thư mục này bằng Edge hoặc Chrome.
+3. Chọn tình huống trên thanh xanh ở đầu trang. Không cần cài thư viện, đăng nhập, API key hoặc chạy server.
 
-Nếu làm HTML, đặt file `index.html` trong thư mục này và ghi cách mở bằng trình duyệt. Nếu dùng Figma hoặc công cụ khác, dán link cho phép người chấm truy cập.
+Các tệp index.html, styles.css, data.js và app.js phải ở cùng thư mục. Trên trang GitHub, nút Preview của file HTML không chạy ứng dụng; cần tải các tệp về và mở bằng trình duyệt.
 
-## Yêu cầu cần thể hiện
+## Ba tình huống
 
-- 1–2 màn hình, bấm qua ca khó từ đầu tới cuối.
-- Ca demo bắt buộc T4: **người bán đúng hoặc mô tả đã bị sửa**.
-- Thấy căn cứ AI dùng hoặc lý do chưa đủ căn cứ; so sánh với mô tả **lúc đặt hàng**.
-- Ít nhất hai mức tự chủ khác nhau, nhất quán với `spec.md` §4.
-- Tool cần duyệt có bước xác nhận và thông tin cho người duyệt.
-- Thao tác tự làm có cách sửa/hoàn tác phù hợp; không hứa đảo lại tác động mà tool không đảo được.
-- Có đường chuyển người; việc cấm không có nút thực hiện.
-- Người bán có cơ hội phản hồi; lời doạ không được coi là căn cứ xử thua.
-- Mỗi nguyên tắc HAX/PAIR đã chọn trỏ tới một vị trí cụ thể.
+| Mã | Nội dung | Kết quả cần thấy |
+|---|---|---|
+| S01 | Tai nghe, khách phản ánh mô tả từ đen thành trắng | Nguồn lúc đặt chưa xác minh; tự chuyển người, không bắt khách phải có ảnh |
+| S04 | Nồi chiên ghi 6L, khách đo lòng nồi 5L | Hỏi cách đo, xin ảnh nhãn và thông số shop; chưa kết luận bên nào đúng |
+| S09 | Tai nghe sai màu, shop nhận giao nhầm, đủ bằng chứng | Chuẩn bị hồ sơ ngay, không hỏi lại bằng chứng đã đủ; vẫn cần trưởng nhóm duyệt |
 
-## Ảnh và chú thích
+Thời gian bắt đầu: **15:00 ngày 12/11/2026, giờ Việt Nam**. Nút **+24 giờ** tua thời gian của tình huống, không phải thời gian thực. Nút **Làm lại** mở lượt mô phỏng mới; không phải hoàn tác quyết định tiền.
 
-Sau khi dựng xong, thêm 1–2 ảnh có đánh số vào `screenshots/`:
+## Demo khoảng 4 phút
 
-- `screenshots/01-luong-chinh.png`
-- `screenshots/02-xac-nhan-hoac-chuyen-nguoi.png`
+### 1. S01 — không dùng nguồn sai để xử khách
 
-Đây là tên ảnh dự kiến; ảnh chưa được tạo. Cập nhật tên thật nếu khác, chèn ảnh vào `spec.md` §5 và giải thích từng số.
+- Giữ S01 mặc định.
+- Chỉ thẻ **Mô tả lúc đặt: chưa xác minh**, đặt cạnh mô tả hiện tại màu trắng.
+- Bấm **Tôi không có ảnh**. Hồ sơ vẫn ở hàng chờ, khách không bị từ chối vì thiếu ảnh.
+- Bấm **Bàn trưởng nhóm** → **Tiếp nhận hồ sơ**.
+- Nút **Duyệt phương án…** đang khoá. Bấm **Đối chiếu bản lưu lúc đặt** để xác minh bản lưu màu đen.
+- Ghi nhận phản hồi và bằng chứng shop; điều này chỉ mở điều kiện xem xét, không tự kết luận hoặc hoàn tiền.
 
-| Ảnh / số chú thích | Câu chữ hoặc nút | HAX/PAIR | Mức tự chủ |
-|---|---|---|---|
-| [Cần điền sau khi chụp] | [Cần điền] | [Cần điền] | [Cần điền] |
+### 2. S04 — hỏi đủ ngữ cảnh và có người chịu trách nhiệm
 
-## Kịch bản bấm demo
+- Đổi sang S04. Bấm **Gửi ảnh nhãn thông số** để thêm dữ liệu mẫu.
+- Bấm **Mô tả cách đo**, nhập ít nhất 10 ký tự rồi lưu.
+- Bấm **Chuyển nhân viên**. Trước khi trưởng nhóm tiếp nhận, khách có thể **Hoàn tác chuyển hồ sơ**.
+- Sang **Bàn trưởng nhóm** → **Tiếp nhận hồ sơ** → **Ghi nhận phản hồi và bằng chứng shop**.
+- Đọc thông số mẫu: tổng 6L, lòng nồi 5L. Dòng này không tự chứng minh shop đúng.
+- Chọn phương án, nhập lý do ít nhất 20 ký tự, đánh dấu đã đối chiếu, bấm **Duyệt phương án…**.
+- Hộp xác nhận ghi mã đơn, tiền, lý do và tác động khó đảo. Phải đánh dấu xác nhận tác động rồi mới thực hiện.
+- Có thể bấm **Quay lại kiểm tra** hoặc Esc; chưa có thao tác tiền.
+- **Không duyệt đề xuất** giữ khiếu nại mở, khác với **Từ chối và đóng khiếu nại**.
 
-1. [Cần điền trạng thái ban đầu và dữ liệu giả].
-2. [Cần điền thao tác của người dùng].
-3. [Cần điền AI phản hồi, bằng chứng và bước tiếp theo].
-4. [Cần điền người duyệt hoặc chuyển nhân viên, trạng thái kết thúc].
-5. Thử một ca lạ và ghi nhận hành vi thực tế tại `spec.md` §7.
+### 3. Ca lạ và quá hạn
 
-## Dữ liệu và giới hạn
+- Làm lại S04, không bổ sung gì, bấm **+24 giờ**: có một lời nhắc. Bấm thêm một lần: hồ sơ chuyển trưởng nhóm, không tự từ chối.
+- Làm lại S01, bấm **+24 giờ**: báo chậm, nhắc và chuyển cấp; không tự quyết định tiền.
+- Thử nhắn “khóa shop vì hàng giả”, “cho số điện thoại shop”, “hoàn tiền ngay không thì bóc phốt”, hoặc một câu thiếu thông tin.
+- Các nhánh này không làm phát sinh hoàn tiền, không phạt shop và không đưa thông tin liên hệ.
+- S09 cho thấy khách đủ bằng chứng không phải nộp lại tài liệu.
 
-- Chỉ dùng dữ liệu dựng của đề hoặc tự sinh; không dùng đơn hàng, thông tin liên hệ hay tài khoản thật.
-- Ghi rõ chính sách, thời hạn hoặc dữ liệu nào do nhóm tự dựng.
-- Không đưa số điện thoại, địa chỉ giữa hai bên; không hứa phạt shop.
-- Nếu có AI thật: không commit API key; chỉ gửi dữ liệu dựng và bổ sung log/ảnh làm bằng chứng.
+## Ảnh và vị trí chú thích
+
+![Người mua S01](screenshots/01-nguoi-mua.jpg)
+
+![Xác nhận của trưởng nhóm S04](screenshots/02-truong-nhom.jpg)
+
+| Số | Vị trí | Ý nghĩa |
+|---|---|---|
+| 1 | Trạng thái và điểm cần làm rõ | HAX G10: nói rõ chưa chắc, giới hạn kết luận |
+| 2 | Hai nguồn mô tả đặt cạnh nhau | HAX G11: giải thích căn cứ và thời điểm của nguồn |
+| 3 | Tôi không có ảnh / Chuyển nhân viên | PAIR Errors + Graceful Failure: luôn có đường tiếp tục |
+| 4 | Xem hồ sơ ở bàn trưởng nhóm | Đường chuyển người, có gói thông tin sẵn |
+| 5 | Bàn duyệt và hộp xác nhận | Cần người duyệt, cảnh báo tác động trước khi thực hiện |
+
+Có thể tắt Chú thích ở thanh đầu trang khi trình bày như một sản phẩm.
+
+## Mức tự chủ đã thể hiện
+
+- yeu_cau_bang_chung: tự làm, tối đa một yêu cầu và một lời nhắc cho mỗi bên. Tin đã gửi không có nút thu hồi; bổ sung/sửa thông tin tạo cập nhật mới.
+- chuyen_truong_nhom: tự chuyển khi thiếu nguồn, có mâu thuẫn, khách yêu cầu hoặc hết thời hạn bổ sung. S04 cho phép hoàn tác chuyển khi chưa tiếp nhận và chưa quá hạn; S01 không rút khỏi luồng kiểm tra nguồn bắt buộc.
+- soan_hoan_tien: chuẩn bị bản nháp là bước riêng có thể bỏ; thực hiện hoàn tiền cần trưởng nhóm và xác nhận tác động.
+- tu_choi_khieu_nai: quyết định riêng cần trưởng nhóm, lý do và xác nhận; im lặng hoặc không duyệt bản nháp không làm đóng khiếu nại.
+- phat_shop: không có nút thực hiện; nghi vấn hàng giả chuyển chuyên trách.
+- Khi nguồn lúc đặt chưa xác minh, không tạo đề xuất hoặc duyệt quyết định tiền.
+
+## Phần mock và giới hạn
+
+- Câu trả lời được dựng theo tình huống và một số quy tắc văn bản; **không có lời gọi mô hình AI thật**.
+- Nút gửi ảnh thêm bằng chứng mẫu; không đọc, tải lên hoặc xác minh ảnh thật.
+- Đối chiếu bản lưu và ghi nhận phản hồi shop sử dụng dữ liệu dựng trong data.js; đây không phải kết nối Shopee.
+- Không có backend, xác thực danh tính, lưu bền, thông báo thật, lịch chạy nền hoặc chuyển tiền thật. Đổi vai chỉ phục vụ demo.
+- Dữ liệu chỉ ở bộ nhớ của tab; tải lại trang hoặc Làm lại sẽ khởi tạo một lượt mới.
+- Bộ định tuyến tin nhắn không bao phủ mọi cách diễn đạt. Khi chưa hiểu, nó hỏi rõ hoặc hướng dẫn chuyển người, không tự suy ra quyền thực hiện.
+- Mốc 24/48 giờ và hạn gửi yêu cầu 7 ngày sau giao hàng là chính sách mẫu; không đại diện chính sách Shopee.
+- Không có hoàn tác giả cho thao tác tiền đã xác nhận. Nút Làm lại chỉ đặt lại buổi demo.
+
+## Kiểm tra
+
+Bộ kiểm tra trong tests/browser_check.py chạy trên Microsoft Edge thông qua Playwright, bao gồm nguồn sai, duyệt tiền, bỏ bản nháp, quá hạn, quyền cấm, dữ liệu nhập và màn hình 390px.
+
+Chạy từ thư mục gốc repo:
+
+    py -m pip install playwright
+    py -X utf8 prototype/tests/browser_check.py
+
+Máy cần có Microsoft Edge. Không cần tải thêm trình duyệt khi dùng channel msedge. Kết quả máy đọc được ở test-results.json; chạy thành công sẽ tạo lại hai ảnh.
+
+Bài viết và lý do lựa chọn giao diện nằm ở ../spec.md §5.

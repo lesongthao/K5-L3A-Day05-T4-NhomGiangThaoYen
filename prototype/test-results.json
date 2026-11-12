@@ -1,0 +1,7 @@
+{
+  "tests": 23,
+  "failures": 0,
+  "errors": 0,
+  "browser": "Microsoft Edge / Playwright",
+  "mode": "file://, no backend or external API"
+}
