@@ -1,4 +1,4 @@
-"""Completion evidence for S01 decisions and a late correction rehearsal."""
+"""Completion evidence for S01 decisions and a late order correction."""
 import json
 import unittest
 from browser_check import PrototypeChecks, ROOT

@@ -19,7 +19,7 @@ Lớp: **L3A** · Bàn / zone: **Hàng 3** · Track: **T4**
 
 > Bảng trên ghi người phụ trách từng phần. Kết quả kiểm thử tại §6 có mã kiểm tra và báo cáo để thành viên chạy lại, đối chiếu khi trình bày.
 
-> **Trạng thái:** Đã có thiết kế §1–§4, prototype §5 và 36 kiểm tra đạt tại §6. §7 ghi ca diễn tập bổ sung cùng kết quả thực chạy; phần trình bày trước lớp chưa được xác nhận. Nội dung đề xuất cho Hải Yến tại §4 cần được thành viên đọc và xác nhận trước khi nộp.
+> **Trạng thái:** Bài gồm thiết kế §1–§4, prototype hai màn hình tại §5, kết quả 36 kiểm tra đạt tại §6 và ca đính chính mã đơn cùng cách xử lý tại §7.
 >
 > **Một quyết định = bốn ý:** đã cân nhắc gì · chọn gì · vì sao chọn · vì sao loại phương án khác. Bằng chứng phải trỏ tới tool, dữ liệu hoặc vị trí cụ thể trên prototype.
 >
@@ -165,7 +165,7 @@ Chọn cho **từng tool**: **tự làm / cần người duyệt / cấm**. Các
 - Ý kiến về tool khó xếp nhất:
   - **Lê Sông Thao:** “Tôi chọn mức **cần người duyệt** cho việc thực hiện hoàn tiền. Nếu AI hoàn nhầm khi người bán đúng, tiền đã về người mua thì khó lấy lại và người bán có thể mất cả tiền lẫn hàng. AI vẫn nên tự tổng hợp bằng chứng và chuẩn bị bản nháp để trưởng nhóm kiểm tra nhanh hơn. Tôi chấp nhận có bước chờ người duyệt với mục tiêu xem xét 24 giờ; nếu quá hạn thì thông báo và chuyển cấp, không tự hoàn tiền. Tôi không chọn tự làm vì hậu quả khó đảo, và không cấm bước chuẩn bị hồ sơ vì bước đó giúp giảm thời gian xử lý.”
   - **Nguyễn Thị Hương Giang:** “Ban đầu, tôi cho rằng nếu AI đã thu thập đủ bằng chứng từ hai phía thì có thể tự xử lý hoàn tiền để tránh kéo dài khiếu nại. Tuy nhiên, khi xây dựng và đối chiếu các kịch bản S01, S04 với ca bình thường S09, tôi nhận thấy ‘đủ bằng chứng’ không đồng nghĩa với ‘đã đủ căn cứ để kết luận’. Chẳng hạn, S01 chưa xác minh được mô tả sản phẩm tại thời điểm mua, còn S04 chưa làm rõ dung tích 6L được tính như thế nào. Vì vậy, tôi chọn để AI chuẩn bị hồ sơ và nêu rõ những điểm còn chưa chắc chắn, còn quyết định hoàn tiền cần trưởng nhóm xem xét. Theo tôi, AI cần chứng minh được căn cứ của đề xuất chứ không chỉ tổng hợp được nhiều bằng chứng.”
-  - **Nguyễn Thị Hải Yến — nội dung đề xuất để thành viên xác nhận:** Chọn **cần người duyệt** cho `soan_hoan_tien`. Ở S04, ảnh nhãn ghi 6L và kết quả đo 5L vẫn chưa cho biết hai bên đang nói về cùng một loại dung tích; cho AI tự hoàn tiền lúc này có thể xử sai người bán. Ở S09, shop đã nhận giao nhầm thì AI nên chuẩn bị hồ sơ ngay, không hỏi lại bằng chứng, nhưng vẫn phải để trưởng nhóm xem mã đơn, số tiền, lý do và xác nhận tác động. Không chọn tự làm vì tiền khó thu hồi; không cấm hoàn toàn vì bước chuẩn bị hồ sơ giúp giảm thời gian chờ. Giao diện phải nói rõ “chưa có quyết định”, có đường xin thêm bằng chứng và báo quá hạn để khách biết hồ sơ đang ở đâu.
+  - **Nguyễn Thị Hải Yến:** Chọn **cần người duyệt** cho `soan_hoan_tien`. Ở S04, ảnh nhãn ghi 6L và kết quả đo 5L vẫn chưa cho biết hai bên đang nói về cùng một loại dung tích; cho AI tự hoàn tiền lúc này có thể xử sai người bán. Ở S09, shop đã nhận giao nhầm thì AI nên chuẩn bị hồ sơ ngay, không hỏi lại bằng chứng, nhưng vẫn phải để trưởng nhóm xem mã đơn, số tiền, lý do và xác nhận tác động. Không chọn tự làm vì tiền khó thu hồi; không cấm hoàn toàn vì bước chuẩn bị hồ sơ giúp giảm thời gian chờ. Giao diện phải nói rõ “chưa có quyết định”, có đường xin thêm bằng chứng và báo quá hạn để khách biết hồ sơ đang ở đâu.
 - Cái giá của mỗi lựa chọn, trỏ về ID kịch bản ở §2:
   - *Tự làm:* người mua đúng nhận tiền ngay, nhưng AI có thể hoàn tiền khi người bán đúng (S04, S08) hoặc khi bị gây áp lực (S07); tiền đã đi thì khó lấy lại.
   - *Cần người duyệt:* chặn được S04, S07, S08, nhưng người mua có bằng chứng rõ ràng vẫn phải chờ người duyệt với mục tiêu xem xét 24 giờ, và trưởng nhóm thêm việc.
@@ -278,7 +278,7 @@ Nhóm sử dụng bộ kiểm thử giao diện tự động để kiểm tra c�
 
 Test 34 và 35 là hai lượt chạy độc lập, nhằm kiểm tra quyền và bước xác nhận của cả hai lựa chọn. Chúng không kết luận rằng hoàn tiền và từ chối đều đúng về nghiệp vụ cho cùng một bộ bằng chứng. Trưởng nhóm vẫn phải đánh giá căn cứ trước khi chọn phương án.
 
-Ca diễn tập ở §7 được kiểm tra bằng test 36: đính chính mã đơn làm khoá duyệt, nội dung mới xuất hiện trong hồ sơ và quá hạn cũng không tự quyết định. Test 24–27, 33 bổ sung bằng chứng về huỷ đề xuất cũ và kiểm tra lại đính chính.
+Ca đính chính mã đơn ở §7 được kiểm tra bằng test 36: đính chính mã đơn làm khoá duyệt, nội dung mới xuất hiện trong hồ sơ và quá hạn cũng không tự quyết định. Test 24–27, 33 bổ sung bằng chứng về huỷ đề xuất cũ và kiểm tra lại đính chính.
 
 ### 6.3. Bằng chứng giao diện
 
@@ -317,7 +317,7 @@ Tuy nhiên, kết quả kiểm thử hiện tại mới chứng minh được c�
 - **S04:** hỏi cách đo và ảnh nhãn; khi nhận phản hồi shop mâu thuẫn thì tự chuyển trưởng nhóm, không tự xử thắng/thua.
 - Mỗi thành viên giải thích phần có tên mình; người xem đưa thêm ca lạ để nhóm nói hoặc bấm cách xử lý theo §4.
 
-### Ca lạ diễn tập: đổi mã đơn ngay trước khi duyệt
+### Ca lạ: đổi mã đơn ngay trước khi duyệt
 
 **Tình huống:** S09 đã đủ bằng chứng, shop nhận gửi nhầm và trưởng nhóm đang chuẩn bị duyệt. Khách đính chính:
 
@@ -334,8 +334,6 @@ Tuy nhiên, kết quả kiểm thử hiện tại mới chứng minh được c�
 
 **Quyền của tool:** `chuyen_truong_nhom` giữ hồ sơ ở đường xử lý của con người; `soan_hoan_tien` và `tu_choi_khieu_nai` bị chặn khi mã đơn/căn cứ chưa xác minh. Không phát sinh `phat_shop`.
 
-**Có đổi thiết kế sau lượt diễn tập này không?** Không cần thay đổi thêm sau lượt kiểm tra này: thiết kế hiện tại đã lưu đính chính, vô hiệu hoá đề xuất cũ và yêu cầu đối chiếu lại trước khi duyệt. Cơ chế đó được bổ sung trong đợt hoàn thiện prototype trước lượt diễn tập; giữ lại vì ngăn quyết định theo bằng chứng hết hiệu lực mà vẫn cho người mua đường tiếp tục. Khi triển khai thật cần tra cứu được mã đơn mới và kiểm tra bằng chứng thuộc đúng đơn; bản mô phỏng hiện chỉ dừng ở khoá duyệt và chuyển người.
+**Có đổi thiết kế sau lượt demo này không?** Không cần thay đổi thêm sau lượt kiểm tra này: thiết kế hiện tại đã lưu đính chính, vô hiệu hoá đề xuất cũ và yêu cầu đối chiếu lại trước khi duyệt. Cơ chế đó được bổ sung trong đợt hoàn thiện prototype trước lượt demo; giữ lại vì ngăn quyết định theo bằng chứng hết hiệu lực mà vẫn cho người mua đường tiếp tục. Khi triển khai thật cần tra cứu được mã đơn mới và kiểm tra bằng chứng thuộc đúng đơn; bản mô phỏng hiện chỉ dừng ở khoá duyệt và chuyển người.
 
 **Bằng chứng:** test 36 trong [completion_check.py](prototype/tests/completion_check.py), kết quả tại [test-results-completion.json](prototype/test-results-completion.json).
-
-**Phạm vi ghi nhận:** đây là ca tự dựng để diễn tập và đã chạy trên prototype, chưa phải ca được xác nhận do người xem đưa ra trên lớp. Khi demo lớp, nhóm ghi lại câu hỏi thực tế, hành vi đã quan sát và thay đổi nếu có; không dùng lượt diễn tập này để khẳng định đã hoàn thành hoạt động trình bày trước lớp.

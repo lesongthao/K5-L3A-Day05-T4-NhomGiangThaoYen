@@ -114,8 +114,8 @@ Bài viết và lý do lựa chọn giao diện nằm ở ../spec.md §5.
 
 Kết quả mới ghi vào test-results-update.json, tách khỏi báo cáo 23 test gốc test-results.json. §6 trong spec.md tổng hợp kết quả của các bộ kiểm tra.
 
-## Kiểm tra hoàn tất S01 và ca lạ diễn tập
+## Kiểm tra hoàn tất S01 và ca lạ
 
     py -X utf8 prototype/tests/completion_check.py
 
-Ba kiểm tra (34–36) chạy riêng hai quyết định có xác nhận ở S01 và ca S09 đính chính mã đơn ngay trước khi duyệt, rồi quá hạn. Kết quả ở [test-results-completion.json](test-results-completion.json). Tổng cả ba bộ là **36 kiểm tra đạt**; ca diễn tập và lý do giữ thiết kế được ghi tại [§7 của bài viết](../spec.md#7-demo).
+Ba kiểm tra (34–36) chạy riêng hai quyết định có xác nhận ở S01 và ca S09 đính chính mã đơn ngay trước khi duyệt, rồi quá hạn. Kết quả ở [test-results-completion.json](test-results-completion.json). Tổng cả ba bộ là **36 kiểm tra đạt**; ca đính chính mã đơn và lý do giữ thiết kế được ghi tại [§7 của bài viết](../spec.md#7-demo).

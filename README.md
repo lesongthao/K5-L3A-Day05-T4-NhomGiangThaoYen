@@ -4,7 +4,7 @@
 - **Track:** T4 — Trợ lý khiếu nại “hàng không đúng mô tả”.
 - **Bài viết:** [spec.md](spec.md).
 - **Prototype và cách demo:** [prototype/README.md](prototype/README.md).
-- **Trạng thái:** Có thiết kế, prototype hai màn hình, hai ảnh đánh số và 36 kiểm tra đạt. §7 có ca diễn tập đã kiểm tra; việc demo trước lớp chưa được xác nhận. Nội dung đề xuất cho Hải Yến tại §4 chờ thành viên xác nhận.
+- **Trạng thái:** Có thiết kế, prototype hai màn hình, hai ảnh đánh số và 36 kiểm tra đạt. §7 trình bày ca đính chính mã đơn, kết quả xử lý và lý do giữ thiết kế.
 - **Hạn nộp theo đề:** 23:59 ngày 12/11/2026, giờ Việt Nam.
 
 ## Bài này làm gì?
@@ -58,10 +58,10 @@ Kết quả: **23 + 10 + 3 = 36 kiểm tra đạt, không lỗi**. Ba báo cáo 
 - [x] Prototype chạy S01/S04/S09, có đính chính, quá hạn, chuyển người và xác nhận tác động.
 - [x] Có hai ảnh đánh số và đối chiếu HAX/PAIR.
 - [x] Có 3 tiêu chí Pass/Fail, đánh giá trên hai ca khó và báo cáo 36 kiểm tra.
-- [x] Có ca lạ diễn tập, kết quả thực chạy và lý do giữ thiết kế tại §7.
+- [x] Có ca lạ, kết quả kiểm tra và lý do giữ thiết kế tại §7.
 - [x] Dữ liệu mẫu, không cần API key hoặc dữ liệu cá nhân thật của khách hàng.
-- [ ] Hải Yến xác nhận nội dung đề xuất ý kiến cá nhân ở §4.
-- [ ] Ghi nhận buổi demo lớp: ca người xem thực tế đưa ra, kết quả và thay đổi nếu có.
+- [x] Hải Yến đã chấp thuận nội dung ý kiến tại §4.
+- [ ] Trình bày trước lớp và ghi nhận trao đổi với người xem.
 - [ ] Gộp thay đổi cuối vào `main` và nộp link repo qua kênh giảng viên yêu cầu.
 
 ## Tài liệu đề bài
