@@ -4,8 +4,7 @@
 - **Track:** T4 — Trợ lý khiếu nại “hàng không đúng mô tả”.
 - **Bài viết:** [spec.md](spec.md).
 - **Prototype và cách demo:** [prototype/README.md](prototype/README.md).
-- **Trạng thái:** Bài viết, prototype hai màn hình, hai ảnh đánh số và báo cáo 36 kiểm tra đã sẵn sàng trong repo.
-- **Hạn nộp theo đề:** 23:59 ngày 12/11/2026, giờ Việt Nam.
+- **Trạng thái:** Bài viết, prototype hai màn hình, hai ảnh đánh số và báo cáo 36 kiểm tra đã hoàn thiện.
 
 ## Bài này làm gì?
 
@@ -42,11 +41,10 @@ py -X utf8 prototype/tests/completion_check.py
 
 Kết quả: **23 + 10 + 3 = 36 kiểm tra đạt, không lỗi**. Ba báo cáo nằm trong `prototype/`: [bộ gốc](prototype/test-results.json), [bộ bổ sung](prototype/test-results-update.json), [bộ hoàn tất](prototype/test-results-completion.json). Các kiểm tra chứng minh hành vi mô phỏng, không chứng minh chất lượng AI hay giao dịch thật.
 
-## Quy trình GitHub và nộp bài
+## Nộp bài
 
-- Nộp **một link repo chung**: [K5-L3A-Day05-T4-NhomGiangThaoYen](https://github.com/lesongthao/K5-L3A-Day05-T4-NhomGiangThaoYen), tại kênh giảng viên thông báo.
-- Bản nộp dùng `spec.md`, mã HTML/CSS/JavaScript trong `prototype/` và hai ảnh đánh số. Đề cho phép nộp prototype bằng tệp HTML; không bắt buộc triển khai thành website riêng.
-- Trước khi gửi link, mở lại `main` và thử `prototype/index.html` một lần để chắc bản nộp đã gồm thay đổi cuối.
+- Link repo: [K5-L3A-Day05-T4-NhomGiangThaoYen](https://github.com/lesongthao/K5-L3A-Day05-T4-NhomGiangThaoYen).
+- Bản nộp gồm `spec.md`, mã HTML/CSS/JavaScript trong `prototype/` và hai ảnh đánh số.
 
 ## Checklist
 
@@ -59,7 +57,8 @@ Kết quả: **23 + 10 + 3 = 36 kiểm tra đạt, không lỗi**. Ba báo cáo 
 - [x] Có 3 tiêu chí Pass/Fail, đánh giá trên hai ca khó và báo cáo 36 kiểm tra.
 - [x] Có ca lạ, kết quả kiểm tra và lý do giữ thiết kế tại §7.
 - [x] Dữ liệu mẫu, không cần API key hoặc dữ liệu cá nhân thật của khách hàng.
-- [x] Hải Yến đã chấp thuận nội dung ý kiến tại §4.
+- [x] Cả ba thành viên đã hoàn thiện quan điểm thảo luận tại §4.
+- [x] Toàn bộ mã nguồn, tài liệu và test suite đã được đồng bộ trên nhánh main.
 
 Khi trình bày, Giang giới thiệu phạm vi và kiểm tra; Yến giải thích phản hồi, quyền của tool và bước duyệt; Thao bấm prototype. Phần phân công đầy đủ ở [§7 của bài viết](spec.md#7-demo).
 

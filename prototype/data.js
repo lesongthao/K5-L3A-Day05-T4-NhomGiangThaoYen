@@ -10,7 +10,7 @@ window.LAB_CASES = Object.freeze({
     seller: "Shop có ảnh tai nghe đen và video đóng gói; cần xác nhận đúng mã đơn và giải thích sự khác biệt.",
     sellerNotice: "Có khiếu nại về màu sản phẩm. Trưởng nhóm đang kiểm tra lịch sử mô tả. Vui lòng gửi bản mô tả tại thời điểm bán và bằng chứng gắn đúng mã đơn. Chưa có kết luận shop vi phạm.",
     source: "Bản lưu ngày 08/11/2026; trang hiện tại cập nhật 10/11/2026. Nhân viên kiểm tra bản lưu trong bước duyệt.",
-    buyerEvidence: "Ảnh hàng nhận màu trắng, ảnh hộp và video kiểm tra pin — nội dung bằng chứng dựng.",
+    buyerEvidence: "Ảnh hàng nhận màu trắng, ảnh hộp và video kiểm tra pin — bằng chứng mô phỏng.",
     factory: "Đã đối chiếu mã đơn trên video và ghi nhận phản hồi shop; màu trên bản lưu lúc đặt là đen.",
     complete: false
   },

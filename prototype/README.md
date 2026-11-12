@@ -88,7 +88,7 @@ Chú thích mặc định tắt để giao diện gọn. Mở **Công cụ demo*
 
 - Câu trả lời được dựng theo tình huống và một số quy tắc văn bản; **không có lời gọi mô hình AI thật**.
 - Nút gửi ảnh thêm bằng chứng mẫu; không đọc, tải lên hoặc xác minh ảnh thật.
-- Đối chiếu bản lưu và ghi nhận phản hồi shop sử dụng dữ liệu dựng trong data.js; đây không phải kết nối Shopee.
+- Đối chiếu bản lưu và ghi nhận phản hồi shop sử dụng dữ liệu mô phỏng trong data.js; đây không phải kết nối Shopee.
 - Không có backend, xác thực danh tính, lưu bền, thông báo thật, lịch chạy nền hoặc chuyển tiền thật. Đổi vai chỉ phục vụ demo.
 - Dữ liệu chỉ ở bộ nhớ của tab; tải lại trang hoặc Làm lại sẽ khởi tạo một lượt mới.
 - Bộ định tuyến tin nhắn không bao phủ mọi cách diễn đạt. Khi chưa hiểu, nó hỏi rõ hoặc hướng dẫn chuyển người, không tự suy ra quyền thực hiện.

@@ -2,28 +2,21 @@
 
 Lớp: **L3A** · Bàn / zone: **Hàng 3** · Track: **T4**
 
-| Họ và Tên | Mã Học Viên | Phân công dự kiến | Việc đã làm |
+| Họ và Tên | Mã Học Viên | Phân công | Việc đã làm |
 |---|---|---|---|
-| Lê Sông Thao | 2A202603534 | **§5 và prototype/**: dựng 1–2 màn hình bấm được; làm các bước hỏi thêm, xác nhận hoặc chuyển nhân viên theo thiết kế chung; ghi cách mở, phần mock, ảnh đánh số và lý do chọn giao diện; tổng hợp bản cuối trên main. Nhánh: `lam-prototype`. | Đã dựng prototype hai màn hình trên nhánh lam-prototype; bổ sung dữ liệu S04/S09, hoàn thiện §5, chụp ảnh chú thích và kiểm tra trình duyệt. |
-| Nguyễn Thị Hương Giang | 2A202603538 | **§1, §2, §6**: hoàn thiện phạm vi và dữ liệu đơn tai nghe giả; viết ít nhất 8 kịch bản phủ 4 lớp, đề xuất 2 ca nguy hiểm nhất và lý do; viết 3 tiêu chí Pass/Fail, kiểm tra trên 2 ca chính khi có prototype. Nhánh: `viet-kich-ban`. | Đã viết phạm vi và dữ liệu ban đầu ở §1, kịch bản rủi ro và lựa chọn hai ca chính ở §2; hoàn thiện tiêu chí, tổng hợp kết quả kiểm thử và giới hạn của prototype tại §6. |
-| Nguyễn Thị Hải Yến | 2A202603567 | **§3, §4**: viết câu AI nói và bước tiếp theo cho 2 ca chính; chọn 2–3 nguyên tắc HAX/PAIR và vị trí thể hiện; đề xuất mức tự chủ cho đủ 5 tool, người duyệt và cách xử lý quá hạn; thử trên 2 ca nguy hiểm và 1 ca bình thường; kiểm tra prototype khớp thiết kế. Nhánh: `viet-ux`. | Đã hoàn thiện §3 về phản hồi khi AI sai, thông tin hai bên thấy và đường chuyển người; viết §4 về mức tự chủ, người duyệt, thời hạn và thử quyền trên các kịch bản. |
+| Lê Sông Thao | 2A202603534 | **§5 và prototype/**: prototype hai màn hình, luồng hỏi thêm/xác nhận/chuyển nhân viên, ảnh đánh số, lý do chọn giao diện, tổng hợp bản cuối trên main. | Dựng prototype hai màn hình; bổ sung dữ liệu S04/S09, hoàn thiện §5, chụp ảnh chú thích và kiểm tra trình duyệt. |
+| Nguyễn Thị Hương Giang | 2A202603538 | **§1, §2, §6**: phạm vi và dữ liệu đơn hàng giả lập, 9 kịch bản phủ 4 lớp, 2 ca nguy hiểm nhất và lý do, 3 tiêu chí Pass/Fail, kiểm tra trên 2 ca chính. | Viết phạm vi và dữ liệu ở §1, kịch bản rủi ro và lựa chọn hai ca chính ở §2; hoàn thiện tiêu chí, tổng hợp kết quả kiểm thử và giới hạn tại §6. |
+| Nguyễn Thị Hải Yến | 2A202603567 | **§3, §4**: câu AI nói và bước tiếp theo cho 2 ca chính, 2–3 nguyên tắc HAX/PAIR và vị trí thể hiện, mức tự chủ cho 5 tool, quy trình người duyệt và cách xử lý quá hạn. | Hoàn thiện §3 về phản hồi khi AI sai, thông tin hai bên thấy và đường chuyển người; viết §4 về mức tự chủ, người duyệt, thời hạn và thử quyền trên các kịch bản. |
 
-**Cách phối hợp — làm theo thứ tự:**
+**Quy trình phối hợp của nhóm:**
 
-1. **Mỗi người tạo một nhánh riêng từ main** theo tên ở bảng. Người viết bài chỉ sửa các mục được giao trong `spec.md`; người dựng prototype sửa `prototype/`.
-2. **Bạn phụ trách §1–2 viết kịch bản trước.** Cả ba cùng đọc, chọn 2 ca nguy hiểm nhất và thống nhất lý do. Bạn phụ trách §3–4 dùng đúng 2 ca đó để thiết kế phản hồi và đề xuất quyền của 5 tool.
-3. **Cả ba cùng chốt mức tự chủ trước khi hoàn thiện luồng bấm.** Người dựng prototype làm theo nội dung đã chốt; nếu phát hiện bất hợp lý thì cùng sửa bài viết và giao diện cho khớp. Mỗi người nêu ý kiến thực tế về tool khó xếp nhất để ghi tại §4.
-4. **Khi có prototype**, bạn phụ trách §6 chạy kiểm tra và ghi kết quả; bạn phụ trách §3–4 kiểm tra câu chữ, nút và nguyên tắc trên màn hình; người dựng prototype sửa lỗi, chụp ảnh đánh số và hoàn thiện §5.
-5. **Gộp bài:** mỗi người commit trên nhánh mình, mở pull request về main. Người giữ repo kiểm tra và gộp lần lượt; nếu có xung đột thì đối chiếu nội dung mới nhất trước khi xử lý. Bản nộp cuối nằm trên main.
-6. **§7 cả ba cùng làm sau demo.** Người viết kịch bản giới thiệu bài toán và rủi ro; người viết UX giải thích cách xử lý sai và quyền của tool; người dựng prototype bấm demo. Người giữ repo tổng hợp ca lạ và thay đổi thực tế vào §7.
+1. **Làm việc theo nhánh riêng:** Mỗi thành viên tạo nhánh làm việc từ `main` theo đúng phân công, không commit trực tiếp lên nhánh chính.
+2. **Xây dựng kịch bản và UX (§1–§4):** Nhóm thống nhất 2 kịch bản rủi ro cao nhất, thiết kế cách phản hồi của AI khi chưa chắc chắn và chốt mức tự chủ cho cả 5 tool.
+3. **Xây dựng và kiểm thử prototype (§5–§6):** Dựng giao diện tương tác hai màn hình, thiết lập các bộ kiểm thử tự động (Playwright) với 36 kiểm tra bao phủ các luồng chính và ca biên.
+4. **Đồng bộ và hoàn thiện bài nộp (§7):** Gộp toàn bộ pull request về nhánh `main`, chuẩn bị kịch bản demo và phương án xử lý ca lạ.
 
-> Bảng trên ghi người phụ trách từng phần. Kết quả kiểm thử tại §6 có mã kiểm tra và báo cáo để thành viên chạy lại, đối chiếu khi trình bày.
-
-> **Trạng thái:** Bài gồm thiết kế §1–§4, prototype hai màn hình tại §5, kết quả 36 kiểm tra đạt tại §6 và ca đính chính mã đơn cùng cách xử lý tại §7.
->
-> **Một quyết định = bốn ý:** đã cân nhắc gì · chọn gì · vì sao chọn · vì sao loại phương án khác. Bằng chứng phải trỏ tới tool, dữ liệu hoặc vị trí cụ thể trên prototype.
->
-> Nguồn phạm vi và tool: [Track T4](https://github.com/VinUni-AI20k/K5-L3-Day05-AI-Product-UX-Autonomy/blob/main/tracks/t4-ecommerce.md). Bố cục dựa trên [mẫu bài nộp](https://github.com/VinUni-AI20k/K5-L3-Day05-AI-Product-UX-Autonomy/blob/main/03-spec-template.md).
+> **Trạng thái bài nộp:** Đã hoàn thiện thiết kế (§1–§4), prototype hai màn hình (§5), 36 kiểm tra tự động đạt (§6) và kịch bản demo xử lý ca lạ (§7).
+> Nguồn phạm vi và tool: [Track T4](https://github.com/VinUni-AI20k/K5-L3-Day05-AI-Product-UX-Autonomy/blob/main/tracks/t4-ecommerce.md).
 
 ## §1. Lát cắt & phạm vi
 
@@ -37,7 +30,7 @@ Lớp: **L3A** · Bàn / zone: **Hàng 3** · Track: **T4**
 | Không tự động phạt, khóa hoặc hạn chế hoạt động của shop trong quá trình xử lý khiếu nại. | Đây là quyết định ảnh hưởng trực tiếp đến quyền lợi và hoạt động kinh doanh của người bán, vượt quá thẩm quyền của trợ lý AI. |
 | Không tiết lộ thông tin cá nhân như số điện thoại, địa chỉ của người mua và người bán cho bên còn lại. | Bảo vệ quyền riêng tư, tránh việc sử dụng thông tin cá nhân sai mục đích hoặc liên hệ ngoài nền tảng. |
 
-**Dữ liệu dựng nhóm dùng:**
+**Dữ liệu mô phỏng nhóm dùng:**
 
 Nhóm sử dụng các đơn hàng giả lập độc lập để kiểm thử trợ lý AI xử lý khiếu nại. Đơn chính của S01:
 
@@ -86,7 +79,7 @@ Nhóm sử dụng các đơn hàng giả lập độc lập để kiểm thử t
 - Bản nháp có thể bỏ; S04 có thể hoàn tác lần chuyển theo yêu cầu của khách khi trưởng nhóm chưa nhận và chưa quá hạn. Lần chuyển bắt buộc vì bằng chứng mâu thuẫn, hoặc S01 cần kiểm tra nguồn, được giữ trong hàng chờ để người phụ trách xem xét. Tin đã gửi không thu hồi, quyết định tiền không có hoàn tác giả.
 
 
-**Lưu ý:** Toàn bộ mã đơn hàng, sản phẩm, giá trị, mô tả, bằng chứng và mốc thời gian trên đều do nhóm tự dựng để phục vụ prototype. Các quy tắc xử lý khiếu nại ở trên cũng là chính sách giả lập của nhóm, không đại diện cho chính sách chính thức của Shopee.
+**Lưu ý:** Toàn bộ mã đơn hàng, sản phẩm, giá trị, mô tả, bằng chứng và mốc thời gian trên đều là dữ liệu mô phỏng do nhóm xây dựng để phục vụ prototype. Các quy tắc xử lý khiếu nại ở trên cũng là chính sách giả lập của nhóm, không đại diện cho chính sách chính thức của Shopee.
 
 ## §2. Kịch bản rủi ro
 
@@ -165,7 +158,7 @@ Chọn cho **từng tool**: **tự làm / cần người duyệt / cấm**. Các
 - Ý kiến về tool khó xếp nhất:
   - **Lê Sông Thao:** “Tôi chọn mức **cần người duyệt** cho việc thực hiện hoàn tiền. Nếu AI hoàn nhầm khi người bán đúng, tiền đã về người mua thì khó lấy lại và người bán có thể mất cả tiền lẫn hàng. AI vẫn nên tự tổng hợp bằng chứng và chuẩn bị bản nháp để trưởng nhóm kiểm tra nhanh hơn. Tôi chấp nhận có bước chờ người duyệt với mục tiêu xem xét 24 giờ; nếu quá hạn thì thông báo và chuyển cấp, không tự hoàn tiền. Tôi không chọn tự làm vì hậu quả khó đảo, và không cấm bước chuẩn bị hồ sơ vì bước đó giúp giảm thời gian xử lý.”
   - **Nguyễn Thị Hương Giang:** “Ban đầu, tôi cho rằng nếu AI đã thu thập đủ bằng chứng từ hai phía thì có thể tự xử lý hoàn tiền để tránh kéo dài khiếu nại. Tuy nhiên, khi xây dựng và đối chiếu các kịch bản S01, S04 với ca bình thường S09, tôi nhận thấy ‘đủ bằng chứng’ không đồng nghĩa với ‘đã đủ căn cứ để kết luận’. Chẳng hạn, S01 chưa xác minh được mô tả sản phẩm tại thời điểm mua, còn S04 chưa làm rõ dung tích 6L được tính như thế nào. Vì vậy, tôi chọn để AI chuẩn bị hồ sơ và nêu rõ những điểm còn chưa chắc chắn, còn quyết định hoàn tiền cần trưởng nhóm xem xét. Theo tôi, AI cần chứng minh được căn cứ của đề xuất chứ không chỉ tổng hợp được nhiều bằng chứng.”
-  - **Nguyễn Thị Hải Yến:** Chọn **cần người duyệt** cho `soan_hoan_tien`. Ở S04, ảnh nhãn ghi 6L và kết quả đo 5L vẫn chưa cho biết hai bên đang nói về cùng một loại dung tích; cho AI tự hoàn tiền lúc này có thể xử sai người bán. Ở S09, shop đã nhận giao nhầm thì AI nên chuẩn bị hồ sơ ngay, không hỏi lại bằng chứng, nhưng vẫn phải để trưởng nhóm xem mã đơn, số tiền, lý do và xác nhận tác động. Không chọn tự làm vì tiền khó thu hồi; không cấm hoàn toàn vì bước chuẩn bị hồ sơ giúp giảm thời gian chờ. Giao diện phải nói rõ “chưa có quyết định”, có đường xin thêm bằng chứng và báo quá hạn để khách biết hồ sơ đang ở đâu.
+  - **Nguyễn Thị Hải Yến:** “Tôi chọn mức **cần người duyệt** cho `soan_hoan_tien`. Ở S04, ảnh nhãn ghi 6L và kết quả đo 5L vẫn chưa cho biết hai bên đang nói về cùng một loại dung tích; cho AI tự hoàn tiền lúc này có thể xử sai người bán. Ở S09, shop đã nhận giao nhầm thì AI nên chuẩn bị hồ sơ ngay, không hỏi lại bằng chứng, nhưng vẫn phải để trưởng nhóm xem mã đơn, số tiền, lý do và xác nhận tác động. Tôi không chọn tự làm vì tiền khó thu hồi; không cấm hoàn toàn vì bước chuẩn bị hồ sơ giúp giảm thời gian chờ. Giao diện phải nói rõ ‘chưa có quyết định’, có đường xin thêm bằng chứng và báo quá hạn để khách biết hồ sơ đang ở đâu.”
 - Cái giá của mỗi lựa chọn, trỏ về ID kịch bản ở §2:
   - *Tự làm:* người mua đúng nhận tiền ngay, nhưng AI có thể hoàn tiền khi người bán đúng (S04, S08) hoặc khi bị gây áp lực (S07); tiền đã đi thì khó lấy lại.
   - *Cần người duyệt:* chặn được S04, S07, S08, nhưng người mua có bằng chứng rõ ràng vẫn phải chờ người duyệt với mục tiêu xem xét 24 giờ, và trưởng nhóm thêm việc.
@@ -230,7 +223,7 @@ Chọn cho **từng tool**: **tự làm / cần người duyệt / cấm**. Các
 
 - **Đính chính:** nội dung mới được lưu và hiển thị trong hồ sơ trưởng nhóm; bỏ đề xuất cũ, khoá duyệt và yêu cầu đối chiếu lại nguồn/bằng chứng. Mã đơn ngoài dữ liệu mẫu không được tự gán về đơn cũ. Với đúng đơn đang có, trưởng nhóm phải xác nhận đã kiểm tra lại đính chính trước khi duyệt.
 - **S01 sau 24 giờ:** nhắc bổ sung ảnh một lần khi khách chưa gửi và chưa chọn “Tôi không có ảnh”. Ảnh vẫn là tùy chọn; không có ảnh không làm mất quyền xử lý, không tự đóng hồ sơ.
-- **S04 khi hai bên mâu thuẫn:** trong Công cụ demo, chọn “Nhận phản hồi shop mâu thuẫn”. Biến thể dữ liệu dựng này dùng phản hồi shop ghi lòng nồi 6L trong khi người mua báo khoảng 5L; hồ sơ tự chuyển trưởng nhóm và hiển thị cả hai phía. Đây là biến thể riêng với phản hồi làm rõ “tổng 6L, lòng 5L” ở luồng mẫu ban đầu.
+- **S04 khi hai bên mâu thuẫn:** trong Công cụ demo, chọn “Nhận phản hồi shop mâu thuẫn”. Biến thể dữ liệu mô phỏng này dùng phản hồi shop ghi lòng nồi 6L trong khi người mua báo khoảng 5L; hồ sơ tự chuyển trưởng nhóm và hiển thị cả hai phía. Đây là biến thể riêng với phản hồi làm rõ “tổng 6L, lòng 5L” ở luồng mẫu ban đầu.
 - **Giao diện gọn:** việc cần làm tiếp theo và nút chính nằm đầu khung chat; nguồn dùng làm căn cứ luôn thấy bên cạnh. Bằng chứng chi tiết, lịch sử chat và công cụ demo mở khi cần. Bàn trưởng nhóm chỉ mở biểu mẫu duyệt sau khi kiểm tra đủ điều kiện.
 - **Kiểm tra bổ sung:** [regression_check.py](prototype/tests/regression_check.py) và [test-results-update.json](prototype/test-results-update.json) ghi kết quả riêng cho ba luồng mới. §6 tổng hợp bộ gốc, bộ kiểm tra bổ sung và bộ hoàn tất quyết định S01; từng báo cáo được giữ riêng để đối chiếu.
 
