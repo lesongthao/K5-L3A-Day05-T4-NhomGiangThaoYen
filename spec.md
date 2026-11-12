@@ -227,17 +227,60 @@ Kiểm tra trình duyệt tự động trên Edge, gồm hai ca khó, ca bình t
 
 Các ảnh là ảnh chụp giao diện chạy thật của prototype. Câu trả lời và nghiệp vụ vẫn là mô phỏng; không chứng minh khả năng hiểu ngôn ngữ hoặc xác minh ảnh của một model thật. Ca lạ ngoài quy tắc đi đường hỏi rõ/chuyển người.
 
-## §6. Tốt là gì
+## §6. Tốt là gì?
 
-| Tiêu chí và cách kiểm tra | Điều kiện Pass | Ca A: S01 | Ca B: S04 |
+Nhóm đánh giá prototype dựa trên 3 tiêu chí chính: độ an toàn khi xử lý thông tin, quyền quyết định của con người và khả năng xử lý khi thiếu phản hồi.
+
+### 6.1. Tiêu chí đánh giá
+
+| STT | Tiêu chí | Điều kiện Pass | Điều kiện Fail |
 |---|---|---|---|
-| 1. Không quyết định từ thông tin chưa xác minh | Khi nguồn hoặc ngữ cảnh còn thiếu, màn hình nêu phần thiếu và khoá quyết định tiền | **Pass:** mô tả hiện tại không thay bản lúc đặt; nút duyệt bị khoá đến khi trưởng nhóm đối chiếu bản lưu và bằng chứng shop (kiểm tra 01, 03) | **Pass:** thiếu cách đo hoặc ảnh nhãn thì chưa mở duyệt; phản hồi shop không tự làm phát sinh quyết định (kiểm tra 06) |
-| 2. Quyết định tiền phải qua người và xác nhận tác động | Chưa tiếp nhận, chưa đủ hồ sơ hoặc chưa xác nhận tác động thì không thể thực hiện; bỏ hộp xác nhận không chuyển tiền | **Pass:** kiểm tra 01 và 22; nguồn phải xác minh, bỏ xác nhận vẫn giữ trạng thái chưa quyết định | **Pass:** kiểm tra 07 và 23; quyết định đóng/hoàn là thao tác riêng có xác nhận, không duyệt đề xuất không đóng khiếu nại |
-| 3. Thiếu phản hồi vẫn có đường tiếp tục | Không có ảnh hoặc quá hạn không tự từ chối/hoàn; hồ sơ giữ hàng chờ hoặc chuyển cấp, chỉ nhắc một lần | **Pass:** không có ảnh vẫn chờ nhân viên; quá 24 giờ báo trễ, không tự quyết tiền (kiểm tra 02, 11) | **Pass:** sau 48 giờ thiếu thông tin thì chuyển người; lời nhắc không lặp vô hạn (kiểm tra 12) |
+| 1 | Không quyết định từ thông tin chưa xác minh | Hệ thống chỉ cho phép tiếp tục quyết định khi thông tin cần thiết đã được xác minh. Phải chỉ rõ dữ liệu còn thiếu và chuyển nhân viên khi không thể xác minh. | Sử dụng thông tin chưa xác minh để kết luận; lấy thông tin hiện tại thay cho thông tin tại thời điểm đặt hàng; tự động chấp nhận hoặc từ chối khiếu nại. |
+| 2 | Quyết định tài chính phải có người phê duyệt | Chỉ trưởng nhóm mới được thực hiện quyết định hoàn tiền hoặc từ chối khiếu nại. Trước khi thực hiện phải hiển thị lý do, thông tin liên quan và tác động; yêu cầu xác nhận rõ ràng. | AI tự hoàn tiền, tự từ chối hoặc đóng khiếu nại; thao tác được thực hiện khi chưa có xác nhận của người phụ trách. |
+| 3 | Có phương án xử lý khi thiếu thông tin hoặc quá hạn | Hệ thống cho phép người mua/người bán bổ sung bằng chứng, nhắc theo giới hạn và chuyển trưởng nhóm khi cần. Không tự kết luận chỉ vì một bên không phản hồi. | Hồ sơ bị bỏ dở; nhắc liên tục không giới hạn; tự động từ chối hoặc hoàn tiền khi thiếu phản hồi. |
 
-- **Bằng chứng:** [script kiểm tra trình duyệt](prototype/tests/browser_check.py), [kết quả chạy](prototype/test-results.json) và ảnh ở §5.
-- **Giới hạn còn lại:** phản hồi dựng theo quy tắc nên không chứng minh khả năng của model; chưa có xác thực vai, backend, xử lý tệp hoặc thông báo thật. Nhân viên vẫn có thể quyết định sai nếu đọc bằng chứng không cẩn thận; prototype yêu cầu đối chiếu và lý do nhưng không chứng minh được độ đúng của đánh giá con người.
-- **Kiểm tra với người dùng và demo lớp:** chưa thực hiện; ghi kết quả thực tế sau demo vào §7.
+### 6.2. Kết quả kiểm thử
+
+Nhóm sử dụng bộ kiểm thử giao diện tự động để kiểm tra các tình huống chính trong prototype.
+
+| Tiêu chí | Ca kiểm thử | Kết quả | Bằng chứng |
+|---|---|---|---|
+| Không quyết định từ thông tin chưa xác minh | S01 – Không xác minh được listing tại thời điểm mua | **Pass** | Test 01, 03: hệ thống không dùng listing hiện tại thay cho listing lịch sử; thao tác quyết định bị khóa khi nguồn chưa được xác minh. |
+| Không quyết định từ thông tin chưa xác minh | S04 – Chưa rõ dung tích 6L và 5L | **Pass** | Test 06: thiếu cách đo hoặc ảnh nhãn thì chưa đủ điều kiện duyệt; phản hồi của shop không tự động làm phát sinh quyết định. |
+| Quyết định tài chính phải có người phê duyệt | S09 – Người bán xác nhận gửi nhầm hàng | **Pass** | Test 04: kiểm tra luồng xác nhận hoàn tiền ở ca thông thường. |
+| Quyết định tài chính phải có người phê duyệt | S04 – Từ chối và đóng khiếu nại | **Pass** | Test 07: thao tác cần xác nhận tác động; test 23 kiểm tra hủy xác nhận không làm thay đổi trạng thái tiền. |
+| Quyết định tài chính phải có người phê duyệt | S01 – Nguồn lịch sử chưa xác minh | **Chưa đủ bằng chứng** | Test 01 và 22 kiểm tra khóa thao tác và hủy xác nhận. Chưa có test hoàn tất quyết định sau khi nguồn và bằng chứng đã được xác minh. |
+| Có phương án xử lý khi thiếu thông tin hoặc quá hạn | S01 – Người mua không có ảnh bổ sung | **Pass** | Test 02: vẫn có phương án chuyển nhân viên; test 11: quá mục tiêu 24 giờ thì chuyển cấp, không tự quyết định tài chính. |
+| Có phương án xử lý khi thiếu thông tin hoặc quá hạn | S04 – Thiếu thông tin sau 48 giờ | **Pass** | Test 12: hồ sơ được chuyển trưởng nhóm khi vẫn thiếu thông tin, không tự động từ chối khiếu nại. |
+
+**Tổng hợp kết quả tự động:**
+
+- Tổng số test: **23**
+- Failures: **0**
+- Errors: **0**
+
+Kết quả được ghi nhận tại `prototype/test-results.json`; mã kiểm thử tại `prototype/tests/browser_check.py`.
+
+### 6.3. Bằng chứng giao diện
+
+| Hình ảnh | Nội dung minh chứng |
+|---|---|
+| `prototype/screenshots/01-nguoi-mua.jpg` | Giao diện người mua: hiển thị trạng thái xử lý, thông tin chưa xác minh, các phiên bản listing và phương án bổ sung bằng chứng hoặc chuyển nhân viên. |
+| `prototype/screenshots/02-truong-nhom.jpg` | Giao diện trưởng nhóm: hồ sơ tổng hợp, thông tin còn thiếu và bước xác nhận trước khi thực hiện quyết định. |
+
+### 6.4. Giới hạn của prototype
+
+- **Chưa sử dụng AI thật:** Nội dung phản hồi được xây dựng theo các quy tắc và tình huống mẫu, chưa gọi mô hình LLM hoặc Agent.
+- **Chưa xác minh dữ liệu thực tế:** Ảnh, listing và thông tin đơn hàng là dữ liệu mô phỏng; prototype chưa kết nối hệ thống Shopee để kiểm tra nguồn dữ liệu gốc.
+- **Chưa có backend:** Chưa triển khai đăng nhập, phân quyền thực tế, lưu trữ dữ liệu bền vững hoặc gửi thông báo thật.
+- **Chưa bảo đảm chất lượng quyết định của con người:** Prototype hỗ trợ tổng hợp bằng chứng và yêu cầu xác nhận, nhưng không thể bảo đảm trưởng nhóm luôn đánh giá chính xác.
+- **Chính sách thời gian là giả lập:** Các mốc 24 giờ, 48 giờ và thời hạn 7 ngày được nhóm đặt ra để mô phỏng quy trình, không khẳng định là chính sách thực tế của Shopee.
+
+### 6.5. Kết luận
+
+Prototype đáp ứng các yêu cầu cốt lõi trong phạm vi mô phỏng: không tự kết luận khi dữ liệu chưa được xác minh, giữ quyền quyết định tài chính cho trưởng nhóm và có phương án chuyển cấp khi thiếu thông tin hoặc quá hạn.
+
+Tuy nhiên, kết quả kiểm thử hiện tại mới chứng minh được các luồng và quy tắc đã triển khai trong prototype, chưa chứng minh khả năng vận hành với dữ liệu thật hoặc AI thật. Nhóm cần tiếp tục bổ sung kiểm thử cho luồng S01 sau khi xác minh đầy đủ thông tin và thực hiện quyết định có xác nhận của trưởng nhóm.
 
 ## §7. Demo
 
