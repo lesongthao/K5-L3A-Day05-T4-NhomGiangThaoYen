@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Prototype LAB05 T4: trợ lý xử lý khiếu nại hàng không đúng mô tả, có căn cứ và có người duyệt.">
+  <title>Gỡ Rối · Hỗ trợ đơn hàng</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Đến nội dung chính</a>
+  <div class="demo-bar">
+    <div class="demo-inner">
+      <span class="demo-label"><span class="live-dot"></span> LAB05 · Dữ liệu giả lập</span>
+      <label class="case-picker">Tình huống
+        <select id="case-select" aria-label="Chọn tình huống">
+          <option value="S01">S01 · Mô tả đã thay đổi</option>
+          <option value="S04">S04 · Dung tích 6L hay 5L?</option>
+          <option value="S09">S09 · Shop xác nhận giao nhầm</option>
+        </select>
+      </label>
+      <div class="demo-controls">
+        <label class="annotation-toggle"><input id="annotations" type="checkbox" checked> Chú thích</label>
+        <button class="text-button" id="advance-time" type="button">+24 giờ</button>
+        <button class="text-button" id="reset" type="button">Làm lại</button>
+      </div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">g.</span><div><strong>Gỡ Rối</strong><span>Hỗ trợ đơn hàng, rõ từng bước.</span></div></div>
+    <nav class="role-switch" aria-label="Chọn màn hình mô phỏng">
+      <button id="buyer-tab" type="button" class="active" aria-pressed="true">Người mua</button>
+      <button id="staff-tab" type="button" aria-pressed="false">Bàn trưởng nhóm <span id="queue-count" class="queue-count">1</span></button>
+    </nav>
+    <span class="privacy-note">Chỉ mô phỏng · Không phát sinh giao dịch</span>
+  </header>
+  <main id="main" tabindex="-1">
+    <div class="page-heading">
+      <div><p class="eyebrow">TRUNG TÂM HỖ TRỢ / KHIẾU NẠI ĐƠN HÀNG</p><h1 id="page-title">Cùng làm rõ vấn đề của bạn.</h1><p id="page-description">Đối chiếu đúng thông tin. Lắng nghe cả hai phía.</p></div>
+      <div class="clock"><span>Thời gian trong tình huống</span><strong id="clock-value"></strong></div>
+    </div>
+    <div id="app"></div>
+    <footer class="site-footer"><span>LAB05 · T4 Thương mại điện tử · GiangThaoYen</span><span>Thông tin và chính sách trong bản mẫu đều là giả lập.</span></footer>
+  </main>
+  <dialog id="edit-dialog" aria-labelledby="edit-title">
+    <form id="edit-form">
+      <div class="dialog-top"><h2 id="edit-title">Mô tả cách bạn đo</h2><button class="icon-button" type="button" data-action="close-edit" aria-label="Đóng">×</button></div>
+      <p class="muted">Ghi cách đo lòng nồi; không cần cung cấp thông tin cá nhân.</p>
+      <label for="measurement">Cách đo</label>
+      <textarea id="measurement" rows="4" required minlength="10" maxlength="600" placeholder="Ví dụ: Tôi đong bằng ca có vạch, đến mức tối đa ghi trong lòng nồi."></textarea>
+      <div class="button-row"><button type="button" class="button secondary" data-action="close-edit">Quay lại</button><button class="button primary" type="submit">Lưu vào hồ sơ</button></div>
+    </form>
+  </dialog>
+  <dialog id="decision-dialog" aria-labelledby="decision-title">
+    <div class="dialog-top"><h2 id="decision-title">Xác nhận quyết định</h2><button class="icon-button" type="button" data-action="close-decision" aria-label="Đóng">×</button></div>
+    <div id="decision-summary"></div>
+    <label class="check-label impact-check"><input id="confirm-impact" type="checkbox"> Tôi đã kiểm tra hồ sơ và hiểu tác động của quyết định này.</label>
+    <div class="button-row"><button class="button secondary" type="button" data-action="close-decision">Quay lại kiểm tra</button><button id="confirm-decision" class="button primary" type="button" disabled>Xác nhận thực hiện</button></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

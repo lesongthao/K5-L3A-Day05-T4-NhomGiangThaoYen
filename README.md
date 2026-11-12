@@ -4,8 +4,14 @@
 - **Track:** T4 — Trợ lý khiếu nại “hàng không đúng mô tả”
 - **Bài viết:** [spec.md](spec.md)
 - **Prototype:** [prototype/README.md](prototype/README.md)
-- **Trạng thái:** Bộ khung ban đầu; nhóm chưa chốt thiết kế, chưa dựng prototype và chưa demo.
+- **Trạng thái:** Đã có thiết kế và prototype hai màn hình; kiểm tra trình duyệt đã chạy. Demo lớp và thông tin thành viên còn cần cập nhật.
 - **Hạn nộp theo đề:** 23:59 ngày 12/11/2026, giờ Việt Nam.
+
+## Mở prototype
+
+Tải nhánh lam-prototype về máy, mở prototype/index.html bằng Edge hoặc Chrome. Chọn S01, S04 hoặc S09 ở thanh đầu trang; chuyển giữa Người mua và Bàn trưởng nhóm để bấm thử. Không cần cài thư viện để chạy.
+
+Hướng dẫn từng bước: [prototype/README.md](prototype/README.md).
 
 ## Bắt đầu làm nhóm
 
@@ -47,7 +53,7 @@ Cả ba cùng thảo luận các quyết định chính và đều phải giải
 - [ ] Đủ 3 thành viên, mã học viên chính xác và phân công thực tế.
 - [ ] Ít nhất 8 kịch bản phủ đủ 4 lớp, có căn cứ và lý do chọn 2 ca nguy hiểm nhất.
 - [ ] UX khi sai và mức tự chủ có lập luận, phương án đã loại và bằng chứng.
-- [ ] Prototype bấm được ca người bán đúng hoặc mô tả đã bị sửa.
-- [ ] Có 1–2 ảnh đánh số, đối chiếu HAX/PAIR và mức tự chủ.
+- [x] Prototype bấm được ca mô tả đã bị sửa (S01), có thêm S04 và S09.
+- [x] Có 2 ảnh đánh số, đối chiếu HAX/PAIR và mức tự chủ.
 - [ ] Có 3 tiêu chí Pass/Fail, kết quả kiểm tra và ghi nhận demo thực tế.
 - [ ] Chỉ dùng dữ liệu dựng; không có API key hay dữ liệu thật của người thật.
