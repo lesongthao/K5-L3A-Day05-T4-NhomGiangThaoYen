@@ -2,11 +2,22 @@
 
 Lớp: **L3A** · Bàn / zone: **[Cần điền]** · Track: **T4**
 
-| Họ và Tên | Mã Học Viên | Việc đã làm |
-|---|---|---|
-| [Thành viên 1 — cần điền họ tên] | [Cần điền] | [Cập nhật việc đã làm thực tế] |
-| [Thành viên 2 — cần điền họ tên] | [Cần điền] | [Cập nhật việc đã làm thực tế] |
-| [Thành viên 3 — cần điền họ tên] | [Cần điền] | [Cập nhật việc đã làm thực tế] |
+| Họ và Tên | Mã Học Viên | Phân công dự kiến | Việc đã làm |
+|---|---|---|---|
+| [Bạn giữ repo — cần điền họ tên] | [Cần điền] | **§5 và prototype/**: dựng 1–2 màn hình bấm được; làm các bước hỏi thêm, xác nhận hoặc chuyển nhân viên theo thiết kế chung; ghi cách mở, phần mock, ảnh đánh số và lý do chọn giao diện; tổng hợp bản cuối trên main. Nhánh: `lam-prototype`. | [Cập nhật việc thực tế; chưa đánh dấu hoàn thành prototype] |
+| [Bạn đã điền §1 — cần điền họ tên] | [Cần điền] | **§1, §2, §6**: hoàn thiện phạm vi và dữ liệu đơn tai nghe giả; viết ít nhất 8 kịch bản phủ 4 lớp, đề xuất 2 ca nguy hiểm nhất và lý do; viết 3 tiêu chí Pass/Fail, kiểm tra trên 2 ca chính khi có prototype. Nhánh: `viet-kich-ban`. | Đã bổ sung nội dung §1. [Cập nhật thêm khi hoàn thành phần khác] |
+| [Bạn còn lại — cần điền họ tên] | [Cần điền] | **§3, §4**: viết câu AI nói và bước tiếp theo cho 2 ca chính; chọn 2–3 nguyên tắc HAX/PAIR và vị trí thể hiện; đề xuất mức tự chủ cho đủ 5 tool, người duyệt và cách xử lý quá hạn; thử trên 2 ca nguy hiểm và 1 ca bình thường; kiểm tra prototype khớp thiết kế. Nhánh: `viet-ux`. | [Cập nhật việc đã làm thực tế] |
+
+**Cách phối hợp — làm theo thứ tự:**
+
+1. **Mỗi người tạo một nhánh riêng từ main** theo tên ở bảng. Người viết bài chỉ sửa các mục được giao trong `spec.md`; người dựng prototype sửa `prototype/`.
+2. **Bạn phụ trách §1–2 viết kịch bản trước.** Cả ba cùng đọc, chọn 2 ca nguy hiểm nhất và thống nhất lý do. Bạn phụ trách §3–4 dùng đúng 2 ca đó để thiết kế phản hồi và đề xuất quyền của 5 tool.
+3. **Cả ba cùng chốt mức tự chủ trước khi hoàn thiện luồng bấm.** Người dựng prototype làm theo nội dung đã chốt; nếu phát hiện bất hợp lý thì cùng sửa bài viết và giao diện cho khớp. Mỗi người nêu ý kiến thực tế về tool khó xếp nhất để ghi tại §4.
+4. **Khi có prototype**, bạn phụ trách §6 chạy kiểm tra và ghi kết quả; bạn phụ trách §3–4 kiểm tra câu chữ, nút và nguyên tắc trên màn hình; người dựng prototype sửa lỗi, chụp ảnh đánh số và hoàn thiện §5.
+5. **Gộp bài:** mỗi người commit trên nhánh mình, mở pull request về main. Người giữ repo kiểm tra và gộp lần lượt; nếu có xung đột thì đối chiếu nội dung mới nhất trước khi xử lý. Bản nộp cuối nằm trên main.
+6. **§7 cả ba cùng làm sau demo.** Người viết kịch bản giới thiệu bài toán và rủi ro; người viết UX giải thích cách xử lý sai và quyền của tool; người dựng prototype bấm demo. Người giữ repo tổng hợp ca lạ và thay đổi thực tế vào §7.
+
+> Phân công ở trên là kế hoạch. Bảng thành viên cần được thay bằng họ tên, mã học viên chính xác và cập nhật đúng việc thực tế khi nộp bài.
 
 > **Trạng thái:** Bộ khung theo mẫu của đề; các ô [Cần điền] chưa phải kết luận của nhóm.
 >
