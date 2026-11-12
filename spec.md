@@ -1,12 +1,12 @@
 # Bài nộp LAB5 — T4 Thương mại điện tử · Nhóm GiangThaoYen
 
-Lớp: **L3A** · Bàn / zone: **[Cần điền]** · Track: **T4**
+Lớp: **L3A** · Bàn / zone: **Hàng 3** · Track: **T4**
 
 | Họ và Tên | Mã Học Viên | Phân công dự kiến | Việc đã làm |
 |---|---|---|---|
 | Lê Sông Thao | 2A202603534 | **§5 và prototype/**: dựng 1–2 màn hình bấm được; làm các bước hỏi thêm, xác nhận hoặc chuyển nhân viên theo thiết kế chung; ghi cách mở, phần mock, ảnh đánh số và lý do chọn giao diện; tổng hợp bản cuối trên main. Nhánh: `lam-prototype`. | Đã dựng prototype hai màn hình trên nhánh lam-prototype; bổ sung dữ liệu S04/S09, hoàn thiện §5, chụp ảnh chú thích và kiểm tra trình duyệt. |
-| Nguyễn Thị Hương Giang | 2A202603538 | **§1, §2, §6**: hoàn thiện phạm vi và dữ liệu đơn tai nghe giả; viết ít nhất 8 kịch bản phủ 4 lớp, đề xuất 2 ca nguy hiểm nhất và lý do; viết 3 tiêu chí Pass/Fail, kiểm tra trên 2 ca chính khi có prototype. Nhánh: `viet-kich-ban`. | Đã hoàn thành nội dung §1, §2, §6 và cập nhật kết quả kiểm thử prototype. |
-| Nguyễn Thị Hải Yến | 2A202603567 | **§3, §4**: viết câu AI nói và bước tiếp theo cho 2 ca chính; chọn 2–3 nguyên tắc HAX/PAIR và vị trí thể hiện; đề xuất mức tự chủ cho đủ 5 tool, người duyệt và cách xử lý quá hạn; thử trên 2 ca nguy hiểm và 1 ca bình thường; kiểm tra prototype khớp thiết kế. Nhánh: `viet-ux`. | Đã hoàn thành nội dung §1, §2, §6 và cập nhật kết quả kiểm thử prototype. |
+| Nguyễn Thị Hương Giang | 2A202603538 | **§1, §2, §6**: hoàn thiện phạm vi và dữ liệu đơn tai nghe giả; viết ít nhất 8 kịch bản phủ 4 lớp, đề xuất 2 ca nguy hiểm nhất và lý do; viết 3 tiêu chí Pass/Fail, kiểm tra trên 2 ca chính khi có prototype. Nhánh: `viet-kich-ban`. | Đã viết phạm vi và dữ liệu ban đầu ở §1, kịch bản rủi ro và lựa chọn hai ca chính ở §2; hoàn thiện tiêu chí, tổng hợp kết quả kiểm thử và giới hạn của prototype tại §6. |
+| Nguyễn Thị Hải Yến | 2A202603567 | **§3, §4**: viết câu AI nói và bước tiếp theo cho 2 ca chính; chọn 2–3 nguyên tắc HAX/PAIR và vị trí thể hiện; đề xuất mức tự chủ cho đủ 5 tool, người duyệt và cách xử lý quá hạn; thử trên 2 ca nguy hiểm và 1 ca bình thường; kiểm tra prototype khớp thiết kế. Nhánh: `viet-ux`. | Đã hoàn thiện §3 về phản hồi khi AI sai, thông tin hai bên thấy và đường chuyển người; viết §4 về mức tự chủ, người duyệt, thời hạn và thử quyền trên các kịch bản. |
 
 **Cách phối hợp — làm theo thứ tự:**
 
@@ -115,7 +115,7 @@ Hai ca dùng ở đây là hai ca đã chọn ở §2: **Ca A = S01** (mô tả 
 
 | Nội dung | Ca A: S01 | Ca B: S04 |
 |---|---|---|
-| Câu AI nói nguyên văn | "Mình đã ghi nhận: bạn cho biết lúc đặt hàng sản phẩm ghi màu đen, còn trang sản phẩm hiện đang ghi màu trắng. Mình sẽ không dùng mô tả hiện tại để đánh giá khiếu nại của bạn, vì mô tả có thể đã được sửa sau khi bạn đặt. Mình chưa xác minh được mô tả tại thời điểm đặt hàng, nên chưa thể trả lời khiếu nại có được chấp nhận hay không. Mình đã chuyển hồ sơ cho nhân viên Shopee kiểm tra lịch sử chỉnh sửa mô tả. Nếu bạn có ảnh chụp màn hình trang sản phẩm hoặc đơn hàng lúc đặt, bạn gửi thêm ở đây nhé." | "Mình hiểu bạn đo lòng nồi được khoảng 5 lít trong khi mô tả ghi 6 lít. Mình chưa thể kết luận sản phẩm sai mô tả, vì con số 6 lít có thể là dung tích tổng của nồi hoặc dung tích lòng nồi, và mình chưa biết shop công bố theo cách nào. Để xử lý đúng, bạn giúp mình 2 việc: (1) cho biết bạn đã đo bằng cách nào, (2) gửi ảnh nhãn thông số trên thân nồi hoặc trên hộp. Mình cũng sẽ đề nghị shop gửi thông số của nhà sản xuất. Ở bước này mình chưa hoàn tiền và cũng chưa từ chối yêu cầu của bạn." |
+| Câu AI nói nguyên văn | “Mình đã ghi nhận phản ánh của bạn. Mình sẽ không dùng mô tả hiện tại để đánh giá khiếu nại, vì mô tả có thể đã được sửa sau khi bạn đặt.<br><br>Mình chưa xác minh được mô tả tại thời điểm đặt, nên chưa thể kết luận. Hồ sơ đã được chuyển cho trưởng nhóm kiểm tra lịch sử chỉnh sửa. Bạn có thể gửi ảnh chụp lúc đặt nếu có; không có ảnh thì hồ sơ vẫn tiếp tục được xem xét.” | “Mình hiểu bạn đo lòng nồi được khoảng 5 lít trong khi mô tả ghi 6 lít. Mình chưa thể kết luận sản phẩm sai mô tả: 6 lít có thể chỉ dung tích tổng hoặc dung tích lòng nồi.<br><br>Bạn giúp mình mô tả cách đo và gửi ảnh nhãn thông số. Mình cũng đã đề nghị shop gửi thông số nhà sản xuất. Ở bước này chưa có quyết định hoàn tiền hay từ chối.” |
 | Người mua thấy gì | Thẻ trạng thái "Đang chờ nhân viên xem xét". Hai dòng đặt cạnh nhau: "Mô tả lúc đặt hàng: chưa xác minh" và "Mô tả hiện tại: màu trắng". Nút "Gửi ảnh chụp màn hình" và nút "Tôi không có ảnh". Dòng ghi rõ thời hạn nhân viên phản hồi. | Thẻ trạng thái "Đang chờ bổ sung thông tin". Danh sách 2 việc cần làm có ô đánh dấu. Nút "Gửi ảnh nhãn thông số", nút "Mô tả cách đo" và nút "Chuyển nhân viên". Dòng ghi rõ "Chưa có quyết định hoàn tiền hay từ chối". |
 | Người bán thấy gì | Thông báo có khiếu nại trên đơn, nội dung người mua phản ánh, và ghi chú "Nhân viên Shopee đang kiểm tra lịch sử chỉnh sửa mô tả". Shop được mời gửi bằng chứng mô tả tại thời điểm bán. Không có câu nào kết luận shop gian lận. Không hiện số điện thoại, địa chỉ người mua. | Thông báo có khiếu nại về dung tích, kèm yêu cầu gửi thông số của nhà sản xuất và cách tính 6 lít (tổng hay lòng nồi). Ghi rõ "Chưa có quyết định, tiền đơn hàng chưa bị hoàn". Không hiện thông tin cá nhân người mua. |
 | Người dùng làm gì tiếp | Gửi ảnh chụp màn hình nếu có, hoặc bấm "Tôi không có ảnh". Cả hai lựa chọn đều giữ hồ sơ đi tiếp tới nhân viên. | Trả lời cách đo và gửi ảnh nhãn thông số. Nếu không muốn hoặc không làm được thì bấm "Chuyển nhân viên". |
@@ -162,7 +162,9 @@ Chọn cho **từng tool**: **tự làm / cần người duyệt / cấm**. Các
 
 **Tool khó xếp nhất:** `soan_hoan_tien`.
 
-- Ý kiến thực tế của từng thành viên trước khi thống nhất: [Cần điền sau khi cả ba thảo luận; không dựng lại ý kiến chưa xảy ra].
+- Ý kiến về tool khó xếp nhất:
+  - **Lê Sông Thao:** “Tôi chọn mức **cần người duyệt** cho việc thực hiện hoàn tiền. Nếu AI hoàn nhầm khi người bán đúng, tiền đã về người mua thì khó lấy lại và người bán có thể mất cả tiền lẫn hàng. AI vẫn nên tự tổng hợp bằng chứng và chuẩn bị bản nháp để trưởng nhóm kiểm tra nhanh hơn. Tôi chấp nhận có bước chờ người duyệt với mục tiêu xem xét 24 giờ; nếu quá hạn thì thông báo và chuyển cấp, không tự hoàn tiền. Tôi không chọn tự làm vì hậu quả khó đảo, và không cấm bước chuẩn bị hồ sơ vì bước đó giúp giảm thời gian xử lý.”
+  - **Nguyễn Thị Hương Giang và Nguyễn Thị Hải Yến:** chưa ghi nhận ý kiến cá nhân trong mục này; từng thành viên bổ sung lựa chọn và lý do thực tế của mình.
 - Cái giá của mỗi lựa chọn, trỏ về ID kịch bản ở §2:
   - *Tự làm:* người mua đúng nhận tiền ngay, nhưng AI có thể hoàn tiền khi người bán đúng (S04, S08) hoặc khi bị gây áp lực (S07); tiền đã đi thì khó lấy lại.
   - *Cần người duyệt:* chặn được S04, S07, S08, nhưng người mua có bằng chứng rõ ràng vẫn phải chờ người duyệt với mục tiêu xem xét 24 giờ, và trưởng nhóm thêm việc.
@@ -284,9 +286,35 @@ Tuy nhiên, kết quả kiểm thử hiện tại mới chứng minh được c�
 
 ## §7. Demo
 
-**Trạng thái:** Chưa demo. Chỉ ghi kết quả thực tế sau buổi demo.
+### 7.1. Công việc đã thực hiện và phần trình bày
 
-- Phần trình bày của từng thành viên: [Cần điền].
-- Ca lạ nhận được: [Cập nhật sau demo].
-- Prototype đã làm gì; có đúng mức tự chủ đã đặt không: [Cập nhật sau demo].
-- Nhóm có đổi ý/đổi thiết kế sau ca đó không, vì sao: [Cập nhật sau demo].
+| Thành viên | Công việc đã thực hiện | Phần trình bày khi demo |
+|---|---|---|
+| Nguyễn Thị Hương Giang — 2A202603538 | Viết phạm vi và dữ liệu ban đầu (§1), kịch bản rủi ro và hai ca chính (§2); hoàn thiện tiêu chí, tổng hợp bằng chứng kiểm thử và giới hạn tại §6. | Giới thiệu lát cắt, hai ca S01/S04 và vì sao nguy hiểm; trình bày tiêu chí kiểm tra, kết quả và phần chưa đủ bằng chứng. |
+| Nguyễn Thị Hải Yến — 2A202603567 | Viết phản hồi nguyên văn, thông tin người mua/người bán thấy và đường xử lý khi AI sai (§3); xác định mức tự chủ của 5 tool, người duyệt và phương án quá hạn (§4). | Giải thích vì sao S01 phải kiểm tra nguồn, S04 phải hỏi thêm; chỉ ra việc AI tự làm, việc cần trưởng nhóm duyệt và việc bị cấm. |
+| Lê Sông Thao — 2A202603534 | Dựng prototype hai màn hình, bổ sung dữ liệu S04/S09, luồng bấm và các bước xác nhận; hoàn thiện §5, ảnh chú thích, hướng dẫn chạy và bộ kiểm tra trình duyệt. Đồng bộ câu AI trong bài viết với giao diện. | Bấm prototype qua ca khó; chỉ vị trí G10, G11 và đường chuyển người; minh hoạ thao tác quyết định bị khoá khi thiếu nguồn, bước xác nhận tác động và xử lý quá hạn. |
+
+Đây là phân công trình bày dựa trên phần việc đã thực hiện, chưa phải xác nhận rằng ba thành viên đã trình bày trước lớp.
+
+### 7.2. Luồng trình bày đã chuẩn bị
+
+1. **Giới thiệu lát cắt:** trợ lý hỗ trợ khiếu nại “hàng không đúng mô tả”; mục tiêu là chỉ đúng bước tiếp theo mà không xử oan người mua hoặc người bán.
+2. **Ca chính S01:** người mua phản ánh mô tả đã thay đổi. Chỉ hai nguồn thông tin trên màn hình, bấm “Tôi không có ảnh” để cho thấy hồ sơ vẫn đi tiếp; sang bàn trưởng nhóm để kiểm tra nguồn và quyền quyết định.
+3. **Ca S04:** bổ sung ảnh nhãn/cách đo; đối chiếu phản hồi shop. Giải thích 6L/5L chưa đủ để kết luận bên nào đúng; quyết định tiền phải có người duyệt và xác nhận tác động.
+4. **Nguyên tắc trên giao diện:** G10 tại trạng thái/phần chưa xác minh; G11 tại căn cứ và cảnh báo tác động; PAIR Errors + Graceful Failure tại nút “Tôi không có ảnh” và “Chuyển nhân viên”.
+5. **Ca lạ:** người xem đưa tình huống; nhóm giải thích hoặc bấm cách xử lý theo quyền của tool. Nếu ngoài khả năng mô phỏng thì nói rõ phần chưa xử lý được và đường chuyển người, không suy ra kết luận thiếu căn cứ.
+
+### 7.3. Hoạt động kiểm tra và tập thử đã ghi nhận
+
+- Bộ kiểm tra trình duyệt đã chạy trên Microsoft Edge: **23 test, 0 failures, 0 errors**; gồm nguồn chưa xác minh, xác nhận quyết định tiền, bỏ đề xuất, quá hạn, yêu cầu ngoài thẩm quyền và màn hình điện thoại. Bằng chứng: [test-results.json](prototype/test-results.json), [browser_check.py](prototype/tests/browser_check.py).
+- Trong lượt tập thử cá nhân, Lê Sông Thao đã chọn S01, bấm “Tôi không có ảnh”, mở “Bàn trưởng nhóm” và bấm “Tiếp nhận hồ sơ”. Các bước này dùng để hiểu đường đi của hồ sơ và phân biệt việc tiếp nhận với việc được phép quyết định.
+- Kết quả kiểm tra tự động và lượt tập thử trên không thay thế ca lạ do người xem đưa ra ở buổi demo lớp. Phần kiểm tra S01 chưa đủ bằng chứng đã được nêu tại §6; không coi mọi luồng nghiệp vụ đã được kiểm chứng đầy đủ.
+
+### 7.4. Ghi nhận ca lạ tại buổi demo lớp
+
+**Trạng thái:** Chưa ghi nhận ca lạ và kết quả demo lớp trong bài nộp.
+
+- **Ca lạ do người xem đưa ra:** bổ sung nguyên văn sau khi nhận được.
+- **Prototype đã làm gì, nhóm đã giải thích gì:** bổ sung hành vi thực tế và phần chưa xử lý được, nếu có.
+- **Đối chiếu với mức tự chủ ở §4:** ghi tool nào được phép chạy, cần người duyệt hoặc bị cấm; kết quả có đúng thiết kế không.
+- **Nhóm có đổi thiết kế sau ca lạ không:** ghi thay đổi và lý do; nếu không đổi thì ghi rõ lý do giữ thiết kế.
