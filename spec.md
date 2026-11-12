@@ -121,34 +121,43 @@ Chọn cho **từng tool**: **tự làm / cần người duyệt / cấm**. Các
 
 | Tool | Tác động và khả năng đảo lại theo đề | Mức nhóm chọn | Sai thì ai chịu gì; chờ người thì mất gì | Phương án đã loại và lý do |
 |---|---|---|---|---|
-| `yeu_cau_bang_chung` | Gửi mẫu xin bằng chứng cho người mua hoặc người bán; tin đã tới | [Cần điền] | [Cần điền] | [Cần điền] |
-| `chuyen_truong_nhom` | Chuyển hồ sơ cho trưởng nhóm; đảo lại được | [Cần điền] | [Cần điền] | [Cần điền] |
-| `soan_hoan_tien` | Hoàn tiền cho người mua; khó đảo vì tiền đã về người mua | [Cần điền] | [Cần điền] | [Cần điền] |
-| `tu_choi_khieu_nai` | Đóng khiếu nại, tiền về người bán; khó đảo | [Cần điền] | [Cần điền] | [Cần điền] |
-| `phat_shop` | Trừ điểm uy tín, khoá shop; khó đảo, ảnh hưởng cả shop | [Cần điền] | [Cần điền] | [Cần điền] |
+| `yeu_cau_bang_chung` | Gửi mẫu xin bằng chứng cho người mua hoặc người bán; tin đã tới | **Tự làm**, có giới hạn: mỗi bên tối đa 1 lần xin và 1 lần nhắc cho một khiếu nại | Sai: một bên nhận tin xin bằng chứng thừa hoặc xin nhầm thứ, gây phiền nhưng không mất tiền, không mất quyền lợi. Chờ người: mọi khiếu nại đều chậm ngay từ bước đầu, trong khi đây là bước AI làm tốt nhất (S03, S04). | Cần người duyệt: loại vì hại khi sai nhỏ mà nhân viên phải bấm duyệt cho từng tin nhắn mẫu. Cấm: loại vì khi đó AI không thu được thông tin, mọi ca đều phải chuyển người. |
+| `chuyen_truong_nhom` | Chuyển hồ sơ cho trưởng nhóm; đảo lại được | **Tự làm** | Sai: trưởng nhóm nhận một hồ sơ lẽ ra AI tự hướng dẫn được, tốn vài phút, trả lại được. Chờ người: vô lý, vì phải có người duyệt việc "gọi người". | Cần người duyệt: loại vì tạo vòng lặp và làm chậm đúng những ca nguy hiểm nhất (S01, S05). Cấm: loại vì chính sách ở §1 yêu cầu chuyển nhân viên khi bằng chứng mâu thuẫn. |
+| `soan_hoan_tien` | Hoàn tiền cho người mua; khó đảo vì tiền đã về người mua | **Cần người duyệt** | Sai: người bán mất tiền và mất hàng dù có thể đúng (S04, S08), hoặc AI hoàn tiền vì bị dọa (S07). Chờ người: người mua có khiếu nại đúng phải đợi thêm tối đa 24 giờ mới nhận tiền. | Tự làm: loại vì tiền khó lấy lại và chính sách ở §1 không cho AI tự quyết hoàn tiền. Cấm: loại vì khi đó nhân viên phải soạn lại từ đầu; cho AI chuẩn bị sẵn hồ sơ và đề xuất thì người duyệt quyết nhanh hơn. |
+| `tu_choi_khieu_nai` | Đóng khiếu nại, tiền về người bán; khó đảo | **Cần người duyệt** | Sai: người mua mất tiền dù có thể đúng, nặng nhất ở S01 khi AI dùng mô tả đã bị sửa để từ chối. Chờ người: người bán đúng phải đợi thêm tối đa 24 giờ mới nhận tiền đơn hàng. | Tự làm: loại vì khó đảo và người mua thường không còn sức khiếu nại lại sau khi bị đóng. Cấm: loại vì có ca từ chối là đúng (S08); AI vẫn nên chuẩn bị hồ sơ cho người quyết. |
+| `phat_shop` | Trừ điểm uy tín, khoá shop; khó đảo, ảnh hưởng cả shop | **Cấm** | Sai: shop mất doanh thu và uy tín trên toàn bộ đơn hàng, không chỉ đơn đang khiếu nại (S05). Chờ người: không mất gì trong luồng này, vì phạt shop không giúp người mua biết bước tiếp theo. | Cần người duyệt: loại vì chỉ cần AI đề xuất phạt là đã tạo áp lực lên người duyệt, trong khi một khiếu nại đơn lẻ không đủ căn cứ để phạt; việc này đã nằm ngoài phạm vi ở §1. Tự làm: loại vì hại lớn, khó đảo. |
 
 **Với mỗi tool cần duyệt:**
 
 | Tool | Ai duyệt | Người duyệt thấy gì trước khi bấm | Thời hạn và cách xử lý khi quá hạn |
 |---|---|---|---|
-| [Cần điền sau khi xếp mức] | [Cần điền] | [Cần điền] | [Cần điền] |
+| `soan_hoan_tien` | Trưởng nhóm xử lý khiếu nại | Mã đơn và số tiền; mô tả **tại thời điểm đặt hàng** (ghi rõ nếu chưa xác minh); bằng chứng người mua và người bán đặt cạnh nhau; điểm hai bên còn mâu thuẫn; mục "điều AI chưa xác minh được"; cảnh báo "tiền đã hoàn thì khó lấy lại". Ba nút: Duyệt / Không duyệt / Xin thêm bằng chứng. | 24 giờ (đề xuất). Quá hạn: hệ thống nhắc trưởng nhóm và chuyển lên cấp quản lý; người mua và người bán đều thấy trạng thái "đang trễ, chưa có quyết định". **Không tự động hoàn tiền** khi hết hạn. |
+| `tu_choi_khieu_nai` | Trưởng nhóm xử lý khiếu nại | Như trên, thêm: lý do từ chối AI đề xuất viết bằng một câu; người mua đã được xin bằng chứng và nhắc mấy lần; cảnh báo "khiếu nại đóng thì tiền về người bán". | 24 giờ (đề xuất). Quá hạn: nhắc và chuyển cấp như trên. **Không tự động đóng khiếu nại** khi hết hạn. |
 
-**Tool khó xếp nhất:** [Cần điền].
+**Tool khó xếp nhất:** `soan_hoan_tien`.
 
-- Ý kiến thực tế của từng thành viên trước khi thống nhất: [Cần điền; không dựng lại ý kiến chưa xảy ra].
-- Cái giá của mỗi lựa chọn, trỏ về ID kịch bản ở §2: [Cần điền].
-- Kết luận của nhóm và lý do: [Cần điền].
-- Luật bổ sung hoặc tách bước/tool nếu có; lý do: [Cần điền, hoặc ghi “không” kèm lý do].
+- Ý kiến thực tế của từng thành viên trước khi thống nhất: [Cần điền sau khi cả ba thảo luận; không dựng lại ý kiến chưa xảy ra].
+- Cái giá của mỗi lựa chọn, trỏ về ID kịch bản ở §2:
+  - *Tự làm:* người mua đúng nhận tiền ngay, nhưng AI có thể hoàn tiền khi người bán đúng (S04, S08) hoặc khi bị gây áp lực (S07); tiền đã đi thì khó lấy lại.
+  - *Cần người duyệt:* chặn được S04, S07, S08, nhưng người mua có bằng chứng rõ ràng vẫn phải chờ tối đa 24 giờ, và trưởng nhóm thêm việc.
+  - *Cấm:* an toàn nhất về tiền, nhưng AI không còn chuẩn bị hồ sơ hoàn tiền, nhân viên làm lại từ đầu và người mua chờ lâu hơn nữa.
+- Kết luận của nhóm và lý do: [Đề xuất, cần cả nhóm xác nhận] Chọn **cần người duyệt**. Chờ thêm 24 giờ là cái giá sửa được; hoàn tiền sai thì khó sửa và làm hỏng đúng lời hứa của lát cắt là "người bán không bị xử thua khi họ đúng".
+- Luật bổ sung hoặc tách bước/tool nếu có; lý do:
+  1. **Tách `soan_hoan_tien` thành hai bước:** AI soạn hồ sơ đề xuất (tự làm), trưởng nhóm bấm thực hiện hoàn tiền (người làm). Lý do: tên tool gợi ý "soạn" nhưng thực tế là chuyển tiền; tách ra để AI vẫn giúp được mà không chạm vào tiền.
+  2. **Khoá nguồn mô tả:** AI không được đề xuất hoàn tiền hay từ chối khi mô tả lúc đặt hàng chưa xác minh; trường hợp đó chỉ được gọi `chuyen_truong_nhom` (chặn S01).
+  3. **Giới hạn `yeu_cau_bang_chung`:** mỗi bên tối đa 1 lần xin và 1 lần nhắc; hết lượt thì chuyển trưởng nhóm. Lý do: tin đã gửi không thu hồi được, tránh làm phiền lặp lại.
 
 **Thử mức đã đặt trên ba ca:**
 
 | Ca | Tool được gọi và mức áp dụng | Cái sai có bị chặn không | Còn làm khi lẽ ra phải hỏi không | Người dùng có phải chờ vô ích không |
 |---|---|---|---|---|
-| Ca A: [ID] | [Cần điền] | [Cần điền] | [Cần điền] | [Cần điền] |
-| Ca B: [ID] | [Cần điền] | [Cần điền] | [Cần điền] | [Cần điền] |
-| Ca bình thường: [ID] | [Cần điền] | [Cần điền] | [Cần điền] | [Cần điền] |
+| Ca A: S01 | `chuyen_truong_nhom` (tự làm); `yeu_cau_bang_chung` gửi người bán (tự làm). `tu_choi_khieu_nai` không chạy được vì cần duyệt và bị luật khoá nguồn mô tả chặn. | Có. AI không thể từ chối dựa trên mô tả hiện tại. | Không. Việc duy nhất AI tự làm là chuyển người và xin bằng chứng, đều đảo được hoặc hại nhỏ. | Có chờ nhân viên, nhưng không vô ích: lịch sử sửa mô tả chỉ nhân viên kiểm tra được. |
+| Ca B: S04 | `yeu_cau_bang_chung` gửi cả hai bên (tự làm). `soan_hoan_tien` chỉ dừng ở bước soạn hồ sơ, cần trưởng nhóm duyệt. | Có. Tiền không rời đi khi chưa rõ "6 lít" tính theo cách nào. | Không. AI hỏi cách đo và ảnh nhãn trước khi đề xuất bất cứ điều gì. | Không. Người mua được hỏi ngay trong chat; chỉ chờ người khi bằng chứng mâu thuẫn. |
+| Ca bình thường: S03 | AI hỏi lại mã đơn và điểm sai (không cần tool), sau đó `yeu_cau_bang_chung` (tự làm). | Có. Không có tool nào liên quan đến tiền chạy khi chưa biết đơn nào, lỗi gì. | Không. | Không. Toàn bộ bước này AI tự làm, không qua người duyệt. |
 
-**Một mức tự chủ đã đổi lời hứa nào với người dùng:** [Cần điền lời hứa trước/sau và nguyên nhân].
+> Ghi chú: §2 chưa có ca "bình thường" đúng nghĩa (người mua đủ bằng chứng, người bán nhận sai). S03 là ca nhẹ nhất hiện có. Với ca đủ bằng chứng, người mua vẫn phải chờ duyệt tối đa 24 giờ — đây là cái giá nhóm chấp nhận, đã nêu ở mục tool khó xếp nhất.
+
+**Một mức tự chủ đã đổi lời hứa nào với người dùng:** Vì `soan_hoan_tien` và `tu_choi_khieu_nai` ở mức cần người duyệt, lời hứa đổi từ *"AI xử lý khiếu nại của bạn ngay trong chat"* thành *"AI cho bạn biết ngay bước tiếp theo và chuẩn bị hồ sơ; quyết định hoàn tiền hay từ chối do nhân viên đưa ra trong vòng 24 giờ"*. Câu này cần hiện trên màn hình (dòng "Chưa có quyết định hoàn tiền hay từ chối" ở §3) để người mua không hiểu nhầm AI có quyền hoàn tiền.
 
 ## §5. Prototype
 
