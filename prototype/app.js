@@ -151,8 +151,122 @@
     inner+='</div>';
     return '<div class="action-area">'+inner+'</div>';
   }
+  function toolMonitor() {
+    const isS01 = state.id === "S01";
+    const isS04 = state.id === "S04";
+    const isS09 = state.id === "S09";
+
+    const s1Class = "done";
+    const s2Class = (state.label || state.screenshot || (state.measurement && state.measurement.length >= 10) || state.sellerResponse) ? "done" : "active";
+    const s3Class = state.sourceVerified ? "done" : (state.orderDisputed ? "danger" : "warning");
+    const s4Class = state.closed ? "done" : (state.transferred ? "active" : "pending");
+
+    let riskBadge = "";
+    if (state.orderDisputed) {
+      riskBadge = '<div class="risk-callout red"><strong>⚠️ ĐÍNH CHÍNH MÃ ĐƠN MỚI ('+esc(state.reportedOrder)+'):</strong> Khách đính chính mã đơn mới chưa có dữ liệu. AI tự động hủy đề xuất cũ và khóa duyệt tiền để chặn thất thoát tài chính.</div>';
+    } else if (isS01 && !state.sourceVerified) {
+      riskBadge = '<div class="risk-callout amber"><strong>⚡ RỦI RO NGUỒN SỰ THẬT (CA ĐẮT NHẤT):</strong> Mô tả shop đã bị sửa sau khi đặt. AI bị cấm dùng mô tả hiện tại để xử thua khách; khóa quyền duyệt tiền cho tới khi trưởng nhóm kiểm tra bản lưu lịch sử.</div>';
+    } else if (isS04 && !state.closed) {
+      riskBadge = '<div class="risk-callout orange"><strong>⚡ RỦI RO MƠ HỒ NGỮ CẢNH (Dung tích 6L vs 5L):</strong> Tiền đã hoàn thì không thu hồi được. AI không tự ý hoàn tiền vì shop có thể đúng nếu 6L là dung tích phủ bì. Cần thu thập cách đo và ảnh nhãn.</div>';
+    } else if (isS09 && !state.closed) {
+      riskBadge = '<div class="risk-callout green"><strong>✅ CA BÌNH THƯỜNG (Shop nhận giao nhầm):</strong> Bằng chứng hai bên khớp, shop nhận lỗi. AI chuẩn bị sẵn hồ sơ và chuyển trưởng nhóm duyệt phương án trả hàng hoàn tiền.</div>';
+    } else if (state.closed) {
+      riskBadge = '<div class="risk-callout green"><strong>🎯 QUY TRÌNH HOÀN TẤT:</strong> Trưởng nhóm đã kiểm tra căn cứ và ký duyệt quyết định trong mô phỏng.</div>';
+    }
+
+    return '<section class="panel monitor-panel">' +
+      '<div class="panel-heading"><div class="heading-with-icon"><span class="pulse-indicator"></span><h2>Giám Sát Quyền AI &amp; Gọi Tool</h2></div><span class="tag tag-tools">Track T4 · 5 Tools</span></div>' +
+      '<div class="panel-body">' +
+        '<div class="pipeline-flow">' +
+          '<div class="pipeline-step ' + s1Class + '"><div class="pipe-circle">1</div><span>Tiếp nhận</span></div>' +
+          '<div class="pipeline-line"></div>' +
+          '<div class="pipeline-step ' + s2Class + '"><div class="pipe-circle">2</div><span>Ngữ cảnh &amp; ảnh</span></div>' +
+          '<div class="pipeline-line"></div>' +
+          '<div class="pipeline-step ' + s3Class + '"><div class="pipe-circle">3</div><span>Nguồn lúc đặt</span></div>' +
+          '<div class="pipeline-line"></div>' +
+          '<div class="pipeline-step ' + s4Class + '"><div class="pipe-circle">4</div><span>Duyệt tiền</span></div>' +
+        '</div>' +
+        riskBadge +
+        '<div class="tool-matrix">' +
+          '<div class="tool-row tool-auto">' +
+            '<div class="tool-info"><span class="tool-dot green"></span><code>yeu_cau_bang_chung</code><span class="tool-type-badge green">TỰ LÀM (Có hạn)</span></div>' +
+            '<div class="tool-desc">AI xin bằng chứng gộp (tối đa 1 lần xin + 1 lần nhắc sau 24h). Không gửi lặp vô hạn.</div>' +
+            '<div class="tool-state">Trạng thái: <strong>' + (state.buyerRequests ? 'Đã kích hoạt (' + state.buyerRequests + '/1)' : 'Sẵn sàng') + '</strong></div>' +
+          '</div>' +
+          '<div class="tool-row tool-auto">' +
+            '<div class="tool-info"><span class="tool-dot blue"></span><code>chuyen_truong_nhom</code><span class="tool-type-badge blue">TỰ LÀM (Bàn giao)</span></div>' +
+            '<div class="tool-desc">Chuyển con người khi thiếu nguồn, bằng chứng mâu thuẫn hoặc sau 48h im lặng.</div>' +
+            '<div class="tool-state">Trạng thái: <strong>' + (state.transferred ? (state.claimed ? 'Trưởng nhóm đã nhận' : 'Trong hàng chờ xem xét') : 'Chưa kích hoạt') + '</strong></div>' +
+          '</div>' +
+          '<div class="tool-row tool-review ' + (enough() ? 'ready' : 'locked') + '">' +
+            '<div class="tool-info"><span class="tool-dot amber"></span><code>soan_hoan_tien</code><span class="tool-type-badge amber">CẦN DUYỆT (Tiền)</span><span class="tool-high-stakes">ĐẮT GIÁ NHẤT</span></div>' +
+            '<div class="tool-desc">Rủi ro tài chính cao, khó đảo ngược. AI chỉ soạn bản nháp; trưởng nhóm bắt buộc xác nhận tác động trước khi chuyển tiền.</div>' +
+            '<div class="tool-state">Trạng thái: <strong>' + (state.closed?.kind === 'refund' ? 'ĐÃ DUYỆT HOÀN TIỀN' : (state.orderDisputed ? 'Bị khóa do đính chính đơn' : (enough() ? 'Đủ điều kiện để trưởng nhóm duyệt' : 'ĐANG KHÓA (Chưa đủ căn cứ)'))) + '</strong></div>' +
+          '</div>' +
+          '<div class="tool-row tool-review">' +
+            '<div class="tool-info"><span class="tool-dot orange"></span><code>tu_choi_khieu_nai</code><span class="tool-type-badge orange">CẦN DUYỆT (Đóng)</span></div>' +
+            '<div class="tool-desc">Tiền về shop; trưởng nhóm phải nhập lý do thẩm định và xác nhận tác động. Im lặng không được coi là từ chối.</div>' +
+            '<div class="tool-state">Trạng thái: <strong>' + (state.closed?.kind === 'deny' ? 'ĐÃ ĐÓNG KHIẾU NẠI' : 'Chỉ duyệt khi có căn cứ') + '</strong></div>' +
+          '</div>' +
+          '<div class="tool-row tool-banned">' +
+            '<div class="tool-info"><span class="tool-dot red"></span><code>phat_shop</code><span class="tool-type-badge red">🚫 CẤM HOÀN TOÀN</span></div>' +
+            '<div class="tool-desc">Tuyệt đối cấm AI phạt điểm hoặc khóa shop. Khách dọa bóc phốt không làm phát sinh xử phạt.</div>' +
+            '<div class="tool-state">Trạng thái: <strong>' + (state.specialist ? 'Đã chuyển tuyến chuyên trách riêng' : 'Vô hiệu hóa an toàn') + '</strong></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</section>';
+  }
   function buyer() {
-    return '<div class="workspace"><div class="column"><section class="panel chat-panel"><div class="panel-heading"><h2>Trao đổi với trợ lý</h2><span class="tag ai">AI hỗ trợ · Nhân viên quyết định</span></div>'+product()+actionArea()+'<div class="thread" aria-live="polite" aria-relevant="additions">'+historyMarkup()+'</div><form class="composer" id="message-form"><label for="chat-message">Câu hỏi hoặc thông tin đính chính</label><div class="composer-row"><input id="chat-message" maxlength="600" required placeholder="Nhập nội dung muốn bổ sung…"><button type="submit" class="button primary">Gửi</button></div><p>Không gửi thông tin liên hệ hoặc thông tin thanh toán.</p></form><div class="fund-status"><span class="status-dot"></span>'+esc(funds())+'</div></section></div><aside class="column" aria-label="Thông tin đơn và bằng chứng">'+sourcePanel()+'<details class="case-extra"><summary>Bằng chứng, thông báo và thời hạn</summary><div class="extra-body">'+correctionMarkup()+evidencePanel()+sellerPanel()+timePanel()+'</div></details></aside></div>';
+    return '<div class="workspace workspace-buyer">' +
+      '<div class="column smartphone-column">' +
+        '<div class="smartphone-shell">' +
+          '<div class="smartphone-bezel">' +
+            '<div class="smartphone-notch">' +
+              '<div class="notch-speaker"></div>' +
+              '<div class="notch-camera"></div>' +
+            '</div>' +
+            '<div class="smartphone-status-bar">' +
+              '<span class="phone-time">' + stamp(state.hours).split(" ")[1] + '</span>' +
+              '<span class="phone-island"><span class="island-dot"></span> Shopee AI Care</span>' +
+              '<span class="phone-icons">5G 98%</span>' +
+            '</div>' +
+            '<div class="smartphone-app-header">' +
+              '<div class="app-header-brand">' +
+                '<span class="shopee-badge-icon">S</span>' +
+                '<div class="app-header-text">' +
+                  '<strong>Shopee Chăm Sóc Khách Hàng</strong>' +
+                  '<span>Trực tuyến · AI Trợ lý Khiếu nại</span>' +
+                '</div>' +
+              '</div>' +
+              '<span class="app-secure-tag">🛡️ Đảm bảo Shopee</span>' +
+            '</div>' +
+            '<div class="smartphone-screen-body">' +
+              product() +
+              actionArea() +
+              '<div class="thread" aria-live="polite" aria-relevant="additions">' + historyMarkup() + '</div>' +
+              '<form class="composer" id="message-form">' +
+                '<label for="chat-message">Nhập tin nhắn hoặc thông tin đính chính</label>' +
+                '<div class="composer-row">' +
+                  '<input id="chat-message" maxlength="600" required placeholder="Nhập câu hỏi, phản ánh hoặc đính chính…">' +
+                  '<button type="submit" class="button primary">Gửi</button>' +
+                '</div>' +
+                '<p>Không gửi thông tin liên hệ hoặc thông tin thanh toán.</p>' +
+              '</form>' +
+              '<div class="fund-status"><span class="status-dot"></span>' + esc(funds()) + '</div>' +
+            '</div>' +
+            '<div class="smartphone-home-bar"><div class="home-pill"></div></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<aside class="column" aria-label="Thông tin đơn và bằng chứng">' +
+        toolMonitor() +
+        sourcePanel() +
+        '<details class="case-extra"><summary>Bằng chứng, thông báo và thời hạn</summary><div class="extra-body">' +
+          correctionMarkup() + evidencePanel() + sellerPanel() + timePanel() +
+        '</div></details>' +
+      '</aside>' +
+    '</div>';
   }
   function staff() {
     if(!state.transferred) return '<section class="panel empty-state"><div class="empty-symbol">▤</div><h2>Chưa có hồ sơ trong hàng chờ.</h2><p>Ca này đang được hỏi thêm ở phía người mua. Hồ sơ sẽ tới đây khi cần chuyển nhân viên hoặc quá hạn bổ sung.</p>'+button("open-buyer","Về cuộc trò chuyện","primary")+'</section>';
@@ -174,7 +288,7 @@
       if(state.draft) review+='<div class="notice"><strong>Đã có bản nháp · Chưa thực hiện</strong><p>Trưởng nhóm có thể thay đổi phương án hoặc bỏ bản nháp.</p>'+button("undo-draft","Bỏ bản nháp","link",!state.claimed)+'</div>';
       review+='<form id="review-form" class="review-form" '+(!state.claimed||!enough()?'hidden':'')+'><label for="resolution">Phương án trưởng nhóm chọn</label><select id="resolution"><option value="refund">Hoàn tiền '+money(c.amount)+'</option><option value="deny">Từ chối và đóng khiếu nại</option></select><label for="decision-reason">Lý do dựa trên bằng chứng</label><textarea id="decision-reason" rows="3" minlength="20" maxlength="800" required placeholder="Nêu căn cứ đã kiểm tra, điểm mâu thuẫn và lý do chọn phương án…"></textarea><label class="check-label"><input id="review-check" type="checkbox" required> Tôi đã đối chiếu mô tả lúc đặt và bằng chứng cả hai bên, kiểm tra phương án xử lý.</label><div class="button-row"><button id="prepare-decision" type="submit" class="button primary" '+(!state.claimed||!enough()?"disabled":"")+'>'+badge(5)+'Duyệt phương án…</button>'+button("reject-draft","Không duyệt đề xuất","secondary",!state.claimed||!state.draft)+'</div></form><div class="divider"></div>'+button("ask-more","Xin thêm bằng chứng","secondary",!state.claimed)+'<p class="muted small" style="margin:10px 0 0">“Không duyệt đề xuất” giữ khiếu nại mở. “Từ chối và đóng” là quyết định riêng, cần xác nhận. Không có thao tác phạt shop.</p>';
     }
-    return '<div class="workspace staff-grid"><div class="column"><section class="panel"><div class="panel-heading"><h2>Hồ sơ '+c.order+'</h2><span class="tag">Trưởng nhóm</span></div>'+product()+'<div class="panel-body"><h3>Phản ánh ban đầu</h3><p class="small">'+esc(c.message)+'</p>'+correctionMarkup()+'<div class="notice amber"><strong>Điều AI chưa xác minh được</strong><p>'+esc(enough()?"Thông tin đã đủ để con người xem xét; chưa có kết luận tự động.":state.orderDisputed?"Chưa xác minh được mã đơn vừa đính chính. Không dùng dữ liệu đơn cũ để quyết định.":state.needsRecheck?"Nội dung đã thay đổi; cần kiểm tra lại nguồn và bằng chứng trước khi duyệt.":state.evidenceConflict?"Shop và người mua cung cấp thông số mâu thuẫn; trưởng nhóm cần đối chiếu.":c.unknown)+'</p></div></div></section>'+sourcePanel()+evidencePanel()+log+'</div><aside class="column"><section class="panel"><div class="panel-heading"><h2>'+badge(5)+'Duyệt quyết định</h2><span class="tag amber">Cần người duyệt</span></div><div class="panel-body">'+review+'</div></section>'+timePanel()+sellerPanel()+'</aside></div>';
+    return '<div class="workspace staff-grid"><div class="column"><section class="panel crm-ticket-card"><div class="panel-heading"><h2>Hồ sơ khiếu nại '+c.order+'</h2><span class="tag tag-crm">Cổng Trưởng Nhóm</span></div>'+product()+'<div class="panel-body"><h3>Phản ánh ban đầu</h3><p class="small">'+esc(c.message)+'</p>'+correctionMarkup()+'<div class="notice amber"><strong>Điều AI chưa xác minh được</strong><p>'+esc(enough()?"Thông tin đã đủ để con người xem xét; chưa có kết luận tự động.":state.orderDisputed?"Chưa xác minh được mã đơn vừa đính chính. Không dùng dữ liệu đơn cũ để quyết định.":state.needsRecheck?"Nội dung đã thay đổi; cần kiểm tra lại nguồn và bằng chứng trước khi duyệt.":state.evidenceConflict?"Shop và người mua cung cấp thông số mâu thuẫn; trưởng nhóm cần đối chiếu.":c.unknown)+'</p></div></div></section>'+sourcePanel()+evidencePanel()+log+'</div><aside class="column">'+toolMonitor()+'<section class="panel"><div class="panel-heading"><h2>'+badge(5)+'Duyệt quyết định</h2><span class="tag amber">Cần người duyệt</span></div><div class="panel-body">'+review+'</div></section>'+timePanel()+sellerPanel()+'</aside></div>';
   }
   function render() {
     $("#app").innerHTML=view==="buyer"?buyer():staff();
