@@ -218,7 +218,7 @@
     '</section>';
   }
   function buyer() {
-    return '<div class="workspace workspace-buyer">' +
+    return '<div class="workspace cockpit-layout">' +
       '<div class="column smartphone-column">' +
         '<div class="smartphone-shell">' +
           '<div class="smartphone-bezel">' +
@@ -259,10 +259,12 @@
           '</div>' +
         '</div>' +
       '</div>' +
-      '<aside class="column" aria-label="Thông tin đơn và bằng chứng">' +
+      '<div class="column tool-column">' +
         toolMonitor() +
+      '</div>' +
+      '<aside class="column evidence-column" aria-label="Thông tin đơn và bằng chứng">' +
         sourcePanel() +
-        '<details class="case-extra"><summary>Bằng chứng, thông báo và thời hạn</summary><div class="extra-body">' +
+        '<details class="case-extra" open><summary>Bằng chứng, thông báo và thời hạn</summary><div class="extra-body">' +
           correctionMarkup() + evidencePanel() + sellerPanel() + timePanel() +
         '</div></details>' +
       '</aside>' +

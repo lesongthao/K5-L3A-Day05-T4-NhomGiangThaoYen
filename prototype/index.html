@@ -3,51 +3,94 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Prototype LAB05 T4: trợ lý xử lý khiếu nại hàng không đúng mô tả, có căn cứ và có người duyệt.">
-  <title>Gỡ Rối · Hỗ trợ đơn hàng</title>
+  <meta name="description" content="Prototype LAB05 T4: Trợ lý xử lý khiếu nại Shopee hàng không đúng mô tả, có căn cứ và có người duyệt.">
+  <title>Shopee Gỡ Rối · Trợ Lý Khiếu Nại (Track T4 - LAB05)</title>
   <link rel="stylesheet" href="styles.css">
   <script src="data.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body class="hide-annotations">
   <a class="skip-link" href="#main">Đến nội dung chính</a>
+  
+  <!-- Presentation Header (Lab & Team Identity) -->
   <header class="site-header">
-    <div class="brand"><span class="brand-mark" aria-hidden="true">g.</span><div><strong>Gỡ Rối</strong><span>Hỗ trợ đơn hàng, rõ từng bước.</span></div></div>
-    <nav class="role-switch" aria-label="Chọn màn hình mô phỏng">
-      <button id="buyer-tab" type="button" class="active" aria-pressed="true">Người mua</button>
-      <button id="staff-tab" type="button" aria-pressed="false">Bàn trưởng nhóm <span id="queue-count" class="queue-count">1</span></button>
-    </nav>
-    <span class="privacy-note">LAB05 · T4</span>
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">S.</span>
+      <div class="brand-content">
+        <div class="brand-row-1">
+          <strong>Shopee Gỡ Rối · Trợ Lý Khiếu Nại</strong>
+          <span class="lab-pill">LAB05 · Track T4 E-Commerce</span>
+          <span class="test-pill">✅ 36/36 Tests Pass</span>
+        </div>
+        <div class="brand-row-2">
+          <span class="team-badge">Nhóm GiangThaoYen</span>
+          <span class="team-zone">Lớp L3A · Hàng 3</span>
+          <span class="team-roster">
+            <strong>Thao</strong> (2A202603534 · §5) · <strong>Giang</strong> (2A202603538 · §1,2,6) · <strong>Yến</strong> (2A202603567 · §3,4)
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <nav class="role-switch" aria-label="Chọn màn hình mô phỏng">
+        <button id="buyer-tab" type="button" class="active" aria-pressed="true">📱 Khách hàng (Shopee App)</button>
+        <button id="staff-tab" type="button" aria-pressed="false">🖥️ Bàn trưởng nhóm (CRM) <span id="queue-count" class="queue-count">1</span></button>
+      </nav>
+      <span class="privacy-note">LAB05 · T4</span>
+    </div>
   </header>
+
   <main id="main" tabindex="-1">
+    <!-- Interactive Demo Toolbar -->
     <div class="demo-bar">
       <div class="demo-inner">
-        <label class="case-picker"><span>Tình huống demo</span>
+        <label class="case-picker">
+          <span class="picker-label">Tình huống demo:</span>
           <select id="case-select" aria-label="Chọn tình huống">
-            <option value="S01">S01 · Mô tả đã thay đổi</option>
-            <option value="S04">S04 · Dung tích 6L hay 5L?</option>
-            <option value="S09">S09 · Shop xác nhận giao nhầm</option>
+            <option value="S01">S01 · Mô tả đã thay đổi [Nguồn sự thật - Đắt nhất]</option>
+            <option value="S04">S04 · Dung tích 6L hay 5L? [Mơ hồ ngữ cảnh - Đắt nhất]</option>
+            <option value="S09">S09 · Shop xác nhận giao nhầm [Ca bình thường]</option>
           </select>
         </label>
+        
         <details class="demo-options">
-          <summary>Công cụ demo</summary>
+          <summary>Công cụ demo &amp; Tua thời gian</summary>
           <div class="demo-controls">
-            <label class="annotation-toggle"><input id="annotations" type="checkbox"> Hiện chú thích</label>
-            <button class="text-button" id="advance-time" type="button">+24 giờ</button>
-            <button class="text-button" id="simulate-conflict" type="button">Nhận phản hồi shop mâu thuẫn</button>
+            <label class="annotation-toggle"><input id="annotations" type="checkbox"> Hiện chú thích HAX/PAIR</label>
+            <button class="text-button" id="advance-time" type="button">⏱️ +24 giờ</button>
+            <button class="text-button" id="simulate-conflict" type="button">⚡ Nhận phản hồi shop mâu thuẫn</button>
           </div>
         </details>
-        <button class="text-button reset-button" id="reset" type="button">Làm lại</button>
+        
+        <button class="text-button reset-button" id="reset" type="button">🔄 Làm lại</button>
+
+        <div class="clock">
+          <span>Thời gian tình huống:</span>
+          <strong id="clock-value"></strong>
+        </div>
+        <p class="demo-caption">Dữ liệu giả lập · Không phát sinh giao dịch</p>
       </div>
-      <p class="demo-caption">Dữ liệu giả lập · Không phát sinh giao dịch</p>
     </div>
+
+    <!-- Page Heading (Hidden or minimized in 16:9 cockpit view, kept for DOM/accessibility) -->
     <div class="page-heading">
-      <div><p class="eyebrow">TRUNG TÂM HỖ TRỢ / KHIẾU NẠI ĐƠN HÀNG</p><h1 id="page-title">Cùng làm rõ vấn đề của bạn.</h1><p id="page-description">Đối chiếu đúng thông tin. Lắng nghe cả hai phía.</p></div>
-      <div class="clock"><span>Thời gian trong tình huống</span><strong id="clock-value"></strong></div>
+      <div>
+        <p class="eyebrow">TRUNG TÂM HỖ TRỢ / KHIẾU NẠI ĐƠN HÀNG</p>
+        <h1 id="page-title">Cùng làm rõ vấn đề của bạn.</h1>
+        <p id="page-description">Đối chiếu đúng thông tin. Lắng nghe cả hai phía.</p>
+      </div>
     </div>
+
+    <!-- Cockpit App Container -->
     <div id="app"></div>
-    <footer class="site-footer"><span>LAB05 · T4 Thương mại điện tử · GiangThaoYen</span><span>Thông tin và chính sách trong bản mẫu đều là giả lập.</span></footer>
+
+    <footer class="site-footer">
+      <span>LAB05 · T4 Thương mại điện tử · Nhóm GiangThaoYen (L3A · Hàng 3)</span>
+      <span>Thông tin và chính sách trong bản mẫu đều là dữ liệu mô phỏng.</span>
+    </footer>
   </main>
+
+  <!-- Edit Measurement Modal -->
   <dialog id="edit-dialog" aria-labelledby="edit-title">
     <form id="edit-form">
       <div class="dialog-top"><h2 id="edit-title">Mô tả cách bạn đo</h2><button class="icon-button" type="button" data-action="close-edit" aria-label="Đóng">×</button></div>
@@ -57,12 +100,16 @@
       <div class="button-row"><button type="button" class="button secondary" data-action="close-edit">Quay lại</button><button class="button primary" type="submit">Lưu vào hồ sơ</button></div>
     </form>
   </dialog>
+
+  <!-- Decision Confirmation Modal -->
   <dialog id="decision-dialog" aria-labelledby="decision-title">
     <div class="dialog-top"><h2 id="decision-title">Xác nhận quyết định</h2><button class="icon-button" type="button" data-action="close-decision" aria-label="Đóng">×</button></div>
     <div id="decision-summary"></div>
     <label class="check-label impact-check"><input id="confirm-impact" type="checkbox"> Tôi đã kiểm tra hồ sơ và hiểu tác động của quyết định này.</label>
     <div class="button-row"><button class="button secondary" type="button" data-action="close-decision">Quay lại kiểm tra</button><button id="confirm-decision" class="button primary" type="button" disabled>Xác nhận thực hiện</button></div>
   </dialog>
+
+  <!-- Live Toast -->
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
