@@ -85,32 +85,33 @@ Nhóm sử dụng một đơn hàng giả lập để kiểm thử trợ lý AI 
 - **Ca suýt được chọn, ID: S05.** Người mua nghi hàng giả và yêu cầu khóa shop. Không chọn làm ca chính vì tình huống này vượt khỏi phạm vi khiếu nại thông thường, cần quy trình xác minh chuyên trách. Tuy nhiên vẫn giữ trong bộ kiểm thử để đảm bảo AI không vượt thẩm quyền.
 
 
-## §3. Khi AI sai
+Hai ca dùng ở đây là hai ca đã chọn ở §2: **Ca A = S01** (mô tả bị sửa sau khi bán) và **Ca B = S04** (nồi chiên 6 lít, người bán có thể đúng).
 
-Điền cho hai ca đã chọn ở §2.
-
-| Nội dung | Ca A: [ID] | Ca B: [ID] |
+| Nội dung | Ca A: S01 | Ca B: S04 |
 |---|---|---|
-| Câu AI nói nguyên văn | [Cần điền] | [Cần điền] |
-| Người mua thấy gì | [Cần điền] | [Cần điền] |
-| Người bán thấy gì | [Cần điền] | [Cần điền] |
-| Người dùng làm gì tiếp | [Cần điền] | [Cần điền] |
-| Nếu người dùng không làm gì | [Cần điền] | [Cần điền] |
-| Ai được báo, sau bao lâu, nhận thông tin gì | [Cần điền] | [Cần điền] |
-| Chọn hỏi lại / trả lời có giới hạn / dừng và chuyển người | [Cần điền] | [Cần điền] |
-| Phương án đã loại và lý do | [Cần điền] | [Cần điền] |
-| Loại lỗi: hệ thống / người dùng / ngữ cảnh; lý do | [Cần điền] | [Cần điền] |
-| Cách nói và cách sửa phù hợp với loại lỗi | [Cần điền] | [Cần điền] |
+| Câu AI nói nguyên văn | "Mình đã ghi nhận: bạn cho biết lúc đặt hàng sản phẩm ghi màu đen, còn trang sản phẩm hiện đang ghi màu trắng. Mình sẽ không dùng mô tả hiện tại để đánh giá khiếu nại của bạn, vì mô tả có thể đã được sửa sau khi bạn đặt. Mình chưa xác minh được mô tả tại thời điểm đặt hàng, nên chưa thể trả lời khiếu nại có được chấp nhận hay không. Mình đã chuyển hồ sơ cho nhân viên Shopee kiểm tra lịch sử chỉnh sửa mô tả. Nếu bạn có ảnh chụp màn hình trang sản phẩm hoặc đơn hàng lúc đặt, bạn gửi thêm ở đây nhé." | "Mình hiểu bạn đo lòng nồi được khoảng 5 lít trong khi mô tả ghi 6 lít. Mình chưa thể kết luận sản phẩm sai mô tả, vì con số 6 lít có thể là dung tích tổng của nồi hoặc dung tích lòng nồi, và mình chưa biết shop công bố theo cách nào. Để xử lý đúng, bạn giúp mình 2 việc: (1) cho biết bạn đã đo bằng cách nào, (2) gửi ảnh nhãn thông số trên thân nồi hoặc trên hộp. Mình cũng sẽ đề nghị shop gửi thông số của nhà sản xuất. Ở bước này mình chưa hoàn tiền và cũng chưa từ chối yêu cầu của bạn." |
+| Người mua thấy gì | Thẻ trạng thái "Đang chờ nhân viên xem xét". Hai dòng đặt cạnh nhau: "Mô tả lúc đặt hàng: chưa xác minh" và "Mô tả hiện tại: màu trắng". Nút "Gửi ảnh chụp màn hình" và nút "Tôi không có ảnh". Dòng ghi rõ thời hạn nhân viên phản hồi. | Thẻ trạng thái "Đang chờ bổ sung thông tin". Danh sách 2 việc cần làm có ô đánh dấu. Nút "Gửi ảnh nhãn thông số", nút "Mô tả cách đo" và nút "Chuyển nhân viên". Dòng ghi rõ "Chưa có quyết định hoàn tiền hay từ chối". |
+| Người bán thấy gì | Thông báo có khiếu nại trên đơn, nội dung người mua phản ánh, và ghi chú "Nhân viên Shopee đang kiểm tra lịch sử chỉnh sửa mô tả". Shop được mời gửi bằng chứng mô tả tại thời điểm bán. Không có câu nào kết luận shop gian lận. Không hiện số điện thoại, địa chỉ người mua. | Thông báo có khiếu nại về dung tích, kèm yêu cầu gửi thông số của nhà sản xuất và cách tính 6 lít (tổng hay lòng nồi). Ghi rõ "Chưa có quyết định, tiền đơn hàng chưa bị hoàn". Không hiện thông tin cá nhân người mua. |
+| Người dùng làm gì tiếp | Gửi ảnh chụp màn hình nếu có, hoặc bấm "Tôi không có ảnh". Cả hai lựa chọn đều giữ hồ sơ đi tiếp tới nhân viên. | Trả lời cách đo và gửi ảnh nhãn thông số. Nếu không muốn hoặc không làm được thì bấm "Chuyển nhân viên". |
+| Nếu người dùng không làm gì | Hồ sơ vẫn nằm ở hàng chờ nhân viên vì dữ liệu cần kiểm tra nằm ở phía hệ thống, không phụ thuộc người mua. AI không tự đóng và không tự từ chối. Nhắc một lần sau 24 giờ (đề xuất). | AI nhắc một lần sau 24 giờ (đề xuất). Sau 48 giờ (đề xuất) vẫn không có phản hồi thì chuyển trưởng nhóm kèm ghi chú "người mua chưa bổ sung". AI không tự gọi `tu_choi_khieu_nai` vì im lặng không phải là bằng chứng. |
+| Ai được báo, sau bao lâu, nhận thông tin gì | Trưởng nhóm, ngay khi phát hiện hai mô tả lệch nhau, qua `chuyen_truong_nhom`. Hồ sơ gồm: mã đơn, câu người mua nguyên văn, mô tả hiện tại, điều AI chưa xác minh được (mô tả lúc đặt), bằng chứng hai bên đã có, và câu hỏi cần quyết: "Mô tả có bị sửa sau ngày đặt hàng không?". | Người bán được báo ngay qua `yeu_cau_bang_chung`. Trưởng nhóm được báo khi bằng chứng hai bên mâu thuẫn, khi quá 48 giờ, hoặc khi người mua bấm "Chuyển nhân viên". Hồ sơ gồm: mã đơn, số đo và cách đo của người mua, thông số shop công bố, ảnh nhãn, và điểm còn mâu thuẫn. |
+| Chọn hỏi lại / trả lời có giới hạn / dừng và chuyển người | **Dừng và chuyển người**, kèm một câu trả lời có giới hạn nói rõ AI chưa biết gì. | **Hỏi lại**; chuyển người nếu sau khi hỏi vẫn mâu thuẫn. |
+| Phương án đã loại và lý do | (1) Trả lời thẳng dựa trên mô tả hiện tại: loại vì đây chính là lỗi của S01, người mua mất quyền lợi oan. (2) Hỏi lại người mua cho đến khi đủ bằng chứng: loại vì lịch sử sửa mô tả là dữ liệu của hệ thống, người mua không thể tự chứng minh. (3) Kết luận shop đã sửa mô tả: loại vì AI chưa xác minh, shop có thể bị oan. | (1) Hoàn tiền ngay qua `soan_hoan_tien`: loại vì tiền khó lấy lại, shop có thể đúng nếu 6 lít là dung tích tổng. (2) Từ chối ngay qua `tu_choi_khieu_nai`: loại vì chưa biết cách shop công bố, người mua có thể đúng. (3) Chuyển người ngay từ đầu: loại vì thiếu cách đo và ảnh nhãn thì nhân viên cũng phải hỏi lại, người mua chờ vô ích. |
+| Loại lỗi: hệ thống / người dùng / ngữ cảnh; lý do | **Lỗi hệ thống.** Người mua nói rõ ràng và đúng trọng tâm; cái sai là AI lấy nhầm nguồn dữ liệu (mô tả hiện tại thay cho mô tả lúc đặt). | **Lỗi ngữ cảnh.** Không bên nào nói sai: "6 lít" có hai cách hiểu hợp lý (dung tích tổng và dung tích lòng nồi). AI sai khi mặc định một cách hiểu mà không hỏi. |
+| Cách nói và cách sửa phù hợp với loại lỗi | Nói: AI nhận giới hạn về phía mình ("mình chưa xác minh được"), không yêu cầu người mua diễn đạt lại và không coi ảnh chụp màn hình là điều kiện bắt buộc. Sửa: đổi nguồn dữ liệu sang bản mô tả lưu tại thời điểm đặt; không có bản lưu thì bắt buộc chuyển người. | Nói: nêu rõ hai cách hiểu, không quy lỗi cho người mua đo sai hay shop ghi sai. Sửa: thu thêm ngữ cảnh từ cả hai bên (cách đo, nhãn thông số, thông số nhà sản xuất) trước khi có bất kỳ hành động nào liên quan đến tiền. |
 
 **2–3 nguyên tắc HAX/PAIR:**
 
 | Nguyên tắc đã chọn | Câu chữ/nút/vị trí thể hiện | Ảnh và số chú thích tương ứng |
 |---|---|---|
-| [Cần điền] | [Cần điền] | [Cần điền sau khi dựng prototype] |
-| [Cần điền] | [Cần điền] | [Cần điền sau khi dựng prototype] |
+| HAX G10 — Thu hẹp phạm vi khi không chắc (Scope services when in doubt) | Ca A: câu "Mình chưa xác minh được mô tả tại thời điểm đặt hàng, nên chưa thể trả lời…" và thẻ trạng thái "Đang chờ nhân viên xem xét". Ca B: danh sách 2 việc cần bổ sung thay cho kết luận. | [Cần điền sau khi dựng prototype] |
+| HAX G11 — Nói rõ vì sao hệ thống làm vậy (Make clear why the system did what it did) | Ca A: hai dòng "Mô tả lúc đặt hàng / Mô tả hiện tại" đặt cạnh nhau ngay trên thẻ trạng thái, kèm câu "vì mô tả có thể đã được sửa sau khi bạn đặt". Ca B: câu giải thích hai cách hiểu "6 lít". | [Cần điền sau khi dựng prototype] |
+| PAIR — Lỗi và thất bại có lối ra (Errors + Graceful Failure) | Nút "Tôi không có ảnh" (Ca A) và nút "Chuyển nhân viên" (Ca B): người dùng luôn có đường đi tiếp, kể cả khi không làm được điều AI đề nghị. Dòng "Chưa có quyết định hoàn tiền hay từ chối" ở cả hai màn hình. | [Cần điền sau khi dựng prototype] |
 
-- Lỗi sửa câu chữ không cứu được: [Cần điền].
-- Cơ chế thiết kế chặn hoặc khắc phục lỗi đó: [Cần điền].
+- Lỗi sửa câu chữ không cứu được: AI gọi `soan_hoan_tien` hoặc `tu_choi_khieu_nai` dựa trên nguồn sai (Ca A) hoặc cách hiểu sai (Ca B). Tiền đã về một bên thì khó đảo lại; lời xin lỗi hay câu giải thích hay đến đâu cũng không trả lại tiền cho bên bị thiệt.
+- Cơ chế thiết kế chặn hoặc khắc phục lỗi đó: (1) AI không tự chạy `soan_hoan_tien` và `tu_choi_khieu_nai`; hai tool này phải qua người duyệt — đây là đề xuất, mức chính thức chốt ở §4. (2) Nguồn mô tả dùng để đánh giá bị khoá vào bản lưu tại thời điểm đặt hàng; khi không có bản lưu hoặc hai bản lệch nhau thì luồng buộc đi qua `chuyen_truong_nhom`. (3) Hồ sơ chuyển cho người duyệt luôn có mục "điều AI chưa xác minh được" để người duyệt không coi tóm tắt của AI là kết luận.
+
+
 
 ## §4. Mức tự chủ
 
