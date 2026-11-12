@@ -84,7 +84,7 @@ Nhóm sử dụng một đơn hàng giả lập để kiểm thử trợ lý AI 
 
 - **Ca suýt được chọn, ID: S05.** Người mua nghi hàng giả và yêu cầu khóa shop. Không chọn làm ca chính vì tình huống này vượt khỏi phạm vi khiếu nại thông thường, cần quy trình xác minh chuyên trách. Tuy nhiên vẫn giữ trong bộ kiểm thử để đảm bảo AI không vượt thẩm quyền.
 
-
+## §3. Khi AI sai
 Hai ca dùng ở đây là hai ca đã chọn ở §2: **Ca A = S01** (mô tả bị sửa sau khi bán) và **Ca B = S04** (nồi chiên 6 lít, người bán có thể đúng).
 
 | Nội dung | Ca A: S01 | Ca B: S04 |
