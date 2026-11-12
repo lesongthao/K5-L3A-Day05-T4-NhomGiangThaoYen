@@ -17,9 +17,9 @@ Lớp: **L3A** · Bàn / zone: **Hàng 3** · Track: **T4**
 5. **Gộp bài:** mỗi người commit trên nhánh mình, mở pull request về main. Người giữ repo kiểm tra và gộp lần lượt; nếu có xung đột thì đối chiếu nội dung mới nhất trước khi xử lý. Bản nộp cuối nằm trên main.
 6. **§7 cả ba cùng làm sau demo.** Người viết kịch bản giới thiệu bài toán và rủi ro; người viết UX giải thích cách xử lý sai và quyền của tool; người dựng prototype bấm demo. Người giữ repo tổng hợp ca lạ và thay đổi thực tế vào §7.
 
-> Phân công ở trên là kế hoạch. Bảng thành viên cần được thay bằng họ tên, mã học viên chính xác và cập nhật đúng việc thực tế khi nộp bài.
+> Bảng trên ghi người phụ trách từng phần. Kết quả kiểm thử tại §6 có mã kiểm tra và báo cáo để thành viên chạy lại, đối chiếu khi trình bày.
 
-> **Trạng thái:** Đã có thiết kế §1–§4 và prototype §5 để kiểm tra. Các mục về thông tin thành viên, ý kiến thảo luận thực tế và demo lớp cần được nhóm cập nhật chính xác.
+> **Trạng thái:** Đã có thiết kế §1–§4, prototype §5 và 36 kiểm tra đạt tại §6. §7 ghi ca diễn tập bổ sung cùng kết quả thực chạy; phần trình bày trước lớp chưa được xác nhận. Nội dung đề xuất cho Hải Yến tại §4 cần được thành viên đọc và xác nhận trước khi nộp.
 >
 > **Một quyết định = bốn ý:** đã cân nhắc gì · chọn gì · vì sao chọn · vì sao loại phương án khác. Bằng chứng phải trỏ tới tool, dữ liệu hoặc vị trí cụ thể trên prototype.
 >
@@ -148,7 +148,7 @@ Chọn cho **từng tool**: **tự làm / cần người duyệt / cấm**. Các
 | Tool | Tác động và khả năng đảo lại theo đề | Mức nhóm chọn | Sai thì ai chịu gì; chờ người thì mất gì | Phương án đã loại và lý do |
 |---|---|---|---|---|
 | `yeu_cau_bang_chung` | Gửi mẫu xin bằng chứng cho người mua hoặc người bán; tin đã tới | **Tự làm**, có giới hạn: mỗi bên tối đa 1 lần xin và 1 lần nhắc cho một khiếu nại | Sai: một bên nhận tin xin bằng chứng thừa hoặc xin nhầm thứ, gây phiền nhưng không mất tiền, không mất quyền lợi. Chờ người: mọi khiếu nại đều chậm ngay từ bước đầu, trong khi đây là bước AI làm tốt nhất (S03, S04). | Cần người duyệt: loại vì hại khi sai nhỏ mà nhân viên phải bấm duyệt cho từng tin nhắn mẫu. Cấm: loại vì khi đó AI không thu được thông tin, mọi ca đều phải chuyển người. |
-| `chuyen_truong_nhom` | Chuyển hồ sơ cho trưởng nhóm; đảo lại được | **Tự làm** | Sai: trưởng nhóm nhận một hồ sơ lẽ ra AI tự hướng dẫn được, tốn vài phút, trả lại được. Chờ người: vô lý, vì phải có người duyệt việc "gọi người". | Cần người duyệt: loại vì tạo vòng lặp và làm chậm đúng những ca nguy hiểm nhất (S01, S05). Cấm: loại vì chính sách ở §1 yêu cầu chuyển nhân viên khi bằng chứng mâu thuẫn. |
+| `chuyen_truong_nhom` | Chuyển hồ sơ cho trưởng nhóm; có thể trả lại. Prototype chỉ cho khách hoàn tác lần chuyển tự nguyện ở S04 trước khi tiếp nhận và trước hạn; lần chuyển bắt buộc vẫn giữ trong hàng chờ. | **Tự làm** | Sai: trưởng nhóm nhận một hồ sơ lẽ ra AI tự hướng dẫn được, tốn vài phút, trả lại được. Chờ người: vô lý, vì phải có người duyệt việc "gọi người". | Cần người duyệt: loại vì tạo vòng lặp và làm chậm đúng những ca nguy hiểm nhất (S01, S05). Cấm: loại vì chính sách ở §1 yêu cầu chuyển nhân viên khi bằng chứng mâu thuẫn. |
 | `soan_hoan_tien` | Hoàn tiền cho người mua; khó đảo vì tiền đã về người mua | **Cần người duyệt** | Sai: người bán mất tiền và mất hàng dù có thể đúng (S04, S08), hoặc AI hoàn tiền vì bị dọa (S07). Chờ người: người mua phải chờ con người xem xét, mục tiêu 24 giờ; quá hạn được báo và chuyển cấp, không hứa tiền về đúng mốc. | Tự làm: loại vì tiền khó lấy lại và chính sách ở §1 không cho AI tự quyết hoàn tiền. Cấm: loại vì khi đó nhân viên phải soạn lại từ đầu; cho AI chuẩn bị sẵn hồ sơ và đề xuất thì người duyệt quyết nhanh hơn. |
 | `tu_choi_khieu_nai` | Đóng khiếu nại, tiền về người bán; khó đảo | **Cần người duyệt** | Sai: người mua mất tiền dù có thể đúng, nặng nhất ở S01 khi AI dùng mô tả đã bị sửa để từ chối. Chờ người: người bán đúng phải chờ con người xem xét, mục tiêu 24 giờ; quá hạn báo và chuyển cấp, không tự đóng. | Tự làm: loại vì khó đảo và người mua thường không còn sức khiếu nại lại sau khi bị đóng. Cấm: loại vì có ca từ chối là đúng (S08); AI vẫn nên chuẩn bị hồ sơ cho người quyết. |
 | `phat_shop` | Trừ điểm uy tín, khoá shop; khó đảo, ảnh hưởng cả shop | **Cấm** | Sai: shop mất doanh thu và uy tín trên toàn bộ đơn hàng, không chỉ đơn đang khiếu nại (S05). Chờ người: không mất gì trong luồng này, vì phạt shop không giúp người mua biết bước tiếp theo. | Cần người duyệt: loại vì chỉ cần AI đề xuất phạt là đã tạo áp lực lên người duyệt, trong khi một khiếu nại đơn lẻ không đủ căn cứ để phạt; việc này đã nằm ngoài phạm vi ở §1. Tự làm: loại vì hại lớn, khó đảo. |
@@ -157,31 +157,33 @@ Chọn cho **từng tool**: **tự làm / cần người duyệt / cấm**. Các
 
 | Tool | Ai duyệt | Người duyệt thấy gì trước khi bấm | Thời hạn và cách xử lý khi quá hạn |
 |---|---|---|---|
-| `soan_hoan_tien` | Trưởng nhóm xử lý khiếu nại | Mã đơn và số tiền; mô tả **tại thời điểm đặt hàng** (ghi rõ nếu chưa xác minh); bằng chứng người mua và người bán đặt cạnh nhau; điểm hai bên còn mâu thuẫn; mục "điều AI chưa xác minh được"; cảnh báo "tiền đã hoàn thì khó lấy lại". Ba nút: Duyệt / Không duyệt / Xin thêm bằng chứng. | mục tiêu 24 giờ. Quá hạn: hệ thống nhắc trưởng nhóm và chuyển lên cấp quản lý; người mua và người bán đều thấy trạng thái "đang trễ, chưa có quyết định". **Không tự động hoàn tiền** khi hết hạn. |
-| `tu_choi_khieu_nai` | Trưởng nhóm xử lý khiếu nại | Như trên, thêm: lý do từ chối AI đề xuất viết bằng một câu; người mua đã được xin bằng chứng và nhắc mấy lần; cảnh báo "khiếu nại đóng thì tiền về người bán". | mục tiêu 24 giờ. Quá hạn: nhắc và chuyển cấp như trên. **Không tự động đóng khiếu nại** khi hết hạn. |
+| `soan_hoan_tien` | Trưởng nhóm xử lý khiếu nại | Mã đơn và số tiền; mô tả **tại thời điểm đặt hàng** (ghi rõ nếu chưa xác minh); bằng chứng người mua và người bán đặt cạnh nhau; điểm hai bên còn mâu thuẫn; mục "điều AI chưa xác minh được"; cảnh báo "tiền đã hoàn thì khó lấy lại". Các thao tác: “Duyệt phương án…”, “Không duyệt đề xuất”, “Xin thêm bằng chứng”. Bước duyệt mở hộp xác nhận tác động riêng; không duyệt đề xuất vẫn giữ khiếu nại mở. | mục tiêu 24 giờ. Quá hạn: hệ thống nhắc trưởng nhóm và chuyển lên cấp quản lý; người mua và người bán đều thấy trạng thái "đang trễ, chưa có quyết định". **Không tự động hoàn tiền** khi hết hạn. |
+| `tu_choi_khieu_nai` | Trưởng nhóm xử lý khiếu nại | Như trên, thêm: lý do từ chối do trưởng nhóm nhập dựa trên bằng chứng; người mua đã được xin bằng chứng và nhắc mấy lần; cảnh báo "khiếu nại đóng thì tiền về người bán". | mục tiêu 24 giờ. Quá hạn: nhắc và chuyển cấp như trên. **Không tự động đóng khiếu nại** khi hết hạn. |
 
 **Tool khó xếp nhất:** `soan_hoan_tien`.
 
 - Ý kiến về tool khó xếp nhất:
   - **Lê Sông Thao:** “Tôi chọn mức **cần người duyệt** cho việc thực hiện hoàn tiền. Nếu AI hoàn nhầm khi người bán đúng, tiền đã về người mua thì khó lấy lại và người bán có thể mất cả tiền lẫn hàng. AI vẫn nên tự tổng hợp bằng chứng và chuẩn bị bản nháp để trưởng nhóm kiểm tra nhanh hơn. Tôi chấp nhận có bước chờ người duyệt với mục tiêu xem xét 24 giờ; nếu quá hạn thì thông báo và chuyển cấp, không tự hoàn tiền. Tôi không chọn tự làm vì hậu quả khó đảo, và không cấm bước chuẩn bị hồ sơ vì bước đó giúp giảm thời gian xử lý.”
   - **Nguyễn Thị Hương Giang:** “Ban đầu, tôi cho rằng nếu AI đã thu thập đủ bằng chứng từ hai phía thì có thể tự xử lý hoàn tiền để tránh kéo dài khiếu nại. Tuy nhiên, khi xây dựng và đối chiếu các kịch bản S01, S04 với ca bình thường S09, tôi nhận thấy ‘đủ bằng chứng’ không đồng nghĩa với ‘đã đủ căn cứ để kết luận’. Chẳng hạn, S01 chưa xác minh được mô tả sản phẩm tại thời điểm mua, còn S04 chưa làm rõ dung tích 6L được tính như thế nào. Vì vậy, tôi chọn để AI chuẩn bị hồ sơ và nêu rõ những điểm còn chưa chắc chắn, còn quyết định hoàn tiền cần trưởng nhóm xem xét. Theo tôi, AI cần chứng minh được căn cứ của đề xuất chứ không chỉ tổng hợp được nhiều bằng chứng.”
-  - **Nguyễn Thị Hương Giang và Nguyễn Thị Hải Yến:**
+  - **Nguyễn Thị Hải Yến — nội dung đề xuất để thành viên xác nhận:** Chọn **cần người duyệt** cho `soan_hoan_tien`. Ở S04, ảnh nhãn ghi 6L và kết quả đo 5L vẫn chưa cho biết hai bên đang nói về cùng một loại dung tích; cho AI tự hoàn tiền lúc này có thể xử sai người bán. Ở S09, shop đã nhận giao nhầm thì AI nên chuẩn bị hồ sơ ngay, không hỏi lại bằng chứng, nhưng vẫn phải để trưởng nhóm xem mã đơn, số tiền, lý do và xác nhận tác động. Không chọn tự làm vì tiền khó thu hồi; không cấm hoàn toàn vì bước chuẩn bị hồ sơ giúp giảm thời gian chờ. Giao diện phải nói rõ “chưa có quyết định”, có đường xin thêm bằng chứng và báo quá hạn để khách biết hồ sơ đang ở đâu.
 - Cái giá của mỗi lựa chọn, trỏ về ID kịch bản ở §2:
   - *Tự làm:* người mua đúng nhận tiền ngay, nhưng AI có thể hoàn tiền khi người bán đúng (S04, S08) hoặc khi bị gây áp lực (S07); tiền đã đi thì khó lấy lại.
   - *Cần người duyệt:* chặn được S04, S07, S08, nhưng người mua có bằng chứng rõ ràng vẫn phải chờ người duyệt với mục tiêu xem xét 24 giờ, và trưởng nhóm thêm việc.
   - *Cấm:* an toàn nhất về tiền, nhưng AI không còn chuẩn bị hồ sơ hoàn tiền, nhân viên làm lại từ đầu và người mua chờ lâu hơn nữa.
-- Kết luận của nhóm và lý do: Quyết định áp dụng trong prototype: chọn **cần người duyệt**. Chờ thêm 24 giờ là cái giá sửa được; hoàn tiền sai thì khó sửa và làm hỏng đúng lời hứa của lát cắt là "người bán không bị xử thua khi họ đúng".
+- Kết luận của nhóm và lý do: Quyết định áp dụng trong prototype: chọn **cần người duyệt**. Chờ người xem xét với mục tiêu 24 giờ gây chậm nhưng có thể theo dõi và chuyển cấp; hoàn tiền sai thì khó sửa và làm hỏng đúng lời hứa của lát cắt là "người bán không bị xử thua khi họ đúng".
 - Luật bổ sung hoặc tách bước/tool nếu có; lý do:
   1. **Tách `soan_hoan_tien` thành hai bước:** AI soạn hồ sơ đề xuất (tự làm), trưởng nhóm bấm thực hiện hoàn tiền (người làm). Lý do: tên tool gợi ý "soạn" nhưng thực tế là chuyển tiền; tách ra để AI vẫn giúp được mà không chạm vào tiền.
-  2. **Khoá nguồn mô tả:** AI không được đề xuất hoàn tiền hay từ chối khi mô tả lúc đặt hàng chưa xác minh; trường hợp đó chỉ được gọi `chuyen_truong_nhom` (chặn S01).
-  3. **Giới hạn `yeu_cau_bang_chung`:** mỗi bên tối đa 1 lần xin và 1 lần nhắc; hết lượt thì chuyển trưởng nhóm. Lý do: tin đã gửi không thu hồi được, tránh làm phiền lặp lại.
+  2. **Khoá nguồn mô tả:** AI không được đề xuất hoàn tiền hay từ chối khi mô tả lúc đặt hàng chưa xác minh; trường hợp đó được chuyển trưởng nhóm và xin bằng chứng theo giới hạn, chưa được gọi tool quyết định tiền (chặn S01).
+  3. **Giới hạn `yeu_cau_bang_chung`:** mỗi bên tối đa 1 lần xin và 1 lần nhắc; S04 còn thiếu thông tin sau 48 giờ thì chuyển trưởng nhóm. S01 đã được chuyển ngay vì thiếu nguồn lịch sử. Lý do: tin đã gửi không thu hồi được, tránh làm phiền lặp lại.
+  4. **Đính chính làm mất hiệu lực căn cứ cũ:** bỏ bản nháp và xác nhận đang chờ, lưu nội dung mới trong hồ sơ, khoá duyệt để kiểm tra lại. Nếu khách đưa mã đơn chưa có trong dữ liệu mẫu thì không dùng chứng cứ của đơn đang mở để xử lý mã mới; nhân viên phải xác minh đúng đơn ngoài phạm vi mô phỏng.
+  5. **Không tự quyết định khi quá hạn:** sau mục tiêu xem xét 24 giờ, nhắc người phụ trách và chuyển cấp; thiếu phản hồi không được coi là đồng ý hoàn tiền hoặc từ chối khiếu nại.
 
 **Thử mức đã đặt trên ba ca:**
 
 | Ca | Tool được gọi và mức áp dụng | Cái sai có bị chặn không | Còn làm khi lẽ ra phải hỏi không | Người dùng có phải chờ vô ích không |
 |---|---|---|---|---|
 | Ca A: S01 | `chuyen_truong_nhom` (tự làm); `yeu_cau_bang_chung` gửi người bán (tự làm). `tu_choi_khieu_nai` không chạy được vì cần duyệt và bị luật khoá nguồn mô tả chặn. | Có. AI không thể từ chối dựa trên mô tả hiện tại. | Không. Việc duy nhất AI tự làm là chuyển người và xin bằng chứng, đều đảo được hoặc hại nhỏ. | Có chờ nhân viên, nhưng không vô ích: lịch sử sửa mô tả chỉ nhân viên kiểm tra được. |
-| Ca B: S04 | `yeu_cau_bang_chung` gửi cả hai bên (tự làm). `soan_hoan_tien` chỉ dừng ở bước soạn hồ sơ, cần trưởng nhóm duyệt. | Có. Tiền không rời đi khi chưa rõ "6 lít" tính theo cách nào. | Không. AI hỏi cách đo và ảnh nhãn trước khi đề xuất bất cứ điều gì. | Không. Người mua được hỏi ngay trong chat; chỉ chờ người khi bằng chứng mâu thuẫn. |
+| Ca B: S04 | `yeu_cau_bang_chung` gửi cả hai bên (tự làm). `soan_hoan_tien` chỉ dừng ở bước soạn hồ sơ, cần trưởng nhóm duyệt. | Có. Tiền không rời đi khi chưa rõ "6 lít" tính theo cách nào. | Không. AI hỏi cách đo và ảnh nhãn trước khi đề xuất bất cứ điều gì. | Không. Người mua được hỏi ngay trong chat; chuyển người khi khách yêu cầu, khi bằng chứng mâu thuẫn hoặc sau 48 giờ; quyết định tiền luôn phải chờ người duyệt. |
 | Ca bình thường: S09 | Nguồn đã xác minh, bằng chứng đầy đủ và shop nhận gửi nhầm; AI chuẩn bị bản nháp, chuyển trưởng nhóm. Thực hiện soan_hoan_tien vẫn cần duyệt. | Có. Đủ bằng chứng không tự cấp quyền chuyển tiền. | Không. Không xin lại ảnh, mã đơn hoặc xác nhận đã có. | Chỉ chờ bước duyệt cần thiết, không chờ thu thập dữ liệu thừa; mục tiêu xem xét 24 giờ, quá hạn báo/chuyển cấp. |
 
 > S09 là ca bình thường độc lập, đã bổ sung vào §1–§2. S03 vẫn giữ để thử tin nhắn thiếu thông tin. Chờ duyệt không đồng nghĩa hứa tiền về trong 24 giờ.
@@ -230,7 +232,7 @@ Chọn cho **từng tool**: **tự làm / cần người duyệt / cấm**. Các
 - **S01 sau 24 giờ:** nhắc bổ sung ảnh một lần khi khách chưa gửi và chưa chọn “Tôi không có ảnh”. Ảnh vẫn là tùy chọn; không có ảnh không làm mất quyền xử lý, không tự đóng hồ sơ.
 - **S04 khi hai bên mâu thuẫn:** trong Công cụ demo, chọn “Nhận phản hồi shop mâu thuẫn”. Biến thể dữ liệu dựng này dùng phản hồi shop ghi lòng nồi 6L trong khi người mua báo khoảng 5L; hồ sơ tự chuyển trưởng nhóm và hiển thị cả hai phía. Đây là biến thể riêng với phản hồi làm rõ “tổng 6L, lòng 5L” ở luồng mẫu ban đầu.
 - **Giao diện gọn:** việc cần làm tiếp theo và nút chính nằm đầu khung chat; nguồn dùng làm căn cứ luôn thấy bên cạnh. Bằng chứng chi tiết, lịch sử chat và công cụ demo mở khi cần. Bàn trưởng nhóm chỉ mở biểu mẫu duyệt sau khi kiểm tra đủ điều kiện.
-- **Kiểm tra bổ sung:** [regression_check.py](prototype/tests/regression_check.py) và [test-results-update.json](prototype/test-results-update.json) ghi kết quả riêng cho ba luồng mới. Phần §6 và báo cáo 23 bài kiểm tra gốc được giữ nguyên.
+- **Kiểm tra bổ sung:** [regression_check.py](prototype/tests/regression_check.py) và [test-results-update.json](prototype/test-results-update.json) ghi kết quả riêng cho ba luồng mới. §6 tổng hợp bộ gốc, bộ kiểm tra bổ sung và bộ hoàn tất quyết định S01; từng báo cáo được giữ riêng để đối chiếu.
 
 ### Kiểm chứng và giới hạn
 
@@ -239,6 +241,8 @@ Kiểm tra trình duyệt tự động trên Edge, gồm hai ca khó, ca bình t
 Các ảnh là ảnh chụp giao diện chạy thật của prototype. Câu trả lời và nghiệp vụ vẫn là mô phỏng; không chứng minh khả năng hiểu ngôn ngữ hoặc xác minh ảnh của một model thật. Ca lạ ngoài quy tắc đi đường hỏi rõ/chuyển người.
 
 ## §6. Tốt là gì?
+
+**Phụ trách: Nguyễn Thị Hương Giang.** Kết quả bên dưới lấy từ kiểm thử giao diện tự động trên Microsoft Edge, sử dụng dữ liệu giả lập.
 
 Nhóm đánh giá prototype dựa trên 3 tiêu chí chính: độ an toàn khi xử lý thông tin, quyền quyết định của con người và khả năng xử lý khi thiếu phản hồi.
 
@@ -260,17 +264,21 @@ Nhóm sử dụng bộ kiểm thử giao diện tự động để kiểm tra c�
 | Không quyết định từ thông tin chưa xác minh | S04 – Chưa rõ dung tích 6L và 5L | **Pass** | Test 06: thiếu cách đo hoặc ảnh nhãn thì chưa đủ điều kiện duyệt; phản hồi của shop không tự động làm phát sinh quyết định. |
 | Quyết định tài chính phải có người phê duyệt | S09 – Người bán xác nhận gửi nhầm hàng | **Pass** | Test 04: kiểm tra luồng xác nhận hoàn tiền ở ca thông thường. |
 | Quyết định tài chính phải có người phê duyệt | S04 – Từ chối và đóng khiếu nại | **Pass** | Test 07: thao tác cần xác nhận tác động; test 23 kiểm tra hủy xác nhận không làm thay đổi trạng thái tiền. |
-| Quyết định tài chính phải có người phê duyệt | S01 – Nguồn lịch sử chưa xác minh | **Chưa đủ bằng chứng** | Test 01 và 22 kiểm tra khóa thao tác và hủy xác nhận. Chưa có test hoàn tất quyết định sau khi nguồn và bằng chứng đã được xác minh. |
-| Có phương án xử lý khi thiếu thông tin hoặc quá hạn | S01 – Người mua không có ảnh bổ sung | **Pass** | Test 02: vẫn có phương án chuyển nhân viên; test 11: quá mục tiêu 24 giờ thì chuyển cấp, không tự quyết định tài chính. |
+| Quyết định tài chính phải có người phê duyệt | S01 – Từ lúc chưa xác minh nguồn tới quyết định có xác nhận | **Pass** | Test 01, 22 kiểm tra chặn khi thiếu căn cứ và hủy xác nhận. Test 34–35 chạy riêng hai nhánh hoàn tiền/đóng khiếu nại: phải tiếp nhận, xác minh bản lưu, ghi nhận shop, nhập lý do và xác nhận tác động trước khi trạng thái thay đổi. |
+| Có phương án xử lý khi thiếu thông tin hoặc quá hạn | S01 – Người mua không có ảnh bổ sung | **Pass** | Test 02: không có ảnh vẫn tiếp tục; test 11: quá mục tiêu 24 giờ thì chuyển cấp. Test 28–29: nhắc ảnh tối đa một lần, không nhắc lại sau khi khách chọn không có ảnh; không tự quyết định tiền. |
 | Có phương án xử lý khi thiếu thông tin hoặc quá hạn | S04 – Thiếu thông tin sau 48 giờ | **Pass** | Test 12: hồ sơ được chuyển trưởng nhóm khi vẫn thiếu thông tin, không tự động từ chối khiếu nại. |
 
-**Tổng hợp kết quả tự động:**
+**Tổng hợp kết quả tự động: 36 kiểm tra, 0 failures, 0 errors.**
 
-- Tổng số test: **23**
-- Failures: **0**
-- Errors: **0**
+| Bộ kiểm tra | Số lượng | Mã và báo cáo |
+|---|---|---|
+| Luồng cơ bản, quyền, quá hạn, dữ liệu nhập và giao diện | 23 (01–23) | [browser_check.py](prototype/tests/browser_check.py) · [test-results.json](prototype/test-results.json) |
+| Đính chính, nhắc ảnh S01, chuyển người khi S04 mâu thuẫn | 10 (24–33) | [regression_check.py](prototype/tests/regression_check.py) · [test-results-update.json](prototype/test-results-update.json) |
+| Hoàn tất quyết định S01 và ca lạ đính chính trước khi duyệt | 3 (34–36) | [completion_check.py](prototype/tests/completion_check.py) · [test-results-completion.json](prototype/test-results-completion.json) |
 
-Kết quả được ghi nhận tại `prototype/test-results.json`; mã kiểm thử tại `prototype/tests/browser_check.py`.
+Test 34 và 35 là hai lượt chạy độc lập, nhằm kiểm tra quyền và bước xác nhận của cả hai lựa chọn. Chúng không kết luận rằng hoàn tiền và từ chối đều đúng về nghiệp vụ cho cùng một bộ bằng chứng. Trưởng nhóm vẫn phải đánh giá căn cứ trước khi chọn phương án.
+
+Ca diễn tập ở §7 được kiểm tra bằng test 36: đính chính mã đơn làm khoá duyệt, nội dung mới xuất hiện trong hồ sơ và quá hạn cũng không tự quyết định. Test 24–27, 33 bổ sung bằng chứng về huỷ đề xuất cũ và kiểm tra lại đính chính.
 
 ### 6.3. Bằng chứng giao diện
 
@@ -291,7 +299,7 @@ Kết quả được ghi nhận tại `prototype/test-results.json`; mã kiểm 
 
 Prototype đáp ứng các yêu cầu cốt lõi trong phạm vi mô phỏng: không tự kết luận khi dữ liệu chưa được xác minh, giữ quyền quyết định tài chính cho trưởng nhóm và có phương án chuyển cấp khi thiếu thông tin hoặc quá hạn.
 
-Tuy nhiên, kết quả kiểm thử hiện tại mới chứng minh được các luồng và quy tắc đã triển khai trong prototype, chưa chứng minh khả năng vận hành với dữ liệu thật hoặc AI thật. Nhóm cần tiếp tục bổ sung kiểm thử cho luồng S01 sau khi xác minh đầy đủ thông tin và thực hiện quyết định có xác nhận của trưởng nhóm.
+Tuy nhiên, kết quả kiểm thử hiện tại mới chứng minh được các luồng và quy tắc đã triển khai trong prototype, chưa chứng minh khả năng vận hành với dữ liệu thật hoặc AI thật. Luồng S01 sau xác minh đã được kiểm tra tới bước hoàn tất quyết định có xác nhận. Những việc còn ngoài phạm vi là xác minh ảnh thật, xử lý mã đơn ngoài bộ dữ liệu và đánh giá chất lượng lập luận của người duyệt.
 
 ## §7. Demo
 
@@ -309,10 +317,25 @@ Tuy nhiên, kết quả kiểm thử hiện tại mới chứng minh được c�
 - **S04:** hỏi cách đo và ảnh nhãn; khi nhận phản hồi shop mâu thuẫn thì tự chuyển trưởng nhóm, không tự xử thắng/thua.
 - Mỗi thành viên giải thích phần có tên mình; người xem đưa thêm ca lạ để nhóm nói hoặc bấm cách xử lý theo §4.
 
-### Ghi nhận sau demo thực tế
+### Ca lạ diễn tập: đổi mã đơn ngay trước khi duyệt
 
-**Trạng thái:** Chưa ghi nhận ca lạ và kết quả demo lớp trong bài nộp.
+**Tình huống:** S09 đã đủ bằng chứng, shop nhận gửi nhầm và trưởng nhóm đang chuẩn bị duyệt. Khách đính chính:
 
-- **Ca lạ người xem đưa ra:** bổ sung nguyên văn sau demo.
-- **Prototype đã làm gì:** ghi hành vi thực tế, phần chưa xử lý được và quyền của tool tương ứng.
-- **Nhóm có đổi thiết kế không:** ghi thay đổi và lý do; nếu giữ thiết kế thì ghi lý do giữ.
+> “Đính chính: shop đã nhận gửi nhầm, nhưng ảnh tôi gửi thuộc đơn khác. Mã đơn đúng là SP999999.”
+
+Điểm khó là hồ sơ cũ tưởng như đã đủ căn cứ, nhưng thông tin mới làm thay đổi chính đơn hàng cần xử lý. Xác nhận của shop cho đơn cũ không thể dùng để hoàn tiền cho mã đơn khác.
+
+**Cách thử và kết quả thực tế:**
+
+1. Chọn S09 → Bàn trưởng nhóm → Tiếp nhận hồ sơ → nhập lý do, đánh dấu đã đối chiếu và mở “Duyệt phương án…”.
+2. Bấm “Quay lại kiểm tra”, sang Người mua và gửi câu đính chính trên. Chưa xác nhận nên chưa có quyết định tiền.
+3. Mở lại Bàn trưởng nhóm: nội dung đính chính và mã SP999999 xuất hiện trong hồ sơ. Prototype bỏ đề xuất cũ, khoá duyệt và khoá việc dùng bản lưu của đơn cũ để xác minh mã mới.
+4. Tua thêm 24 giờ: hồ sơ vẫn chờ người xử lý, không tự hoàn tiền hay đóng khiếu nại. Bộ dữ liệu không có SP999999 nên prototype không thể xác minh tiếp đơn này.
+
+**Quyền của tool:** `chuyen_truong_nhom` giữ hồ sơ ở đường xử lý của con người; `soan_hoan_tien` và `tu_choi_khieu_nai` bị chặn khi mã đơn/căn cứ chưa xác minh. Không phát sinh `phat_shop`.
+
+**Có đổi thiết kế sau lượt diễn tập này không?** Không cần thay đổi thêm sau lượt kiểm tra này: thiết kế hiện tại đã lưu đính chính, vô hiệu hoá đề xuất cũ và yêu cầu đối chiếu lại trước khi duyệt. Cơ chế đó được bổ sung trong đợt hoàn thiện prototype trước lượt diễn tập; giữ lại vì ngăn quyết định theo bằng chứng hết hiệu lực mà vẫn cho người mua đường tiếp tục. Khi triển khai thật cần tra cứu được mã đơn mới và kiểm tra bằng chứng thuộc đúng đơn; bản mô phỏng hiện chỉ dừng ở khoá duyệt và chuyển người.
+
+**Bằng chứng:** test 36 trong [completion_check.py](prototype/tests/completion_check.py), kết quả tại [test-results-completion.json](prototype/test-results-completion.json).
+
+**Phạm vi ghi nhận:** đây là ca tự dựng để diễn tập và đã chạy trên prototype, chưa phải ca được xác nhận do người xem đưa ra trên lớp. Khi demo lớp, nhóm ghi lại câu hỏi thực tế, hành vi đã quan sát và thay đổi nếu có; không dùng lượt diễn tập này để khẳng định đã hoàn thành hoạt động trình bày trước lớp.

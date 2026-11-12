@@ -1,0 +1,13 @@
+{
+  "tests": 3,
+  "failures": 0,
+  "errors": 0,
+  "browser": "Microsoft Edge / Playwright",
+  "mode": "file://, mock data",
+  "scope": "S01 confirmed refund and denial; S09 wrong-order correction before decision, including timeout",
+  "cases": [
+    "test_34_s01_refund_completes_only_after_review_and_confirmation",
+    "test_35_s01_denial_completes_only_after_review_and_confirmation",
+    "test_36_late_wrong_order_correction_remains_blocked_after_timeout"
+  ]
+}

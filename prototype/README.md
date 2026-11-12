@@ -4,7 +4,7 @@ Prototype có **hai màn hình**: cuộc trò chuyện của người mua và b�
 
 ## Mở ngay
 
-1. Tải repo ở nhánh **lam-prototype** về máy.
+1. Tải repo ở nhánh **main** về máy.
 2. Mở **index.html** trong thư mục này bằng Edge hoặc Chrome.
 3. Chọn tình huống trên thanh xanh ở đầu trang. Không cần cài thư viện, đăng nhập, API key hoặc chạy server.
 
@@ -112,4 +112,10 @@ Bài viết và lý do lựa chọn giao diện nằm ở ../spec.md §5.
 
     py -X utf8 prototype/tests/regression_check.py
 
-Kết quả mới ghi vào test-results-update.json, tách khỏi báo cáo 23 test gốc test-results.json. Phần §6 trong spec.md không được sửa trong đợt cập nhật này.
+Kết quả mới ghi vào test-results-update.json, tách khỏi báo cáo 23 test gốc test-results.json. §6 trong spec.md tổng hợp kết quả của các bộ kiểm tra.
+
+## Kiểm tra hoàn tất S01 và ca lạ diễn tập
+
+    py -X utf8 prototype/tests/completion_check.py
+
+Ba kiểm tra (34–36) chạy riêng hai quyết định có xác nhận ở S01 và ca S09 đính chính mã đơn ngay trước khi duyệt, rồi quá hạn. Kết quả ở [test-results-completion.json](test-results-completion.json). Tổng cả ba bộ là **36 kiểm tra đạt**; ca diễn tập và lý do giữ thiết kế được ghi tại [§7 của bài viết](../spec.md#7-demo).
