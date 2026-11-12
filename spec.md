@@ -6,7 +6,7 @@ Lớp: **L3A** · Bàn / zone: **[Cần điền]** · Track: **T4**
 |---|---|---|---|
 | Lê Sông Thao | 2A202603534 | **§5 và prototype/**: dựng 1–2 màn hình bấm được; làm các bước hỏi thêm, xác nhận hoặc chuyển nhân viên theo thiết kế chung; ghi cách mở, phần mock, ảnh đánh số và lý do chọn giao diện; tổng hợp bản cuối trên main. Nhánh: `lam-prototype`. | Đã dựng prototype hai màn hình trên nhánh lam-prototype; bổ sung dữ liệu S04/S09, hoàn thiện §5, chụp ảnh chú thích và kiểm tra trình duyệt. |
 | [Bạn đã điền §1 — cần điền họ tên] | [Cần điền] | **§1, §2, §6**: hoàn thiện phạm vi và dữ liệu đơn tai nghe giả; viết ít nhất 8 kịch bản phủ 4 lớp, đề xuất 2 ca nguy hiểm nhất và lý do; viết 3 tiêu chí Pass/Fail, kiểm tra trên 2 ca chính khi có prototype. Nhánh: `viet-kich-ban`. | Đã bổ sung nội dung §1. [Cập nhật thêm khi hoàn thành phần khác] |
-| [Bạn còn lại — cần điền họ tên] | [Cần điền] | **§3, §4**: viết câu AI nói và bước tiếp theo cho 2 ca chính; chọn 2–3 nguyên tắc HAX/PAIR và vị trí thể hiện; đề xuất mức tự chủ cho đủ 5 tool, người duyệt và cách xử lý quá hạn; thử trên 2 ca nguy hiểm và 1 ca bình thường; kiểm tra prototype khớp thiết kế. Nhánh: `viet-ux`. | [Cập nhật việc đã làm thực tế] |
+| Nguyễn Thị Hải Yến | 2A202603567 | **§3, §4**: viết câu AI nói và bước tiếp theo cho 2 ca chính; chọn 2–3 nguyên tắc HAX/PAIR và vị trí thể hiện; đề xuất mức tự chủ cho đủ 5 tool, người duyệt và cách xử lý quá hạn; thử trên 2 ca nguy hiểm và 1 ca bình thường; kiểm tra prototype khớp thiết kế. Nhánh: `viet-ux`. | [Cập nhật việc đã làm thực tế] |
 
 **Cách phối hợp — làm theo thứ tự:**
 
