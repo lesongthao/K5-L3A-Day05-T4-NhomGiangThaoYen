@@ -83,7 +83,7 @@ Nhóm sử dụng các đơn hàng giả lập độc lập để kiểm thử t
 - Mỗi bên tối đa một yêu cầu bằng chứng và một lời nhắc sau 24 giờ; S04 còn thiếu thông tin sau 48 giờ chuyển trưởng nhóm.
 - Mục tiêu xem xét hồ sơ: 24 giờ từ lúc chuyển. Quá hạn nhắc/chuyển cấp và thông báo hai bên, không tự hoàn hoặc đóng. Đây là mục tiêu xem xét, không phải cam kết tiền về trong 24 giờ.
 - Không duyệt một bản nháp đề xuất không đồng nghĩa từ chối khiếu nại. Đóng khiếu nại là quyết định riêng, có lý do và xác nhận tác động.
-- Bản nháp có thể bỏ; S04 có thể hoàn tác chuyển khi trưởng nhóm chưa nhận và chưa quá hạn. S01 bắt buộc kiểm tra nguồn nên không rút khỏi hàng chờ. Tin đã gửi không thu hồi, quyết định tiền không có hoàn tác giả.
+- Bản nháp có thể bỏ; S04 có thể hoàn tác lần chuyển theo yêu cầu của khách khi trưởng nhóm chưa nhận và chưa quá hạn. Lần chuyển bắt buộc vì bằng chứng mâu thuẫn, hoặc S01 cần kiểm tra nguồn, được giữ trong hàng chờ để người phụ trách xem xét. Tin đã gửi không thu hồi, quyết định tiền không có hoàn tác giả.
 
 
 **Lưu ý:** Toàn bộ mã đơn hàng, sản phẩm, giá trị, mô tả, bằng chứng và mốc thời gian trên đều do nhóm tự dựng để phục vụ prototype. Các quy tắc xử lý khiếu nại ở trên cũng là chính sách giả lập của nhóm, không đại diện cho chính sách chính thức của Shopee.
@@ -224,6 +224,14 @@ Chọn cho **từng tool**: **tự làm / cần người duyệt / cấm**. Các
 - **Không duyệt bản nháp khác đóng khiếu nại.** Bỏ bản nháp không làm mất quyền khiếu nại. Không tạo nút hoàn tác tiền; chỉ hoàn tác bản nháp hoặc chuyển hồ sơ khi còn có thể.
 - **Quá hạn chuyển cấp, không tự xử thắng/thua**, vì im lặng và thời gian chờ không phải bằng chứng bên nào đúng.
 
+### Ba luồng bổ sung và cách dùng giao diện
+
+- **Đính chính:** nội dung mới được lưu và hiển thị trong hồ sơ trưởng nhóm; bỏ đề xuất cũ, khoá duyệt và yêu cầu đối chiếu lại nguồn/bằng chứng. Mã đơn ngoài dữ liệu mẫu không được tự gán về đơn cũ. Với đúng đơn đang có, trưởng nhóm phải xác nhận đã kiểm tra lại đính chính trước khi duyệt.
+- **S01 sau 24 giờ:** nhắc bổ sung ảnh một lần khi khách chưa gửi và chưa chọn “Tôi không có ảnh”. Ảnh vẫn là tùy chọn; không có ảnh không làm mất quyền xử lý, không tự đóng hồ sơ.
+- **S04 khi hai bên mâu thuẫn:** trong Công cụ demo, chọn “Nhận phản hồi shop mâu thuẫn”. Biến thể dữ liệu dựng này dùng phản hồi shop ghi lòng nồi 6L trong khi người mua báo khoảng 5L; hồ sơ tự chuyển trưởng nhóm và hiển thị cả hai phía. Đây là biến thể riêng với phản hồi làm rõ “tổng 6L, lòng 5L” ở luồng mẫu ban đầu.
+- **Giao diện gọn:** việc cần làm tiếp theo và nút chính nằm đầu khung chat; nguồn dùng làm căn cứ luôn thấy bên cạnh. Bằng chứng chi tiết, lịch sử chat và công cụ demo mở khi cần. Bàn trưởng nhóm chỉ mở biểu mẫu duyệt sau khi kiểm tra đủ điều kiện.
+- **Kiểm tra bổ sung:** [regression_check.py](prototype/tests/regression_check.py) và [test-results-update.json](prototype/test-results-update.json) ghi kết quả riêng cho ba luồng mới. Phần §6 và báo cáo 23 bài kiểm tra gốc được giữ nguyên.
+
 ### Kiểm chứng và giới hạn
 
 Kiểm tra trình duyệt tự động trên Edge, gồm hai ca khó, ca bình thường, dữ liệu nhập, các bước duyệt và viewport 390px. Script và kết quả thực tế: [browser_check.py](prototype/tests/browser_check.py), [test-results.json](prototype/test-results.json).
@@ -287,35 +295,24 @@ Tuy nhiên, kết quả kiểm thử hiện tại mới chứng minh được c�
 
 ## §7. Demo
 
-### 7.1. Công việc đã thực hiện và phần trình bày
+### Phân công trình bày
 
-| Thành viên | Công việc đã thực hiện | Phần trình bày khi demo |
-|---|---|---|
-| Nguyễn Thị Hương Giang — 2A202603538 | Viết phạm vi và dữ liệu ban đầu (§1), kịch bản rủi ro và hai ca chính (§2); hoàn thiện tiêu chí, tổng hợp bằng chứng kiểm thử và giới hạn tại §6. | Giới thiệu lát cắt, hai ca S01/S04 và vì sao nguy hiểm; trình bày tiêu chí kiểm tra, kết quả và phần chưa đủ bằng chứng. |
-| Nguyễn Thị Hải Yến — 2A202603567 | Viết phản hồi nguyên văn, thông tin người mua/người bán thấy và đường xử lý khi AI sai (§3); xác định mức tự chủ của 5 tool, người duyệt và phương án quá hạn (§4). | Giải thích vì sao S01 phải kiểm tra nguồn, S04 phải hỏi thêm; chỉ ra việc AI tự làm, việc cần trưởng nhóm duyệt và việc bị cấm. |
-| Lê Sông Thao — 2A202603534 | Dựng prototype hai màn hình, bổ sung dữ liệu S04/S09, luồng bấm và các bước xác nhận; hoàn thiện §5, ảnh chú thích, hướng dẫn chạy và bộ kiểm tra trình duyệt. Đồng bộ câu AI trong bài viết với giao diện. | Bấm prototype qua ca khó; chỉ vị trí G10, G11 và đường chuyển người; minh hoạ thao tác quyết định bị khoá khi thiếu nguồn, bước xác nhận tác động và xử lý quá hạn. |
+| Thành viên | Nội dung trình bày |
+|---|---|
+| Nguyễn Thị Hương Giang | Lát cắt, hai ca S01/S04, lý do chọn ca nguy hiểm; tiêu chí, kết quả kiểm tra và giới hạn tại §6. |
+| Nguyễn Thị Hải Yến | Cách AI phản hồi khi chưa chắc; quyền của 5 tool, người duyệt và cách xử lý quá hạn tại §3–§4. |
+| Lê Sông Thao | Bấm prototype qua S01/S04, chỉ các vị trí HAX/PAIR; minh hoạ kiểm tra nguồn, đính chính, chuyển người và xác nhận trước quyết định tiền. |
 
-Đây là phân công trình bày dựa trên phần việc đã thực hiện, chưa phải xác nhận rằng ba thành viên đã trình bày trước lớp.
+### Ca trình bày đã chuẩn bị
 
-### 7.2. Luồng trình bày đã chuẩn bị
+- **S01:** mô tả bị phản ánh đã thay đổi; không có ảnh vẫn được xử lý, nguồn chưa xác minh thì chưa cho duyệt.
+- **S04:** hỏi cách đo và ảnh nhãn; khi nhận phản hồi shop mâu thuẫn thì tự chuyển trưởng nhóm, không tự xử thắng/thua.
+- Mỗi thành viên giải thích phần có tên mình; người xem đưa thêm ca lạ để nhóm nói hoặc bấm cách xử lý theo §4.
 
-1. **Giới thiệu lát cắt:** trợ lý hỗ trợ khiếu nại “hàng không đúng mô tả”; mục tiêu là chỉ đúng bước tiếp theo mà không xử oan người mua hoặc người bán.
-2. **Ca chính S01:** người mua phản ánh mô tả đã thay đổi. Chỉ hai nguồn thông tin trên màn hình, bấm “Tôi không có ảnh” để cho thấy hồ sơ vẫn đi tiếp; sang bàn trưởng nhóm để kiểm tra nguồn và quyền quyết định.
-3. **Ca S04:** bổ sung ảnh nhãn/cách đo; đối chiếu phản hồi shop. Giải thích 6L/5L chưa đủ để kết luận bên nào đúng; quyết định tiền phải có người duyệt và xác nhận tác động.
-4. **Nguyên tắc trên giao diện:** G10 tại trạng thái/phần chưa xác minh; G11 tại căn cứ và cảnh báo tác động; PAIR Errors + Graceful Failure tại nút “Tôi không có ảnh” và “Chuyển nhân viên”.
-5. **Ca lạ:** người xem đưa tình huống; nhóm giải thích hoặc bấm cách xử lý theo quyền của tool. Nếu ngoài khả năng mô phỏng thì nói rõ phần chưa xử lý được và đường chuyển người, không suy ra kết luận thiếu căn cứ.
-
-### 7.3. Hoạt động kiểm tra và tập thử đã ghi nhận
-
-- Bộ kiểm tra trình duyệt đã chạy trên Microsoft Edge: **23 test, 0 failures, 0 errors**; gồm nguồn chưa xác minh, xác nhận quyết định tiền, bỏ đề xuất, quá hạn, yêu cầu ngoài thẩm quyền và màn hình điện thoại. Bằng chứng: [test-results.json](prototype/test-results.json), [browser_check.py](prototype/tests/browser_check.py).
-- Trong lượt tập thử cá nhân, Lê Sông Thao đã chọn S01, bấm “Tôi không có ảnh”, mở “Bàn trưởng nhóm” và bấm “Tiếp nhận hồ sơ”. Các bước này dùng để hiểu đường đi của hồ sơ và phân biệt việc tiếp nhận với việc được phép quyết định.
-- Kết quả kiểm tra tự động và lượt tập thử trên không thay thế ca lạ do người xem đưa ra ở buổi demo lớp. Phần kiểm tra S01 chưa đủ bằng chứng đã được nêu tại §6; không coi mọi luồng nghiệp vụ đã được kiểm chứng đầy đủ.
-
-### 7.4. Ghi nhận ca lạ tại buổi demo lớp
+### Ghi nhận sau demo thực tế
 
 **Trạng thái:** Chưa ghi nhận ca lạ và kết quả demo lớp trong bài nộp.
 
-- **Ca lạ do người xem đưa ra:** bổ sung nguyên văn sau khi nhận được.
-- **Prototype đã làm gì, nhóm đã giải thích gì:** bổ sung hành vi thực tế và phần chưa xử lý được, nếu có.
-- **Đối chiếu với mức tự chủ ở §4:** ghi tool nào được phép chạy, cần người duyệt hoặc bị cấm; kết quả có đúng thiết kế không.
-- **Nhóm có đổi thiết kế sau ca lạ không:** ghi thay đổi và lý do; nếu không đổi thì ghi rõ lý do giữ thiết kế.
+- **Ca lạ người xem đưa ra:** bổ sung nguyên văn sau demo.
+- **Prototype đã làm gì:** ghi hành vi thực tế, phần chưa xử lý được và quyền của tool tương ứng.
+- **Nhóm có đổi thiết kế không:** ghi thay đổi và lý do; nếu giữ thiết kế thì ghi lý do giữ.

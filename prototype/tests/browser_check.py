@@ -36,6 +36,15 @@ class PrototypeChecks(unittest.TestCase):
     def action(self, name):
         self.page.locator('[data-action="' + name + '"]').click()
 
+    def tools(self):
+        options=self.page.locator(".demo-options")
+        if not options.evaluate("(el) => el.open"):
+            options.locator("summary").click()
+
+    def advance(self):
+        self.tools()
+        self.page.locator("#advance-time").click()
+
     def case(self, name):
         self.page.locator("#case-select").select_option(name)
 
@@ -166,18 +175,18 @@ class PrototypeChecks(unittest.TestCase):
         self.assertEqual(self.page.locator('[data-action="undo-transfer"]').count(), 0)
 
     def test_11_overdue_review_never_auto_resolves_money(self):
-        self.page.locator("#advance-time").click()
+        self.advance()
         self.assertIn("Đang trễ", self.page.locator(".action-area").inner_text())
         self.assertIn("Chưa có quyết định", self.page.locator(".fund-status").inner_text())
 
     def test_12_48h_silence_escalates_instead_of_denying(self):
         self.case("S04")
-        self.page.locator("#advance-time").click()
+        self.advance()
         self.assertEqual(self.page.locator("#queue-count").inner_text(), "0")
-        self.page.locator("#advance-time").click()
+        self.advance()
         self.assertEqual(self.page.locator("#queue-count").inner_text(), "1")
         self.assertIn("Chưa có quyết định", self.page.locator(".fund-status").inner_text())
-        self.page.locator("#advance-time").click()
+        self.advance()
         self.assertEqual(self.page.locator(".bubble").filter(has_text="Mình nhắc lại một lần").count(), 1)
 
     def test_13_threats_do_not_trigger_refund(self):
@@ -271,6 +280,9 @@ def capture():
         b = p.chromium.launch(channel="msedge", headless=True)
         page = b.new_page(viewport={"width":1440,"height":1100}, device_scale_factor=1)
         page.goto(PAGE)
+        page.locator(".demo-options > summary").click()
+        page.locator("#annotations").check()
+        page.locator(".demo-options > summary").click()
         page.screenshot(path=str(out / "01-nguoi-mua.jpg"), full_page=True, type="jpeg", quality=82)
         page.locator("#case-select").select_option("S04")
         page.locator('[data-action="add-label"]').click()
